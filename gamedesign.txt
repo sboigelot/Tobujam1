@@ -1,0 +1,56 @@
+Hack & Smash
+
+Should hack be hacker - to pass to the next level, you need to do a puzzle - hack something
+
+Enemies drop piece of code / piece of the puzzle to pass to the next level
+enemies keeps spawning until you finish the puzzle and keeps dropings more duplicated pieces
+
+example of puzzle
+
+ put color dot in slots in a specific order
+ ennemies drop color dots
+ 
+ Higher level, higher number of balls (++1)
+ Changing the shape - tiangle / square / etc
+
+master mind board game + fighting enemies
+When error - restart level and respawn all enemies
+
+Style
+	
+	Cute litle blob
+	
+Visual ?
+
+	Top down
+	one room at a time
+
+How do we fight?
+
+	1 small attack: Hammer
+	1 super attack x times per level (that you could pimp up): add stun / etc depending
+
+Do we have life?
+
+	Health bar represented as x hearths
+	
+How do we heal?
+
+	Heal every room/level (maybe)
+	Sometimes some enemy can drop health pack (very rare) (drop 1 single hearth)
+
+Inventory: carry one ball at a time. Maybe can not fight when carry it
+			-> throw ball to stuns the enemies
+
+UI that shows your previous test??? (option on/off)
+
+	The once that put correctly lits up green to say it's correct
+	The wrong ones pop out of the slots
+	
+	For the steam version: Prunebane: could be multiple options for the puzzle (ordered from easiest to hardest) - 1) slots keep the ball if they are correct. 2) slots could become colored if they are correct [still need to be re-placed]. 3) Door shows mastermind hint "2 correct, 2 wrong", and we don't know which is OK; 3 recent attempts show. 4) as 3], but only last attempt shows.
+	
+	
+Bonus features
+
+	- twitch integration: spawn monster, pop out orbs, heal, refill super weapon, spin/blur, stun
+	- two player mode? with gamepad

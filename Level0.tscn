@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Mob.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 30, 30 )
+
+[node name="Level0" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 332, 97 )
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2( 50, 200 )
+scale = Vector2( 0.495058, 6.64 )
+
+[node name="Icon" type="Sprite" parent="Wall"]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource( 1 )
+
+[node name="Mob" parent="." instance=ExtResource( 3 )]
+position = Vector2( 498, 194 )
+
+[node name="Mob2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 162, 326 )
+
+[node name="Mob3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 369, 354 )
+
+[node name="Mob4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 550, 48 )
+
+[node name="Mob5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 146, 129 )
+
+[node name="Mob6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 787, 254 )
+
+[node name="Mob7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 603, 376 )
