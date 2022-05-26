@@ -1,44 +1,110 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://square.png" type="Texture" id=2]
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=3]
+[ext_resource path="res://OrbSlot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://OrbPickup.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 30 )
+extents = Vector2( 10, 800 )
 
 [node name="Level0" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 332, 97 )
+np_orb_placeholder = NodePath("../Orbs")
+np_orb_pickup_placeholder = NodePath("../Pickups")
 
-[node name="Wall" type="StaticBody2D" parent="."]
-position = Vector2( 50, 200 )
-scale = Vector2( 0.495058, 6.64 )
+[node name="Walls" type="Node2D" parent="."]
 
-[node name="Icon" type="Sprite" parent="Wall"]
+[node name="Wall" type="StaticBody2D" parent="Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 0, 400 )
+
+[node name="Icon" type="Sprite" parent="Walls/Wall"]
+position = Vector2( 2.6, 0 )
+scale = Vector2( 0.3, 13 )
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
 shape = SubResource( 1 )
 
-[node name="Mob" parent="." instance=ExtResource( 3 )]
-position = Vector2( 498, 194 )
+[node name="Wall2" type="StaticBody2D" parent="Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1232, 377 )
 
-[node name="Mob2" parent="." instance=ExtResource( 3 )]
+[node name="Icon" type="Sprite" parent="Walls/Wall2"]
+position = Vector2( 2.6001, 0 )
+scale = Vector2( 0.3, 13 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+shape = SubResource( 1 )
+
+[node name="Wall3" type="StaticBody2D" parent="Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 595, 714 )
+rotation = 1.5708
+
+[node name="Icon" type="Sprite" parent="Walls/Wall3"]
+position = Vector2( 2.6001, 0 )
+scale = Vector2( 0.3, 21 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall3"]
+shape = SubResource( 1 )
+
+[node name="Wall4" type="StaticBody2D" parent="Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 620, -8 )
+rotation = 1.5708
+
+[node name="Icon" type="Sprite" parent="Walls/Wall4"]
+position = Vector2( 2.6001, 0 )
+scale = Vector2( 0.3, 21 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall4"]
+shape = SubResource( 1 )
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Mob2" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 162, 326 )
 
-[node name="Mob3" parent="." instance=ExtResource( 3 )]
+[node name="Mob3" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 369, 354 )
 
-[node name="Mob4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 550, 48 )
-
-[node name="Mob5" parent="." instance=ExtResource( 3 )]
+[node name="Mob5" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 146, 129 )
 
-[node name="Mob6" parent="." instance=ExtResource( 3 )]
-position = Vector2( 787, 254 )
+[node name="Orbs" type="Node2D" parent="."]
 
-[node name="Mob7" parent="." instance=ExtResource( 3 )]
-position = Vector2( 603, 376 )
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="OrbPickup" parent="Pickups" instance=ExtResource( 5 )]
+position = Vector2( 792, 282 )
+orb_color = Color( 1, 0, 0, 1 )
+
+[node name="OrbPickup2" parent="Pickups" instance=ExtResource( 5 )]
+position = Vector2( 1038, 501 )
+orb_color = Color( 0, 0, 1, 1 )
+
+[node name="OrbPickup3" parent="Pickups" instance=ExtResource( 5 )]
+position = Vector2( 290, 546 )
+orb_color = Color( 0, 1, 0, 1 )
+
+[node name="OrbSlots" type="Node2D" parent="."]
+
+[node name="OrbSlot" parent="OrbSlots" instance=ExtResource( 4 )]
+position = Vector2( 809, 59 )
+accepted_color = Color( 1, 0, 0, 1 )
+
+[node name="OrbSlot2" parent="OrbSlots" instance=ExtResource( 4 )]
+position = Vector2( 923, 59 )
+accepted_color = Color( 0, 1, 0, 1 )
+
+[node name="OrbSlot3" parent="OrbSlots" instance=ExtResource( 4 )]
+position = Vector2( 1046, 60 )
+accepted_color = Color( 0, 0, 1, 1 )
