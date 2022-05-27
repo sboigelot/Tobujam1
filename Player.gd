@@ -1,13 +1,12 @@
 extends KinematicBody2D
 
-const WALK_SPEED = 200
-const THROW_SPEED = 400
+class_name Player
 
 var carry_orb: bool
 var orb_pickup_nearby
-export(Color) var orb_color
+var orb_color
 
-var velocity = Vector2()
+var move_direction = Vector2()
 
 export(NodePath) var np_animation_player
 onready var animation_player = get_node(np_animation_player) as AnimationPlayer
@@ -22,13 +21,6 @@ onready var hammer_hinge = get_node(np_hammer_hinge) as Node2D
 onready var hammer_area = get_node(np_hammer_area) as Area2D
 onready var orb_hinge = get_node(np_orb_hinge) as Node2D
 
-export(PackedScene) var orb_scene
-export(NodePath) var np_orb_placeholder
-export(NodePath) var np_orb_pickup_placeholder
-
-onready var orb_placeholder = get_node(np_orb_placeholder) as Node2D
-onready var orb_pickup_placeholder = get_node(np_orb_pickup_placeholder) as Node2D
-
 export(NodePath) var np_orb_sprite
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
 
@@ -41,15 +33,15 @@ export(NodePath) var np_hands_location_bottom_left
 export(NodePath) var np_hands_location_bottom_center
 export(NodePath) var np_hands_location_bottom_right
 
-onready var hands_location_per_velocity = {
-	Vector2(-WALK_SPEED,-WALK_SPEED): get_node(np_hands_location_top_left).position,
-	Vector2(0,-WALK_SPEED): get_node(np_hands_location_top_center).position,
-	Vector2(+WALK_SPEED,-WALK_SPEED): get_node(np_hands_location_top_right).position,
-	Vector2(-WALK_SPEED,0): get_node(np_hands_location_center_left).position,
-	Vector2(+WALK_SPEED,0): get_node(np_hands_location_center_right).position,
-	Vector2(-WALK_SPEED,+WALK_SPEED): get_node(np_hands_location_bottom_left).position,
-	Vector2(0,+WALK_SPEED): get_node(np_hands_location_bottom_center).position,
-	Vector2(+WALK_SPEED,+WALK_SPEED): get_node(np_hands_location_bottom_right).position,
+onready var hands_location_per_move_direction = {
+	Vector2(-1,-1): get_node(np_hands_location_top_left).position,
+	Vector2(0,-1): 	get_node(np_hands_location_top_center).position,
+	Vector2(+1,-1): get_node(np_hands_location_top_right).position,
+	Vector2(-1,0): 	get_node(np_hands_location_center_left).position,
+	Vector2(+1,0): 	get_node(np_hands_location_center_right).position,
+	Vector2(-1,+1): get_node(np_hands_location_bottom_left).position,
+	Vector2(0,+1): 	get_node(np_hands_location_bottom_center).position,
+	Vector2(+1,+1): get_node(np_hands_location_bottom_right).position,
 }
 
 func change_hands_tool():
@@ -60,18 +52,18 @@ func _physics_process(delta):
 	change_hands_tool()
 	
 	if Input.is_action_pressed("ui_left"):
-		velocity.x = -WALK_SPEED
+		move_direction.x = -1
 	elif Input.is_action_pressed("ui_right"):
-		velocity.x =  WALK_SPEED
+		move_direction.x = 1
 	else:
-		velocity.x = 0
+		move_direction.x = 0
 
 	if Input.is_action_pressed("ui_up"):
-		velocity.y = -WALK_SPEED
+		move_direction.y = -1
 	elif Input.is_action_pressed("ui_down"):
-		velocity.y =  WALK_SPEED
+		move_direction.y =  1
 	else:
-		velocity.y = 0
+		move_direction.y = 0
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		if carry_orb:
@@ -84,21 +76,15 @@ func _physics_process(delta):
 		Input.is_action_just_pressed("pickup")):
 			pickup_orb()
 	
-#	Math solution
-#	var hammerpos = Vector2(0,0).move_toward(velocity, 50)
-#	hammer.position = hammerpos
-	
-#	var direction = velocity.normalized()
-#	print("%s %s %s" % [velocity, direction, direction.length()])
-	if hands_location_per_velocity.has(velocity):
-		hands.position = hands_location_per_velocity[velocity]
+	if hands_location_per_move_direction.has(move_direction):
+		hands.position = hands_location_per_move_direction[move_direction]
 		
 		
 	# We don't need to multiply velocity by delta because "move_and_slide" already takes delta time into account.
-
 	# The second parameter of "move_and_slide" is the normal pointing up.
 	# In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
-	move_and_slide(velocity, Vector2(0, -1))
+	var velocity = move_direction * Game.player_walk_speed
+	move_and_slide(velocity, Vector2(0, 0))
 
 func start_slash():
 	if animation_player.is_playing():
@@ -107,7 +93,6 @@ func start_slash():
 	animation_player.play("Slash")
 
 func pickup_orb():
-#	print("pickup orb: %s" % orb_pickup_nearby)
 	orb_pickup_nearby.queue_free()
 	orb_color = orb_pickup_nearby.orb_color
 	orb_sprite.modulate = orb_color
@@ -116,18 +101,9 @@ func pickup_orb():
 
 func throw_orb():
 	carry_orb = false
-	var instance = orb_scene.instance() as Orb
-	instance.orb_pickup_placeholder = orb_pickup_placeholder
-	instance.orb_color = orb_color
-	
-	orb_placeholder.add_child(instance)
-	instance.global_position = hands.global_position
-	
 	var direction = global_position.direction_to(hands.global_position).normalized()
-	var throw_velocity = direction * THROW_SPEED
-	instance.apply_central_impulse (throw_velocity)
-	
-#	instance.add_force(instance.global_position, throw_velocity)
+	var throw_velocity = direction * Game.orb_throw_speed
+	Game.spawn_orb(orb_color, hands.global_position, throw_velocity)
 
 func _on_HammerArea2D_body_entered(body:Node2D):
 	if body == self:

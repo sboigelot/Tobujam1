@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
 [ext_resource path="res://hammer.png" type="Texture" id=3]
 [ext_resource path="res://orb.png" type="Texture" id=4]
-[ext_resource path="res://Orb.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.0
@@ -48,14 +47,13 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=4]
 radius = 60.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 2 )
 np_animation_player = NodePath("AnimationPlayer")
 np_hands = NodePath("Hands")
 np_hammer_hinge = NodePath("Hands/HammerHinge")
 np_hammer_area = NodePath("Hands/HammerHinge/HammerArea")
 np_orb_hinge = NodePath("Hands/OrbHinge")
-orb_scene = ExtResource( 5 )
 np_orb_sprite = NodePath("Hands/OrbHinge/OrbSprite")
 np_hands_location_top_left = NodePath("HammerLocations/TopLeft")
 np_hands_location_top_center = NodePath("HammerLocations/TopCenter")

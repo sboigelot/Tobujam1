@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name OrbPickup
+
 export(Color) var orb_color
 
 export(NodePath) var np_orb_sprite
