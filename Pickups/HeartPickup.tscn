@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Pickups/HeartPickup.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/heart_full.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 40.0
+
+[node name="HeartPickup" type="Area2D" groups=["heart_pickup"]]
+collision_layer = 16
+collision_mask = 16
+monitoring = false
+script = ExtResource( 1 )
+persistant = true
+
+[node name="Heart" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

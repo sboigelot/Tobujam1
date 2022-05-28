@@ -1,4 +1,4 @@
-extends Area2D
+extends Pickup
 
 class_name OrbPickup
 

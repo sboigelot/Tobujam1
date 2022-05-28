@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/orb.png" type="Texture" id=2]
@@ -13,7 +13,6 @@ radius = 8.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Slash"
-length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
@@ -21,10 +20,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -25 ), Vector2( -15, 0 ), Vector2( 0, 0 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("../..")
@@ -33,7 +32,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.3, 0.5 ),
+"times": PoolRealArray( 0.3, 0.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -43,6 +42,34 @@ tracks/1/keys = {
 "method": "disable_hammer_damage"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 65.0, -90.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Walk"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 2, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 60.0
@@ -51,7 +78,8 @@ radius = 60.0
 script = ExtResource( 1 )
 max_health = 6
 health = 6
-np_animation_player = NodePath("AnimationPlayer")
+np_hammer_animation_player = NodePath("HammerAnimationPlayer")
+np_move_animation_player = NodePath("MoveAnimationPlayer")
 np_hands = NodePath("Hands")
 np_hammer_hinge = NodePath("Hands/HammerHinge")
 np_hammer_area = NodePath("Hands/HammerHinge/HammerArea")
@@ -74,15 +102,19 @@ shape = SubResource( 1 )
 
 [node name="Hands" type="Node2D" parent="."]
 position = Vector2( 50, 0 )
-scale = Vector2( 2, 2 )
+scale = Vector2( -1, 1 )
 
 [node name="HammerHinge" type="Node2D" parent="Hands"]
+position = Vector2( -7.5, -12.5 )
+rotation = -0.218166
+scale = Vector2( 2, 2 )
 
 [node name="Sprite" type="Sprite" parent="Hands/HammerHinge"]
-scale = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 4 )
 
 [node name="HammerArea" type="Area2D" parent="Hands/HammerHinge"]
+position = Vector2( -3.5, -6.5 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hands/HammerHinge/HammerArea"]
@@ -92,7 +124,7 @@ shape = SubResource( 3 )
 visible = false
 
 [node name="OrbSprite" type="Sprite" parent="Hands/OrbHinge"]
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )
 
 [node name="HammerLocations" type="Node2D" parent="."]
@@ -121,9 +153,12 @@ position = Vector2( 0, 50 )
 [node name="BottomRight" type="Position2D" parent="HammerLocations"]
 position = Vector2( 40, 40 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="HammerAnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Hands/HammerHinge")
 anims/Slash = SubResource( 2 )
+
+[node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Walk = SubResource( 5 )
 
 [node name="PickupArea2D" type="Area2D" parent="."]
 collision_layer = 16

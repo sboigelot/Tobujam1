@@ -1,15 +1,13 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Actors/Mobs/Mob.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/OrbSlot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Levels/Level.gd" type="Script" id=6]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=7]
 [ext_resource path="res://UI/HeartContainer.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Levels/MobSpawner.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -33,36 +31,6 @@ np_player = NodePath("Player")
 np_door = NodePath("Door")
 np_heart_placeholedr = NodePath("UI/MainUi/MainContainer/TopContainer/HealthContainer/HeartPlaceholder")
 scene_heart_container = ExtResource( 8 )
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="MainUi" type="MarginContainer" parent="UI"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
-
-[node name="MainContainer" type="VBoxContainer" parent="UI/MainUi"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 1910.0
-margin_bottom = 1070.0
-
-[node name="TopContainer" type="HBoxContainer" parent="UI/MainUi/MainContainer"]
-margin_right = 1900.0
-margin_bottom = 64.0
-
-[node name="HealthContainer" type="MarginContainer" parent="UI/MainUi/MainContainer/TopContainer"]
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="HeartPlaceholder" type="HBoxContainer" parent="UI/MainUi/MainContainer/TopContainer/HealthContainer"]
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="HeartContainer" parent="UI/MainUi/MainContainer/TopContainer/HealthContainer/HeartPlaceholder" instance=ExtResource( 8 )]
 
 [node name="Environment" type="Node2D" parent="."]
 
@@ -127,30 +95,14 @@ accepted_color = Color( 0, 1, 0, 1 )
 position = Vector2( 1555, 190 )
 accepted_color = Color( 0, 0, 1, 1 )
 
+[node name="OrbSlot4" parent="OrbSlots" instance=ExtResource( 4 )]
+position = Vector2( 321, 190 )
+accepted_color = Color( 1, 0, 1, 1 )
+
 [node name="Pickups" type="Node2D" parent="."]
 
-[node name="OrbPickup" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 1379, 502 )
-orb_color = Color( 1, 0, 0, 1 )
-
-[node name="OrbPickup2" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 1625, 721 )
-orb_color = Color( 0, 0, 1, 1 )
-
-[node name="OrbPickup3" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 877, 766 )
-orb_color = Color( 0, 1, 0, 1 )
-
-[node name="HeartPickup" parent="Pickups" instance=ExtResource( 10 )]
-position = Vector2( 1543, 484 )
-
-[node name="Spawners" type="Node2D" parent="."]
-
-[node name="MobSpawner" parent="Spawners" instance=ExtResource( 9 )]
-position = Vector2( 669, 781 )
-mob_scene = ExtResource( 3 )
-orb_color_chance = 0.3
-orb_color = Color( 1, 0, 0, 1 )
+[node name="HeartPickup" parent="Pickups" instance=ExtResource( 5 )]
+position = Vector2( 962, 774 )
 
 [node name="Mobs" type="Node2D" parent="."]
 
@@ -161,11 +113,32 @@ health = 6
 carry_orb = true
 orb_color = Color( 0, 1, 0, 1 )
 
+[node name="Mob3" parent="Mobs" instance=ExtResource( 3 )]
+position = Vector2( 560, 693 )
+max_health = 6
+health = 6
+carry_orb = true
+orb_color = Color( 1, 0, 0, 1 )
+
 [node name="Mob5" parent="Mobs" instance=ExtResource( 3 )]
-position = Vector2( 337, 468 )
+position = Vector2( 1313, 768 )
+max_health = 6
+health = 6
+carry_orb = true
+orb_color = Color( 0, 0, 1, 1 )
+
+[node name="Mob6" parent="Mobs" instance=ExtResource( 3 )]
+position = Vector2( 1607, 786 )
 max_health = 6
 health = 6
 orb_color = Color( 0, 0, 1, 1 )
+
+[node name="Mob7" parent="Mobs" instance=ExtResource( 3 )]
+position = Vector2( 1439, 406 )
+max_health = 6
+health = 6
+carry_orb = true
+orb_color = Color( 1, 0, 1, 1 )
 
 [node name="Orbs" type="Node2D" parent="."]
 
@@ -174,3 +147,33 @@ position = Vector2( 865, 74 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1017, 522 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MainUi" type="MarginContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="MainContainer" type="VBoxContainer" parent="UI/MainUi"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1910.0
+margin_bottom = 1070.0
+
+[node name="TopContainer" type="HBoxContainer" parent="UI/MainUi/MainContainer"]
+margin_right = 1900.0
+margin_bottom = 64.0
+
+[node name="HealthContainer" type="MarginContainer" parent="UI/MainUi/MainContainer/TopContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="HeartPlaceholder" type="HBoxContainer" parent="UI/MainUi/MainContainer/TopContainer/HealthContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+
+[node name="HeartContainer" parent="UI/MainUi/MainContainer/TopContainer/HealthContainer/HeartPlaceholder" instance=ExtResource( 8 )]

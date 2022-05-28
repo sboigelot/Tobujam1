@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 class_name Actor
 
+signal took_damage
+signal died
+
 export var max_health:int = 5
 export var health:int = 5
 var invincible:bool = false
@@ -20,13 +23,14 @@ func move(direction):
 func take_damage(damage):
 	if invincible:
 		return
-		
+	
 	health -= damage
 	if health <= 0:
 		die()
 	else:
 		blink(Color.red)
-		
+	
+	emit_signal("took_damage", self)
 	invincible = true
 	yield(get_tree().create_timer(0.2), "timeout")
 	invincible = false
@@ -38,6 +42,8 @@ func die():
 	
 	if carry_orb:
 		Game.spawn_orb_pickup(orb_color, global_position)
+	
+	emit_signal("died",self)
 	queue_free()
 
 func blink(color:Color, time:float = 0.2):

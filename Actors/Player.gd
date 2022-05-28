@@ -4,10 +4,13 @@ class_name Player
 
 var orb_pickup_nearby
 
-var move_direction = Vector2()
+var direction = Vector2()
 
-export(NodePath) var np_animation_player
-onready var animation_player = get_node(np_animation_player) as AnimationPlayer
+export(NodePath) var np_hammer_animation_player
+onready var hammer_animation_player = get_node(np_hammer_animation_player) as AnimationPlayer
+
+export(NodePath) var np_move_animation_player
+onready var move_animation_player = get_node(np_move_animation_player) as AnimationPlayer
 
 export(NodePath) var np_hands
 export(NodePath) var np_hammer_hinge
@@ -31,15 +34,57 @@ export(NodePath) var np_hands_location_bottom_left
 export(NodePath) var np_hands_location_bottom_center
 export(NodePath) var np_hands_location_bottom_right
 
-onready var hands_location_per_move_direction = {
-	Vector2(-1,-1): get_node(np_hands_location_top_left).position,
-	Vector2(0,-1): 	get_node(np_hands_location_top_center).position,
-	Vector2(+1,-1): get_node(np_hands_location_top_right).position,
-	Vector2(-1,0): 	get_node(np_hands_location_center_left).position,
-	Vector2(+1,0): 	get_node(np_hands_location_center_right).position,
-	Vector2(-1,+1): get_node(np_hands_location_bottom_left).position,
-	Vector2(0,+1): 	get_node(np_hands_location_bottom_center).position,
-	Vector2(+1,+1): get_node(np_hands_location_bottom_right).position,
+class hinge_info:
+	var position:Vector2
+	var flip_x: bool
+	var rotation: int
+	
+	func _init(_position:Vector2, _flip_x: bool, _rotation:int):
+		position = _position
+		flip_x = _flip_x
+		rotation = _rotation
+
+onready var hands_info_per_direction = {
+	Vector2(-1,-1): hinge_info.new(
+						get_node(np_hands_location_top_left).position,
+						false,
+						0
+					),
+	Vector2(0,-1): 	hinge_info.new(
+						get_node(np_hands_location_top_center).position,
+						false,
+						90
+					),
+	Vector2(+1,-1): hinge_info.new(
+						get_node(np_hands_location_top_right).position,
+						true,
+						0
+					),
+	Vector2(-1,0): 	hinge_info.new(
+						get_node(np_hands_location_center_left).position,
+						false,
+						0
+					),
+	Vector2(+1,0): 	hinge_info.new(
+						get_node(np_hands_location_center_right).position,
+						true,
+						0
+					),
+	Vector2(-1,+1): hinge_info.new(
+						get_node(np_hands_location_bottom_left).position,
+						false,
+						0
+					),
+	Vector2(0,+1): 	hinge_info.new(
+						get_node(np_hands_location_bottom_center).position,
+						false,
+						-90
+					),
+	Vector2(+1,+1): hinge_info.new(
+						get_node(np_hands_location_bottom_right).position,
+						true,
+						0
+					),
 }
 
 func _ready():
@@ -53,18 +98,18 @@ func _physics_process(delta):
 	change_hands_tool()
 	
 	if Input.is_action_pressed("ui_left"):
-		move_direction.x = -1
+		direction.x = -1
 	elif Input.is_action_pressed("ui_right"):
-		move_direction.x = 1
+		direction.x = 1
 	else:
-		move_direction.x = 0
+		direction.x = 0
 
 	if Input.is_action_pressed("ui_up"):
-		move_direction.y = -1
+		direction.y = -1
 	elif Input.is_action_pressed("ui_down"):
-		move_direction.y =  1
+		direction.y =  1
 	else:
-		move_direction.y = 0
+		direction.y = 0
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		if carry_orb:
@@ -77,16 +122,25 @@ func _physics_process(delta):
 		Input.is_action_just_pressed("pickup")):
 			pickup_orb()
 	
-	if hands_location_per_move_direction.has(move_direction):
-		hands.position = hands_location_per_move_direction[move_direction]
+	if hands_info_per_direction.has(direction):
+		var info = hands_info_per_direction[direction] as hinge_info
+		hands.position = info.position
+		if info.flip_x:
+			hands.scale = Vector2(-1,1)
+		else:
+			hands.scale = Vector2(1,1)
+		hands.rotation_degrees = info.rotation
 	
-	move(move_direction)
+	if direction != Vector2() and not move_animation_player.is_playing():
+		move_animation_player.play("Walk")
+	
+	move(direction)
 
 func start_slash():
-	if animation_player.is_playing():
+	if hammer_animation_player.is_playing():
 		return
 		
-	animation_player.play("Slash")
+	hammer_animation_player.play("Slash")
 
 func pickup_orb():
 	orb_pickup_nearby.queue_free()
@@ -123,6 +177,10 @@ func _on_PickupArea2D_area_entered(area:Area2D):
 		orb_pickup_nearby = area
 		return
 		
+	if area.is_in_group("heart_pickup"):
+		pickup_heart(area)
+		return
+		
 	if area.is_in_group("moving_orb_pickup"):
 		orb_pickup_nearby = area.get_parent()
 		return
@@ -130,3 +188,8 @@ func _on_PickupArea2D_area_entered(area:Area2D):
 func _on_PickupArea2D_area_exited(area):
 	if area == orb_pickup_nearby or area.get_parent() == orb_pickup_nearby:
 		orb_pickup_nearby = null
+
+func pickup_heart(heart_pickup):
+	heart_pickup.queue_free()
+	health = min(health+1, max_health)
+	emit_signal("took_damage", self)
