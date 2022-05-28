@@ -9,42 +9,48 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Actor",
+"language": "GDScript",
+"path": "res://Actors/Actor.gd"
+}, {
 "base": "Node2D",
 "class": "Door",
 "language": "GDScript",
-"path": "res://Door.gd"
+"path": "res://Levels/Door.gd"
 }, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
-"path": "res://Level.gd"
+"path": "res://Levels/Level.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Actor",
 "class": "Mob",
 "language": "GDScript",
-"path": "res://Mob.gd"
+"path": "res://Actors/Mobs/Mob.gd"
 }, {
 "base": "RigidBody2D",
 "class": "Orb",
 "language": "GDScript",
-"path": "res://Orb.gd"
+"path": "res://Orbs/Orb.gd"
 }, {
 "base": "Area2D",
 "class": "OrbPickup",
 "language": "GDScript",
-"path": "res://OrbPickup.gd"
+"path": "res://Pickups/OrbPickup.gd"
 }, {
 "base": "Node2D",
 "class": "OrbSlot",
 "language": "GDScript",
-"path": "res://OrbSlot.gd"
+"path": "res://Levels/OrbSlot.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Actor",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Player.gd"
+"path": "res://Actors/Player.gd"
 } ]
 _global_script_class_icons={
+"Actor": "",
 "Door": "",
 "Level": "",
 "Mob": "",
@@ -57,8 +63,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Hack N Smash"
-run/main_scene="res://Level0.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Levels/Level0.tscn"
+config/icon="res://Sprites/icon.png"
 
 [autoload]
 

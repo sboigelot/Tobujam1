@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://orb.png" type="Texture" id=1]
-[ext_resource path="res://orbslot.png" type="Texture" id=2]
-[ext_resource path="res://OrbSlot.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/orb.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/orbslot.png" type="Texture" id=2]
+[ext_resource path="res://Levels/OrbSlot.gd" type="Script" id=3]
 [ext_resource path="res://square.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]

@@ -3,6 +3,11 @@ extends Node
 export var player_walk_speed = 200
 export var orb_throw_speed = 400
 
+export var damage_orb = 2
+export var damage_hammer = 3
+export var damage_mob = 1
+export var damage_swirl = 1
+
 export(PackedScene) var orb_scene
 export(PackedScene) var orb_pickup_scene
 

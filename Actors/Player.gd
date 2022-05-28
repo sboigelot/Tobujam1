@@ -1,10 +1,8 @@
-extends KinematicBody2D
+extends Actor
 
 class_name Player
 
-var carry_orb: bool
 var orb_pickup_nearby
-var orb_color
 
 var move_direction = Vector2()
 
@@ -44,6 +42,9 @@ onready var hands_location_per_move_direction = {
 	Vector2(+1,+1): get_node(np_hands_location_bottom_right).position,
 }
 
+func _ready():
+	speed = Game.player_walk_speed
+
 func change_hands_tool():
 	hammer_hinge.visible = not carry_orb
 	orb_hinge.visible = carry_orb
@@ -78,13 +79,8 @@ func _physics_process(delta):
 	
 	if hands_location_per_move_direction.has(move_direction):
 		hands.position = hands_location_per_move_direction[move_direction]
-		
-		
-	# We don't need to multiply velocity by delta because "move_and_slide" already takes delta time into account.
-	# The second parameter of "move_and_slide" is the normal pointing up.
-	# In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
-	var velocity = move_direction * Game.player_walk_speed
-	move_and_slide(velocity, Vector2(0, 0))
+	
+	move(move_direction)
 
 func start_slash():
 	if animation_player.is_playing():
@@ -110,7 +106,7 @@ func _on_HammerArea2D_body_entered(body:Node2D):
 		return
 		
 	if body.is_in_group("mob"):
-		body.queue_free()
+		body.take_damage(Game.damage_hammer)
 		return
 
 func enable_hammer_damage():
@@ -118,7 +114,6 @@ func enable_hammer_damage():
 	
 func disable_hammer_damage():
 	hammer_area.monitoring = false
-
 
 func _on_PickupArea2D_area_entered(area:Area2D):
 	if area == self:

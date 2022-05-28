@@ -10,6 +10,7 @@ export(NodePath) var np_player
 
 onready var orb_placeholder = get_node(np_orb_placeholder) as Node2D
 onready var orb_slot_placeholder = get_node(np_orb_slot_placeholder) as Node2D
+onready var orb_pickup_placeholder = get_node(np_orb_pickup_placeholder) as Node2D
 onready var orb_mob_placeholder = get_node(np_mob_placeholder) as Node2D
 onready var player = get_node(np_player) as Player
 
@@ -33,4 +34,4 @@ func on_slot_accept_orb(slot:OrbSlot):
 	if orb_slot_to_solve.size() == 0:
 		door.open()
 		
-	
+

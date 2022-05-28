@@ -2,7 +2,7 @@ extends RigidBody2D
 
 class_name Orb
 
-const VELOCITY_STOP_THRESHOLD = 25
+const VELOCITY_STOP_THRESHOLD = 100
 var stoped_delay_second = 1
 
 export(Color) var orb_color
