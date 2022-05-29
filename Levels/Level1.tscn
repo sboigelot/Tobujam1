@@ -1,6 +1,5 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Actors/Mobs/Mob.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/OrbSlot.tscn" type="PackedScene" id=4]
@@ -21,14 +20,15 @@ extents = Vector2( 10, 300 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 400 )
 
-[node name="Level0" type="Node2D"]
+[node name="Level1" type="Node2D"]
 script = ExtResource( 6 )
 np_orb_placeholder = NodePath("Orbs")
 np_orb_slot_placeholder = NodePath("OrbSlots")
 np_orb_pickup_placeholder = NodePath("Pickups")
 np_mob_placeholder = NodePath("Mobs")
-np_player = NodePath("Player")
 np_door = NodePath("Door")
+np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
+np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
@@ -109,42 +109,26 @@ position = Vector2( 962, 774 )
 
 [node name="Mob2" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 353, 665 )
-max_health = 6
-health = 6
-carry_orb = true
-orb_color = Color( 0, 1, 0, 1 )
 
 [node name="Mob3" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 560, 693 )
-max_health = 6
-health = 6
-carry_orb = true
-orb_color = Color( 1, 0, 0, 1 )
 
 [node name="Mob5" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 1313, 768 )
-max_health = 6
-health = 6
-carry_orb = true
-orb_color = Color( 0, 0, 1, 1 )
 
 [node name="Mob6" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 1607, 786 )
-max_health = 6
-health = 6
-orb_color = Color( 0, 0, 1, 1 )
 
 [node name="Mob7" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 1439, 406 )
-max_health = 6
-health = 6
-carry_orb = true
-orb_color = Color( 1, 0, 1, 1 )
 
 [node name="Orbs" type="Node2D" parent="."]
 
 [node name="Door" parent="." instance=ExtResource( 2 )]
 position = Vector2( 865, 74 )
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1017, 522 )
+[node name="PlayerSpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 860, 540 )
+
+[node name="PlayerSpawnPoint2" type="Position2D" parent="."]
+position = Vector2( 1060, 540 )

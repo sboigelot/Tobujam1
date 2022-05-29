@@ -3,7 +3,6 @@ extends Actor
 class_name Player
 
 var orb_pickup_nearby
-
 var direction = Vector2()
 
 export(NodePath) var np_hammer_animation_player
@@ -28,13 +27,10 @@ onready var orb_hinge = get_node(np_orb_hinge) as Node2D
 
 export(NodePath) var np_orb_sprite
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
-	
-func _ready():
-	speed = Game.player_walk_speed
 
 func change_hands_tool():
-	hammer_hinge.visible = not carry_orb
-	orb_hinge.visible = carry_orb
+	hammer_hinge.visible = not data.carry_orb
+	orb_hinge.visible = data.carry_orb
 
 func twin_stick_rotation():
 	var mouse_position = get_global_mouse_position()
@@ -51,29 +47,29 @@ func _physics_process(delta):
 	change_hands_tool()
 	twin_stick_rotation()
 	
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed(data.input_prefix + "_move_left"):
 		direction.x = -1
-	elif Input.is_action_pressed("ui_right"):
+	elif Input.is_action_pressed(data.input_prefix + "_move_right"):
 		direction.x = 1
 	else:
 		direction.x = 0
 
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed(data.input_prefix + "_move_up"):
 		direction.y = -1
-	elif Input.is_action_pressed("ui_down"):
+	elif Input.is_action_pressed(data.input_prefix + "_move_down"):
 		direction.y =  1
 	else:
 		direction.y = 0
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		if carry_orb:
+	if Input.is_action_just_pressed(data.input_prefix + "_attack"):
+		if data.carry_orb:
 			throw_orb()
 		else:
 			start_slash()
 	
-	if (not carry_orb and
+	if (not data.carry_orb and
 		orb_pickup_nearby and
-		Input.is_action_just_pressed("pickup")):
+		Input.is_action_just_pressed(data.input_prefix + "_pickup")):
 			pickup_orb()
 
 	sprite.flip_h = direction.x < 0
@@ -81,7 +77,7 @@ func _physics_process(delta):
 	if direction != Vector2() and not move_animation_player.is_playing():
 		move_animation_player.play("Walk")
 	
-	if Input.is_action_pressed("boost"):
+	if Input.is_action_pressed(data.input_prefix + "_boost"):
 		boost(direction, delta)
 	else:
 		move(direction)
@@ -94,17 +90,17 @@ func start_slash():
 
 func pickup_orb():
 	orb_pickup_nearby.queue_free()
-	orb_color = orb_pickup_nearby.orb_color
-	orb_persistant = orb_pickup_nearby.persistant
-	orb_sprite.modulate = orb_color
+	data.orb_color = orb_pickup_nearby.orb_color
+	data.orb_persistant = orb_pickup_nearby.persistant
+	orb_sprite.modulate = data.orb_color
 	orb_pickup_nearby = null
-	carry_orb = true
+	data.carry_orb = true
 
 func throw_orb():
-	carry_orb = false
+	data.carry_orb = false
 	var direction = global_position.direction_to(hands.global_position).normalized()
 	var throw_velocity = direction * Game.orb_throw_speed
-	Game.spawn_orb(orb_color, orb_persistant, hands.global_position, throw_velocity)
+	Game.spawn_orb(data.orb_color, data.orb_persistant, hands.global_position, throw_velocity)
 
 func _on_HammerArea2D_body_entered(body:Node2D):
 	if body == self:
@@ -142,5 +138,5 @@ func _on_PickupArea2D_area_exited(area):
 
 func pickup_heart(heart_pickup):
 	heart_pickup.queue_free()
-	health = min(health+1, max_health)
+	data.health = min(data.health+1, data.max_health)
 	emit_signal("took_damage", self)

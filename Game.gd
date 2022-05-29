@@ -1,7 +1,7 @@
 extends Node
 
-export var player_walk_speed = 200
-export var player_boost_speed = 400
+export(Resource) var default_player_setup
+
 export var orb_throw_speed = 400
 
 export var damage_orb = 2
@@ -9,20 +9,35 @@ export var damage_hammer = 3
 export var damage_mob = 1
 export var damage_swirl = 1
 
+export(PackedScene) var player_scene
 export(PackedScene) var orb_scene
 export(PackedScene) var orb_pickup_scene
 
+var current_player_datas: Array
 var current_level: Level
-var previous_level_health = 0
 
-func _ready():
+func ready():
+	current_player_datas.clear()
+
+func add_player(input_prefix):
+	var player_data = default_player_setup.duplicate(true)
+	player_data.input_prefix = input_prefix
+	current_player_datas.append(player_data)
+
+func new_game():
 	randomize()
+	get_tree().change_scene("res://Levels/Level0.tscn")
 
-func setup_level(level):
+func setup_level(level:Level):
 	current_level = level
-	if previous_level_health != 0:
-		current_level.player.health = previous_level_health
-	
+	for player_data in current_player_datas:
+		var player = level.spawn_player(player_data)
+		player.connect("died", self, "on_player_death")
+
+func on_player_death(player):
+#	todo check if all players are dead
+	defeat()
+
 func spawn_orb(orb_color:Color, orb_persistant: bool, global_position:Vector2, throw_velocity:Vector2):
 	var orb = orb_scene.instance() as Orb
 	orb.orb_color = orb_color
@@ -44,10 +59,13 @@ func spawn_mob(global_position:Vector2, mob_scene:PackedScene)->Mob:
 	current_level.mob_placeholder.add_child(instance)
 	return instance
 
+func defeat():
+	current_player_datas.clear()
+	get_tree().change_scene("res://UI/MainMenu.tscn")
+
 func victory():
-	previous_level_health = current_level.player.health
+	#	respawn dead player with hald hearths
 	get_tree().change_scene("res://Levels/Level1.tscn")
-#	get_tree().reload_current_scene()
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):

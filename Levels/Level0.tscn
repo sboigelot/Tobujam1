@@ -1,6 +1,5 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Actors/Mobs/Mob.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/OrbSlot.tscn" type="PackedScene" id=4]
@@ -10,6 +9,7 @@
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Levels/MobSpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Actors/ActorData.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -23,14 +23,43 @@ extents = Vector2( 10, 300 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 400 )
 
+[sub_resource type="Resource" id=5]
+script = ExtResource( 11 )
+max_health = 3
+health = 3
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 50
+carry_orb = true
+orb_persistant = false
+orb_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="Resource" id=7]
+script = ExtResource( 11 )
+max_health = 3
+health = 3
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 50
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+
 [node name="Level0" type="Node2D"]
 script = ExtResource( 6 )
 np_orb_placeholder = NodePath("Orbs")
 np_orb_slot_placeholder = NodePath("OrbSlots")
 np_orb_pickup_placeholder = NodePath("Pickups")
 np_mob_placeholder = NodePath("Mobs")
-np_player = NodePath("Player")
 np_door = NodePath("Door")
+np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
+np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
@@ -126,23 +155,19 @@ orb_color = Color( 0, 0, 1, 1 )
 
 [node name="Mob2" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 353, 665 )
-max_health = 6
-health = 6
-carry_orb = true
-orb_persistant = true
-orb_color = Color( 0, 1, 0, 1 )
+data = SubResource( 5 )
 
 [node name="Mob5" parent="Mobs" instance=ExtResource( 3 )]
 position = Vector2( 337, 468 )
-max_health = 6
-health = 6
-orb_persistant = true
-orb_color = Color( 0, 0, 1, 1 )
+data = SubResource( 7 )
 
 [node name="Orbs" type="Node2D" parent="."]
 
 [node name="Door" parent="." instance=ExtResource( 2 )]
 position = Vector2( 865, 74 )
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 1017, 522 )
+[node name="PlayerSpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 860, 540 )
+
+[node name="PlayerSpawnPoint2" type="Position2D" parent="."]
+position = Vector2( 1060, 540 )

@@ -20,8 +20,9 @@ func _process(delta):
 func spawn_next_mob():
 	$Particles2D.emitting = true
 	var mob = Game.spawn_mob(global_position, mob_scene)
-	mob.carry_orb = randf() >= orb_color_chance
-	mob.orb_color = orb_color
+	mob.data = ActorData.new()
+	mob.data.carry_orb = randf() >= orb_color_chance
+	mob.data.orb_color = orb_color
 	tracked_mobs.append(mob)
 	mob.connect("died", self, "on_mob_death")
 

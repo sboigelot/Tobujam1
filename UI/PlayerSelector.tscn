@@ -1,0 +1,154 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/PlayerSelector.gd" type="Script" id=1]
+
+[node name="PlayerSelector" type="PanelContainer"]
+margin_right = 214.0
+margin_bottom = 152.0
+script = ExtResource( 1 )
+np_player_label = NodePath("VBoxContainer/Label")
+np_info_label = NodePath("VBoxContainer/Label2")
+np_box_azerty = NodePath("VBoxContainer/GridContainer/PanelContainer")
+np_box_qwerty = NodePath("VBoxContainer/GridContainer/PanelContainer2")
+np_box_gp0 = NodePath("VBoxContainer/GridContainer/PanelContainer3")
+np_box_gp1 = NodePath("VBoxContainer/GridContainer/PanelContainer4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 207.0
+margin_bottom = 145.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 14.0
+text = "Player 1"
+align = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 200.0
+margin_bottom = 32.0
+text = "press key to join"
+align = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 200.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/GridContainer"]
+margin_right = 98.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 91.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 5
+
+[node name="AZERTY" type="RichTextLabel" parent="VBoxContainer/GridContainer/PanelContainer/MarginContainer"]
+margin_top = 5.0
+margin_right = 84.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center]Z[color=aqua]Q[/color]SD
+azerty[/center]"
+text = "ZQSD
+azerty"
+fit_content_height = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/GridContainer"]
+margin_left = 102.0
+margin_right = 200.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridContainer/PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 91.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 5
+
+[node name="QWERTY" type="RichTextLabel" parent="VBoxContainer/GridContainer/PanelContainer2/MarginContainer"]
+margin_top = 5.0
+margin_right = 84.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center]W[color=aqua]A[/color]SD
+qwerty[/center]"
+text = "WASD
+qwerty"
+fit_content_height = true
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/GridContainer"]
+margin_top = 53.0
+margin_right = 98.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridContainer/PanelContainer3"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 91.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 5
+
+[node name="Gamepad0" type="RichTextLabel" parent="VBoxContainer/GridContainer/PanelContainer3/MarginContainer"]
+margin_top = 5.0
+margin_right = 84.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center][color=aqua]A[/color]
+gamepad 0[/center]"
+text = "A
+gamepad 0"
+fit_content_height = true
+
+[node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/GridContainer"]
+margin_left = 102.0
+margin_top = 53.0
+margin_right = 200.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/GridContainer/PanelContainer4"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 91.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 5
+
+[node name="Gamepad1" type="RichTextLabel" parent="VBoxContainer/GridContainer/PanelContainer4/MarginContainer"]
+margin_top = 5.0
+margin_right = 84.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+bbcode_enabled = true
+bbcode_text = "[center][color=aqua]A[/color]
+gamepad 1[/center]"
+text = "A
+gamepad 1"
+fit_content_height = true

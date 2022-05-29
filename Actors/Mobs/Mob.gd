@@ -11,6 +11,9 @@ var rest_timer: float = 0
 var mode = HUNT
 
 func _physics_process(delta):
+	if data == null:
+		return
+		
 	match(mode):
 		REST:
 			mode = rest(delta)
@@ -29,7 +32,7 @@ func hunt(delta):
 		return ATTACK
 		
 	if target == null:
-		target = Game.current_level.player
+		target = Game.current_level.players[0]
 	
 	if target == null or not is_instance_valid(target):
 		target = null
