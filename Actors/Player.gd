@@ -32,34 +32,42 @@ func change_hands_tool():
 	hammer_hinge.visible = not data.carry_orb
 	orb_hinge.visible = data.carry_orb
 
-func twin_stick_rotation():
-	var mouse_position = get_global_mouse_position()
-	var direction = global_position.direction_to(mouse_position)
-	hands_pivot.rotation = direction.angle()
+func rotate_hands(angle):
+	hands_pivot.rotation = angle
 	
 	var flip_h = hands_pivot.rotation_degrees > 90 or hands_pivot.rotation_degrees < -90
 	if flip_h:
 		hands.scale = Vector2(1, -1)
 	else:
 		hands.scale = Vector2(1, 1)
+		
+func mouse_rotation():
+	var mouse_position = get_global_mouse_position()
+	var direction = global_position.direction_to(mouse_position)
+	rotate_hands(direction.angle())
 
+func twin_stick_rotation():
+	var direction = Input.get_vector(
+		data.input_prefix + "_look_left", 
+		data.input_prefix + "_look_right", 
+		data.input_prefix + "_look_up", 
+		data.input_prefix + "_look_down")
+	if direction != Vector2(0,0):
+		rotate_hands(direction.angle())
+	
 func _physics_process(delta):
 	change_hands_tool()
-	twin_stick_rotation()
 	
-	if Input.is_action_pressed(data.input_prefix + "_move_left"):
-		direction.x = -1
-	elif Input.is_action_pressed(data.input_prefix + "_move_right"):
-		direction.x = 1
+	if "gp" in data.input_prefix:
+		twin_stick_rotation()
 	else:
-		direction.x = 0
+		mouse_rotation()
 
-	if Input.is_action_pressed(data.input_prefix + "_move_up"):
-		direction.y = -1
-	elif Input.is_action_pressed(data.input_prefix + "_move_down"):
-		direction.y =  1
-	else:
-		direction.y = 0
+	var direction = Input.get_vector(
+		data.input_prefix + "_move_left", 
+		data.input_prefix + "_move_right", 
+		data.input_prefix + "_move_up", 
+		data.input_prefix + "_move_down")
 	
 	if Input.is_action_just_pressed(data.input_prefix + "_attack"):
 		if data.carry_orb:
