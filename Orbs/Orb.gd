@@ -6,6 +6,7 @@ const VELOCITY_STOP_THRESHOLD = 100
 var stoped_delay_second = 1
 
 export(Color) var orb_color
+export(bool) var persistant
 
 export(NodePath) var np_orb_sprite
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
@@ -22,5 +23,5 @@ func _physics_process(delta):
 		stoped_delay_second = 1
 		
 func turn_back_to_pickup():
-	Game.spawn_orb_pickup(orb_color, global_position)
+	Game.spawn_orb_pickup(orb_color, persistant, global_position)
 	queue_free()

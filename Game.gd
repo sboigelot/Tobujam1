@@ -23,18 +23,20 @@ func setup_level(level):
 	if previous_level_health != 0:
 		current_level.player.health = previous_level_health
 	
-func spawn_orb(orb_color:Color, global_position:Vector2, throw_velocity:Vector2):
-	var instance = orb_scene.instance() as Orb
-	instance.orb_color = orb_color
-	instance.global_position = global_position
-	current_level.orb_placeholder.add_child(instance)
-	instance.apply_central_impulse (throw_velocity)
+func spawn_orb(orb_color:Color, orb_persistant: bool, global_position:Vector2, throw_velocity:Vector2):
+	var orb = orb_scene.instance() as Orb
+	orb.orb_color = orb_color
+	orb.global_position = global_position
+	orb.persistant = orb_persistant
+	current_level.orb_placeholder.add_child(orb)
+	orb.apply_central_impulse (throw_velocity)
 
-func spawn_orb_pickup(orb_color:Color, global_position:Vector2):
-	var instance = orb_pickup_scene.instance() as OrbPickup
-	instance.orb_color = orb_color
-	instance.global_position = global_position
-	current_level.orb_pickup_placeholder.add_child(instance)
+func spawn_orb_pickup(orb_color:Color, orb_persistant: bool, global_position:Vector2):
+	var pickup = orb_pickup_scene.instance() as OrbPickup
+	pickup.orb_color = orb_color
+	pickup.persistant = orb_persistant
+	pickup.global_position = global_position
+	current_level.orb_pickup_placeholder.add_child(pickup)
 
 func spawn_mob(global_position:Vector2, mob_scene:PackedScene)->Mob:
 	var instance = mob_scene.instance() as Mob
@@ -46,3 +48,10 @@ func victory():
 	previous_level_health = current_level.player.health
 	get_tree().change_scene("res://Levels/Level1.tscn")
 #	get_tree().reload_current_scene()
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
+		
+	if Input.is_action_just_pressed("toggle_fullscreen"):
+		OS.set_window_fullscreen(!OS.window_fullscreen)

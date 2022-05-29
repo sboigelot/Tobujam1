@@ -95,6 +95,7 @@ func start_slash():
 func pickup_orb():
 	orb_pickup_nearby.queue_free()
 	orb_color = orb_pickup_nearby.orb_color
+	orb_persistant = orb_pickup_nearby.persistant
 	orb_sprite.modulate = orb_color
 	orb_pickup_nearby = null
 	carry_orb = true
@@ -103,7 +104,7 @@ func throw_orb():
 	carry_orb = false
 	var direction = global_position.direction_to(hands.global_position).normalized()
 	var throw_velocity = direction * Game.orb_throw_speed
-	Game.spawn_orb(orb_color, hands.global_position, throw_velocity)
+	Game.spawn_orb(orb_color, orb_persistant, hands.global_position, throw_velocity)
 
 func _on_HammerArea2D_body_entered(body:Node2D):
 	if body == self:

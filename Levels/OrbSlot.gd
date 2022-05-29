@@ -5,7 +5,8 @@ class_name OrbSlot
 signal orb_accepted
 
 export(Color) var accepted_color
-var orb_color
+var orb_color: Color
+var orb_persistant: bool
 
 export(NodePath) var np_orb_sprite
 export(NodePath) var np_slot_area_shape
@@ -34,6 +35,7 @@ func accept_orb(orb:Orb):
 	
 	orb_sprite.visible = true
 	orb_color = orb.orb_color
+	orb_persistant = orb.persistant
 	orb_sprite.modulate = orb_color
 	orb.queue_free()
 	
@@ -49,6 +51,7 @@ func reject_orb(orb:Orb):
 	
 	orb_sprite.visible = true
 	orb_color = orb.orb_color
+	orb_persistant = orb.persistant
 	orb_sprite.modulate = orb_color
 	
 	orb.queue_free()
@@ -63,7 +66,7 @@ func reject_orb(orb:Orb):
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	static_area_shape.set_deferred("disabled", true)
-	Game.spawn_orb(orb_color, orb_sprite.global_position, Vector2(0, Game.orb_throw_speed*2))
+	Game.spawn_orb(orb_color, orb_persistant, orb_sprite.global_position, Vector2(0, Game.orb_throw_speed*2))
 	orb_sprite.visible = false
 	status_sprite.modulate = Color.orange
 	

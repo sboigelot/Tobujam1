@@ -7,14 +7,15 @@ signal died
 
 export var max_health:int = 5
 export var health:int = 5
-export var max_stamina:float = 3
-export var stamina:float = 3
+export var max_stamina:float = 2
+export var stamina:float = 2
 export var stamina_regen_per_second:float = 0.2
 export var boost_stamina_cost_per_second:float = 1
 var invincible:bool = false
 export var speed: int = 50
 
 export var carry_orb: bool
+export var orb_persistant: bool
 export var orb_color: Color
 
 func _process(delta):
@@ -64,7 +65,7 @@ func die():
 	yield(get_tree().create_timer(0.2), "timeout")
 	
 	if carry_orb:
-		Game.spawn_orb_pickup(orb_color, global_position)
+		Game.spawn_orb_pickup(orb_color, orb_persistant, global_position)
 	
 	emit_signal("died",self)
 	queue_free()
