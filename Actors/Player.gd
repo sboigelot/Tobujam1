@@ -12,81 +12,23 @@ onready var hammer_animation_player = get_node(np_hammer_animation_player) as An
 export(NodePath) var np_move_animation_player
 onready var move_animation_player = get_node(np_move_animation_player) as AnimationPlayer
 
+export(NodePath) var np_sprite
+export(NodePath) var np_hands_pivot
 export(NodePath) var np_hands
 export(NodePath) var np_hammer_hinge
 export(NodePath) var np_hammer_area
 export(NodePath) var np_orb_hinge
 
-onready var hands = get_node(np_hands)
+onready var sprite = get_node(np_sprite) as Sprite
+onready var hands_pivot = get_node(np_hands_pivot) as Node2D
+onready var hands = get_node(np_hands) as Node2D
 onready var hammer_hinge = get_node(np_hammer_hinge) as Node2D
 onready var hammer_area = get_node(np_hammer_area) as Area2D
 onready var orb_hinge = get_node(np_orb_hinge) as Node2D
 
 export(NodePath) var np_orb_sprite
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
-
-export(NodePath) var np_hands_location_top_left
-export(NodePath) var np_hands_location_top_center
-export(NodePath) var np_hands_location_top_right
-export(NodePath) var np_hands_location_center_left
-export(NodePath) var np_hands_location_center_right
-export(NodePath) var np_hands_location_bottom_left
-export(NodePath) var np_hands_location_bottom_center
-export(NodePath) var np_hands_location_bottom_right
-
-class hinge_info:
-	var position:Vector2
-	var flip_x: bool
-	var rotation: int
 	
-	func _init(_position:Vector2, _flip_x: bool, _rotation:int):
-		position = _position
-		flip_x = _flip_x
-		rotation = _rotation
-
-onready var hands_info_per_direction = {
-	Vector2(-1,-1): hinge_info.new(
-						get_node(np_hands_location_top_left).position,
-						false,
-						0
-					),
-	Vector2(0,-1): 	hinge_info.new(
-						get_node(np_hands_location_top_center).position,
-						false,
-						90
-					),
-	Vector2(+1,-1): hinge_info.new(
-						get_node(np_hands_location_top_right).position,
-						true,
-						0
-					),
-	Vector2(-1,0): 	hinge_info.new(
-						get_node(np_hands_location_center_left).position,
-						false,
-						0
-					),
-	Vector2(+1,0): 	hinge_info.new(
-						get_node(np_hands_location_center_right).position,
-						true,
-						0
-					),
-	Vector2(-1,+1): hinge_info.new(
-						get_node(np_hands_location_bottom_left).position,
-						false,
-						0
-					),
-	Vector2(0,+1): 	hinge_info.new(
-						get_node(np_hands_location_bottom_center).position,
-						false,
-						-90
-					),
-	Vector2(+1,+1): hinge_info.new(
-						get_node(np_hands_location_bottom_right).position,
-						true,
-						0
-					),
-}
-
 func _ready():
 	speed = Game.player_walk_speed
 
@@ -94,8 +36,20 @@ func change_hands_tool():
 	hammer_hinge.visible = not carry_orb
 	orb_hinge.visible = carry_orb
 
+func twin_stick_rotation():
+	var mouse_position = get_global_mouse_position()
+	var direction = global_position.direction_to(mouse_position)
+	hands_pivot.rotation = direction.angle()
+	
+	var flip_h = hands_pivot.rotation_degrees > 90 or hands_pivot.rotation_degrees < -90
+	if flip_h:
+		hands.scale = Vector2(1, -1)
+	else:
+		hands.scale = Vector2(1, 1)
+
 func _physics_process(delta):
 	change_hands_tool()
+	twin_stick_rotation()
 	
 	if Input.is_action_pressed("ui_left"):
 		direction.x = -1
@@ -121,21 +75,17 @@ func _physics_process(delta):
 		orb_pickup_nearby and
 		Input.is_action_just_pressed("pickup")):
 			pickup_orb()
-	
-	if hands_info_per_direction.has(direction):
-		var info = hands_info_per_direction[direction] as hinge_info
-		hands.position = info.position
-		if info.flip_x:
-			hands.scale = Vector2(-1,1)
-		else:
-			hands.scale = Vector2(1,1)
-		hands.rotation_degrees = info.rotation
+
+	sprite.flip_h = direction.x < 0
 	
 	if direction != Vector2() and not move_animation_player.is_playing():
 		move_animation_player.play("Walk")
 	
-	move(direction)
-
+	if Input.is_action_pressed("boost"):
+		boost(direction, delta)
+	else:
+		move(direction)
+	
 func start_slash():
 	if hammer_animation_player.is_playing():
 		return

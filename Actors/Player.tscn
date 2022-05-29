@@ -23,15 +23,27 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.3, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -25 ), Vector2( -15, 0 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -15 ), Vector2( 25, 0 ), Vector2( 0, 0 ) ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath("../..")
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.0, 90.0, 0.0 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0.3, 0.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
@@ -41,18 +53,6 @@ tracks/1/keys = {
 "args": [  ],
 "method": "disable_hammer_damage"
 } ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rotation_degrees")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 65.0, -90.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -80,19 +80,13 @@ max_health = 6
 health = 6
 np_hammer_animation_player = NodePath("HammerAnimationPlayer")
 np_move_animation_player = NodePath("MoveAnimationPlayer")
-np_hands = NodePath("Hands")
-np_hammer_hinge = NodePath("Hands/HammerHinge")
-np_hammer_area = NodePath("Hands/HammerHinge/HammerArea")
-np_orb_hinge = NodePath("Hands/OrbHinge")
-np_orb_sprite = NodePath("Hands/OrbHinge/OrbSprite")
-np_hands_location_top_left = NodePath("HammerLocations/TopLeft")
-np_hands_location_top_center = NodePath("HammerLocations/TopCenter")
-np_hands_location_top_right = NodePath("HammerLocations/TopRight")
-np_hands_location_center_left = NodePath("HammerLocations/CenterLeft")
-np_hands_location_center_right = NodePath("HammerLocations/CenterRight")
-np_hands_location_bottom_left = NodePath("HammerLocations/BottomLeft")
-np_hands_location_bottom_center = NodePath("HammerLocations/BottomCenter")
-np_hands_location_bottom_right = NodePath("HammerLocations/BottomRight")
+np_sprite = NodePath("Sprite")
+np_hands_pivot = NodePath("HandsPivot")
+np_hands = NodePath("HandsPivot/Hands")
+np_hammer_hinge = NodePath("HandsPivot/Hands/HammerHinge")
+np_hammer_area = NodePath("HandsPivot/Hands/HammerHinge/HammerArea")
+np_orb_hinge = NodePath("HandsPivot/Hands/OrbHinge")
+np_orb_sprite = NodePath("HandsPivot/Hands/OrbHinge/OrbSprite")
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 3 )
@@ -100,61 +94,34 @@ texture = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Hands" type="Node2D" parent="."]
-position = Vector2( 50, 0 )
-scale = Vector2( -1, 1 )
+[node name="HandsPivot" type="Node2D" parent="."]
 
-[node name="HammerHinge" type="Node2D" parent="Hands"]
-position = Vector2( -7.5, -12.5 )
-rotation = -0.218166
+[node name="Hands" type="Node2D" parent="HandsPivot"]
+position = Vector2( 50, 0 )
+
+[node name="HammerHinge" type="Node2D" parent="HandsPivot/Hands"]
 scale = Vector2( 2, 2 )
 
-[node name="Sprite" type="Sprite" parent="Hands/HammerHinge"]
+[node name="Sprite" type="Sprite" parent="HandsPivot/Hands/HammerHinge"]
 scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 4 )
 
-[node name="HammerArea" type="Area2D" parent="Hands/HammerHinge"]
-position = Vector2( -3.5, -6.5 )
+[node name="HammerArea" type="Area2D" parent="HandsPivot/Hands/HammerHinge"]
+position = Vector2( 3.5, -6.5 )
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hands/HammerHinge/HammerArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HandsPivot/Hands/HammerHinge/HammerArea"]
 shape = SubResource( 3 )
 
-[node name="OrbHinge" type="Node2D" parent="Hands"]
+[node name="OrbHinge" type="Node2D" parent="HandsPivot/Hands"]
 visible = false
 
-[node name="OrbSprite" type="Sprite" parent="Hands/OrbHinge"]
+[node name="OrbSprite" type="Sprite" parent="HandsPivot/Hands/OrbHinge"]
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 2 )
 
-[node name="HammerLocations" type="Node2D" parent="."]
-
-[node name="TopLeft" type="Position2D" parent="HammerLocations"]
-position = Vector2( -40, -40 )
-
-[node name="TopCenter" type="Position2D" parent="HammerLocations"]
-position = Vector2( 0, -50 )
-
-[node name="TopRight" type="Position2D" parent="HammerLocations"]
-position = Vector2( 40, -40 )
-
-[node name="CenterLeft" type="Position2D" parent="HammerLocations"]
-position = Vector2( -50, 0 )
-
-[node name="CenterRight" type="Position2D" parent="HammerLocations"]
-position = Vector2( 50, 0 )
-
-[node name="BottomLeft" type="Position2D" parent="HammerLocations"]
-position = Vector2( -40, 40 )
-
-[node name="BottomCenter" type="Position2D" parent="HammerLocations"]
-position = Vector2( 0, 50 )
-
-[node name="BottomRight" type="Position2D" parent="HammerLocations"]
-position = Vector2( 40, 40 )
-
 [node name="HammerAnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Hands/HammerHinge")
+root_node = NodePath("../HandsPivot/Hands/HammerHinge")
 anims/Slash = SubResource( 2 )
 
 [node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
@@ -168,6 +135,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
 shape = SubResource( 4 )
 
-[connection signal="body_entered" from="Hands/HammerHinge/HammerArea" to="." method="_on_HammerArea2D_body_entered"]
+[connection signal="body_entered" from="HandsPivot/Hands/HammerHinge/HammerArea" to="." method="_on_HammerArea2D_body_entered"]
 [connection signal="area_entered" from="PickupArea2D" to="." method="_on_PickupArea2D_area_entered"]
 [connection signal="area_exited" from="PickupArea2D" to="." method="_on_PickupArea2D_area_exited"]

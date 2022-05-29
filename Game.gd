@@ -1,6 +1,7 @@
 extends Node
 
 export var player_walk_speed = 200
+export var player_boost_speed = 400
 export var orb_throw_speed = 400
 
 export var damage_orb = 2

@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/HUD.gd" type="Script" id=1]
+[ext_resource path="res://UI/HeartContainer.tscn" type="PackedScene" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0117647, 0.627451, 0.529412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0431373, 0.0431373, 0.0431373, 1 )
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 1 )
+np_heart_placeholedr = NodePath("MainUi/MainContainer/TopContainer/Player1/VBoxContainer/HealthContainer/HeartPlaceholder")
+scene_heart_container = ExtResource( 2 )
+np_stamina_bar = NodePath("MainUi/MainContainer/TopContainer/Player1/VBoxContainer/StaminaBar")
+
+[node name="MainUi" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="MainContainer" type="VBoxContainer" parent="MainUi"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1910.0
+margin_bottom = 1070.0
+
+[node name="TopContainer" type="HBoxContainer" parent="MainUi/MainContainer"]
+margin_right = 1900.0
+margin_bottom = 96.0
+
+[node name="Player1" type="MarginContainer" parent="MainUi/MainContainer/TopContainer"]
+margin_right = 300.0
+margin_bottom = 96.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUi/MainContainer/TopContainer/Player1"]
+margin_right = 300.0
+margin_bottom = 96.0
+
+[node name="Label" type="Label" parent="MainUi/MainContainer/TopContainer/Player1/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 14.0
+text = "Player 1"
+
+[node name="HealthContainer" type="MarginContainer" parent="MainUi/MainContainer/TopContainer/Player1/VBoxContainer"]
+margin_top = 18.0
+margin_right = 300.0
+margin_bottom = 82.0
+
+[node name="HeartPlaceholder" type="HBoxContainer" parent="MainUi/MainContainer/TopContainer/Player1/VBoxContainer/HealthContainer"]
+margin_right = 300.0
+margin_bottom = 64.0
+
+[node name="HeartContainer" parent="MainUi/MainContainer/TopContainer/Player1/VBoxContainer/HealthContainer/HeartPlaceholder" instance=ExtResource( 2 )]
+
+[node name="StaminaBar" type="ProgressBar" parent="MainUi/MainContainer/TopContainer/Player1/VBoxContainer"]
+margin_top = 86.0
+margin_right = 300.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 300, 10 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false
