@@ -35,12 +35,11 @@ var max_orb_per_colors: Dictionary
 var orb_per_colors: Dictionary
 
 func _ready():
-	compute_max_orb_per_color()
-	register_orbs()
-	
 	register_mechanisms()
 	register_triggers()
-	
+	compute_max_orb_per_color()
+	assing_accepted_colors()
+	register_orbs()
 	Game.setup_level(self)
 
 func _process(delta):
@@ -54,6 +53,18 @@ func compute_max_orb_per_color():
 			max_orb_per_colors[color] += 1
 		else:
 			max_orb_per_colors[color] = 1
+			
+	for trigger in triggers:
+		if not trigger is OrbSlot:
+			continue
+		var slot = trigger as OrbSlot
+		if slot.accepted_color == Color.black:
+			continue
+		if max_orb_per_colors.has(slot.accepted_color):
+			max_orb_per_colors[slot.accepted_color] += 1
+		else:
+			max_orb_per_colors[slot.accepted_color] = 1
+		
 
 func register_orbs():
 	orb_per_colors.clear()
@@ -128,14 +139,14 @@ func register_mechanisms():
 		mechanisms.append(mechanism)
 	
 func register_triggers():
-	
-	var remaining_colors = PoolColorArray(puzzel_colors)
-	
 	for trigger in trigger_placeholder.get_children():
 		triggers.append(trigger)
 		trigger.connect("activated", self, "on_trigger_activated")
 		trigger.connect("deactivated", self, "on_trigger_deactivated")
-		
+
+func assing_accepted_colors():
+	var remaining_colors = PoolColorArray(puzzel_colors)
+	for trigger in trigger_placeholder.get_children():
 		if trigger is OrbSlot:
 			var slot = trigger as OrbSlot
 			if slot.accepted_color == Color.black:

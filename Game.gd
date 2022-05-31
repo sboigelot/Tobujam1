@@ -12,6 +12,7 @@ export var damage_swirl = 1
 export(PackedScene) var player_scene
 export(PackedScene) var orb_scene
 export(PackedScene) var orb_pickup_scene
+export(PackedScene) var heart_pickup_scene
 
 var current_player_datas: Array
 var player_datas: Array
@@ -68,6 +69,12 @@ func spawn_orb_pickup(orb_color:Color, orb_persistant: bool, global_position:Vec
 	var pickup = orb_pickup_scene.instance() as OrbPickup
 	pickup.orb_color = orb_color
 	pickup.persistant = orb_persistant
+	pickup.global_position = global_position
+	current_level.orb_pickup_placeholder.add_child(pickup)
+
+func spawn_heart_pickup(global_position:Vector2, persistant:bool):
+	var pickup = heart_pickup_scene.instance() as HeartPickup
+	pickup.persistant = persistant
 	pickup.global_position = global_position
 	current_level.orb_pickup_placeholder.add_child(pickup)
 

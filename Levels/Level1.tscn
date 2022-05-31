@@ -99,7 +99,6 @@ orb_color = Color( 0, 0, 0, 1 )
 [node name="Level1" type="Node2D"]
 script = ExtResource( 6 )
 np_orb_placeholder = NodePath("Orbs")
-np_orb_slot_placeholder = NodePath("OrbSlots")
 np_orb_pickup_placeholder = NodePath("Pickups")
 np_mob_placeholder = NodePath("Mobs")
 np_door = NodePath("Door")

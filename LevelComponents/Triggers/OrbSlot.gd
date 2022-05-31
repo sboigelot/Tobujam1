@@ -20,7 +20,6 @@ func _ready():
 	static_area_shape.set_deferred("disabled", true)
 
 func _on_Area2D_body_entered(body):
-		
 	if body.is_in_group("orb"):
 		if  body.orb_color == accepted_color:
 			accept_orb(body)
