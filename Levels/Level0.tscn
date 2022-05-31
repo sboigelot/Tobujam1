@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Levels/Door.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Actors/Mobs/Mob.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Levels/OrbSlot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Levels/Level.gd" type="Script" id=6]
@@ -23,7 +23,8 @@ extents = Vector2( 10, 300 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 400 )
 
-[sub_resource type="Resource" id=5]
+[sub_resource type="Resource" id=8]
+resource_local_to_scene = true
 script = ExtResource( 11 )
 max_health = 3
 health = 3
@@ -37,7 +38,8 @@ carry_orb = true
 orb_persistant = false
 orb_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="Resource" id=7]
+[sub_resource type="Resource" id=9]
+resource_local_to_scene = true
 script = ExtResource( 11 )
 max_health = 3
 health = 3
@@ -61,6 +63,7 @@ np_door = NodePath("Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
+puzzel_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
 
@@ -117,20 +120,27 @@ shape = SubResource( 4 )
 
 [node name="OrbSlot" parent="OrbSlots" instance=ExtResource( 4 )]
 position = Vector2( 1300, 189 )
-accepted_color = Color( 1, 0, 0, 1 )
 
 [node name="OrbSlot2" parent="OrbSlots" instance=ExtResource( 4 )]
 position = Vector2( 1428, 190 )
-accepted_color = Color( 0, 1, 0, 1 )
 
 [node name="OrbSlot3" parent="OrbSlots" instance=ExtResource( 4 )]
 position = Vector2( 1555, 190 )
-accepted_color = Color( 0, 0, 1, 1 )
 
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="OrbPickup" parent="Pickups" instance=ExtResource( 5 )]
 position = Vector2( 1450, 702 )
+persistant = true
+orb_color = Color( 0, 1, 0, 1 )
+
+[node name="OrbPickup2" parent="Pickups" instance=ExtResource( 5 )]
+position = Vector2( 1531, 700 )
+persistant = true
+orb_color = Color( 0, 0, 1, 1 )
+
+[node name="OrbPickup3" parent="Pickups" instance=ExtResource( 5 )]
+position = Vector2( 1385, 703 )
 persistant = true
 orb_color = Color( 1, 0, 0, 1 )
 
@@ -153,13 +163,13 @@ orb_color = Color( 0, 0, 1, 1 )
 
 [node name="Mobs" type="Node2D" parent="."]
 
-[node name="Mob2" parent="Mobs" instance=ExtResource( 3 )]
-position = Vector2( 353, 665 )
-data = SubResource( 5 )
+[node name="MobLee" parent="Mobs" instance=ExtResource( 3 )]
+position = Vector2( 511, 548 )
+data = SubResource( 8 )
 
-[node name="Mob5" parent="Mobs" instance=ExtResource( 3 )]
-position = Vector2( 337, 468 )
-data = SubResource( 7 )
+[node name="MobLee2" parent="Mobs" instance=ExtResource( 3 )]
+position = Vector2( 535, 721 )
+data = SubResource( 9 )
 
 [node name="Orbs" type="Node2D" parent="."]
 

@@ -2,23 +2,18 @@ extends Actor
 
 class_name Player
 
-var orb_pickup_nearby
+var orb_pickups_nearby: Array
 var direction = Vector2()
 
 export(NodePath) var np_hammer_animation_player
 onready var hammer_animation_player = get_node(np_hammer_animation_player) as AnimationPlayer
 
-export(NodePath) var np_move_animation_player
-onready var move_animation_player = get_node(np_move_animation_player) as AnimationPlayer
-
-export(NodePath) var np_sprite
 export(NodePath) var np_hands_pivot
 export(NodePath) var np_hands
 export(NodePath) var np_hammer_hinge
 export(NodePath) var np_hammer_area
 export(NodePath) var np_orb_hinge
 
-onready var sprite = get_node(np_sprite) as Sprite
 onready var hands_pivot = get_node(np_hands_pivot) as Node2D
 onready var hands = get_node(np_hands) as Node2D
 onready var hammer_hinge = get_node(np_hammer_hinge) as Node2D
@@ -76,14 +71,11 @@ func _physics_process(delta):
 			start_slash()
 	
 	if (not data.carry_orb and
-		orb_pickup_nearby and
+		orb_pickups_nearby.size() > 0 and
 		Input.is_action_just_pressed(data.input_prefix + "_pickup")):
 			pickup_orb()
-
-	sprite.flip_h = direction.x < 0
 	
-	if direction != Vector2() and not move_animation_player.is_playing():
-		move_animation_player.play("Walk")
+	flip_and_animate(direction)
 	
 	if Input.is_action_pressed(data.input_prefix + "_boost"):
 		boost(direction, delta)
@@ -97,7 +89,9 @@ func start_slash():
 	hammer_animation_player.play("Slash")
 
 func pickup_orb():
+	var orb_pickup_nearby = orb_pickups_nearby[orb_pickups_nearby.size() - 1]
 	orb_pickup_nearby.queue_free()
+	orb_pickups_nearby.erase(orb_pickup_nearby)
 	data.orb_color = orb_pickup_nearby.orb_color
 	data.orb_persistant = orb_pickup_nearby.persistant
 	orb_sprite.modulate = data.orb_color
@@ -129,7 +123,8 @@ func _on_PickupArea2D_area_entered(area:Area2D):
 		return
 		
 	if area.is_in_group("orb_pickup"):
-		orb_pickup_nearby = area
+		if not orb_pickups_nearby.has(area):
+			orb_pickups_nearby.append(area)
 		return
 		
 	if area.is_in_group("heart_pickup"):
@@ -137,12 +132,19 @@ func _on_PickupArea2D_area_entered(area:Area2D):
 		return
 		
 	if area.is_in_group("moving_orb_pickup"):
-		orb_pickup_nearby = area.get_parent()
+		var area_parent = area.get_parent()
+		if not orb_pickups_nearby.has(area_parent):
+			orb_pickups_nearby.append(area_parent)
 		return
 
 func _on_PickupArea2D_area_exited(area):
-	if area == orb_pickup_nearby or area.get_parent() == orb_pickup_nearby:
-		orb_pickup_nearby = null
+	if orb_pickups_nearby.has(area):
+		orb_pickups_nearby.erase(area)
+		return
+		
+	if orb_pickups_nearby.has(area.get_parent()):
+		orb_pickups_nearby.erase(area.get_parent())
+		return
 
 func pickup_heart(heart_pickup):
 	heart_pickup.queue_free()

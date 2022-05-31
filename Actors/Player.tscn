@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/orb.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/icon.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/hammer.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Players/robert.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Weapons/hammer.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.0
@@ -76,11 +76,9 @@ radius = 60.0
 
 [node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 1 )
-max_health = 6
-health = 6
-np_hammer_animation_player = NodePath("HammerAnimationPlayer")
-np_move_animation_player = NodePath("MoveAnimationPlayer")
 np_sprite = NodePath("Sprite")
+np_move_animation_player = NodePath("MoveAnimationPlayer")
+np_hammer_animation_player = NodePath("HammerAnimationPlayer")
 np_hands_pivot = NodePath("HandsPivot")
 np_hands = NodePath("HandsPivot/Hands")
 np_hammer_hinge = NodePath("HandsPivot/Hands/HammerHinge")
@@ -89,6 +87,7 @@ np_orb_hinge = NodePath("HandsPivot/Hands/OrbHinge")
 np_orb_sprite = NodePath("HandsPivot/Hands/OrbHinge/OrbSprite")
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -103,11 +102,11 @@ position = Vector2( 50, 0 )
 scale = Vector2( 2, 2 )
 
 [node name="Sprite" type="Sprite" parent="HandsPivot/Hands/HammerHinge"]
-scale = Vector2( 0.75, 0.75 )
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 4 )
 
 [node name="HammerArea" type="Area2D" parent="HandsPivot/Hands/HammerHinge"]
-position = Vector2( 3.5, -6.5 )
+position = Vector2( 7, -6.5 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandsPivot/Hands/HammerHinge/HammerArea"]

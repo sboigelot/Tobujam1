@@ -14,18 +14,31 @@ export(PackedScene) var orb_scene
 export(PackedScene) var orb_pickup_scene
 
 var current_player_datas: Array
+var player_datas: Array
 var current_level: Level
+
+var win: bool
+var score: int
+var time: float
 
 func ready():
 	current_player_datas.clear()
+	player_datas.clear()
 
 func add_player(input_prefix):
 	var player_data = default_player_setup.duplicate(true)
 	player_data.input_prefix = input_prefix
 	current_player_datas.append(player_data)
+	player_datas.append(player_data)
 
 func new_game():
 	randomize()
+	
+	current_level = null
+	win = false
+	score = 0
+	time = 0
+	
 	get_tree().change_scene("res://Levels/Level0.tscn")
 
 func setup_level(level:Level):
@@ -36,7 +49,10 @@ func setup_level(level:Level):
 
 func on_player_death(player):
 #	todo check if all players are dead
-	defeat()
+	current_player_datas.erase(player.data)
+	if current_player_datas.size() == 0:
+		defeat()
+		return
 
 func spawn_orb(orb_color:Color, orb_persistant: bool, global_position:Vector2, throw_velocity:Vector2):
 	var orb = orb_scene.instance() as Orb
@@ -60,13 +76,29 @@ func spawn_mob(global_position:Vector2, mob_scene:PackedScene)->Mob:
 	return instance
 
 func defeat():
+	win = false
 	current_player_datas.clear()
-	get_tree().change_scene("res://UI/MainMenu.tscn")
+	get_tree().change_scene("res://UI/VictoryScreen.tscn")
 
 func victory():
-	#	respawn dead player with hald hearths
-	get_tree().change_scene("res://Levels/Level1.tscn")
+	win = true
+	get_tree().change_scene("res://UI/VictoryScreen.tscn") 
 
+func on_level_completed():
+	if current_level.next_level == "":
+		victory()
+		return
+	
+	respawn_dead_players()	
+	get_tree().change_scene(current_level.next_level)
+	
+func respawn_dead_players():
+	current_player_datas = player_datas.duplicate()
+	for player_data in current_player_datas:
+		var half_health = floor(player_data.max_health / 2)
+		if player_data.health < half_health:
+			player_data.health = half_health
+			
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()

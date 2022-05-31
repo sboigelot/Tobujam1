@@ -32,7 +32,7 @@ func hunt(delta):
 		return ATTACK
 		
 	if target == null:
-		target = Game.current_level.players[0]
+		target = Game.current_level.players[0] #todo choose player
 	
 	if target == null or not is_instance_valid(target):
 		target = null
@@ -40,12 +40,13 @@ func hunt(delta):
 		return REST
 		
 	var move_direction = global_position.direction_to(target.global_position)
+	flip_and_animate(move_direction)
 	move(move_direction)
 	return HUNT
 	
 func attack():
 	mode = ATTACK
-	$AnimationPlayer.play("Attack")
+	$AttackAnimationPlayer.play("Attack")
 
 func attack_damage_player():
 	if player_in_range == null:
@@ -54,7 +55,7 @@ func attack_damage_player():
 	player_in_range.take_damage(Game.damage_mob)
 
 func stop_attack():
-	$AnimationPlayer.stop(true)
+	$AttackAnimationPlayer.stop(true)
 	scale = Vector2(1,1)
 	mode = REST
 

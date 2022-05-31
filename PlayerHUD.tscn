@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://PlayerHUD.gd" type="Script" id=1]
+[ext_resource path="res://UI/HeartContainer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/airstrip-four/airstrip_28.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0117647, 0.627451, 0.529412, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0431373, 0.0431373, 0.0431373, 1 )
+
+[node name="PlayerHUD" type="MarginContainer"]
+margin_right = 300.0
+margin_bottom = 96.0
+script = ExtResource( 1 )
+np_player_name = NodePath("VBoxContainer/Label")
+np_heart_placeholeder = NodePath("VBoxContainer/HealthContainer/HeartPlaceholder")
+scene_heart_container = ExtResource( 2 )
+np_stamina_bar = NodePath("VBoxContainer/StaminaBar")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 300.0
+margin_bottom = 135.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 3 )
+text = "Player 1"
+
+[node name="HealthContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 36.0
+margin_right = 300.0
+margin_bottom = 121.0
+
+[node name="HeartPlaceholder" type="HBoxContainer" parent="VBoxContainer/HealthContainer"]
+margin_right = 300.0
+margin_bottom = 85.0
+
+[node name="HeartContainer" parent="VBoxContainer/HealthContainer/HeartPlaceholder" instance=ExtResource( 2 )]
+margin_right = 67.0
+margin_bottom = 85.0
+
+[node name="StaminaBar" type="ProgressBar" parent="VBoxContainer"]
+margin_top = 125.0
+margin_right = 300.0
+margin_bottom = 135.0
+rect_min_size = Vector2( 300, 10 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false

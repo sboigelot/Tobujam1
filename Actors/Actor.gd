@@ -2,6 +2,12 @@ extends KinematicBody2D
 
 class_name Actor
 
+export(NodePath) var np_sprite
+onready var sprite = get_node(np_sprite) as Sprite
+
+export(NodePath) var np_move_animation_player
+onready var move_animation_player = get_node(np_move_animation_player) as AnimationPlayer
+
 signal took_damage
 signal died
 
@@ -34,7 +40,15 @@ func move(direction):
 	# In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
 	var velocity = direction * data.speed
 	move_and_slide(velocity)
-	
+
+func flip_and_animate(direction):
+	if direction == Vector2():
+		return
+		
+	sprite.flip_h = direction.x < 0
+	if move_animation_player != null and not move_animation_player.is_playing():
+		move_animation_player.play("Walk")
+			
 func take_damage(damage):
 	if data.invincible:
 		return

@@ -63,6 +63,11 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Actors/Player.gd"
+}, {
+"base": "MarginContainer",
+"class": "PlayerHUD",
+"language": "GDScript",
+"path": "res://PlayerHUD.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -75,7 +80,8 @@ _global_script_class_icons={
 "OrbPickup": "",
 "OrbSlot": "",
 "Pickup": "",
-"Player": ""
+"Player": "",
+"PlayerHUD": ""
 }
 
 [application]

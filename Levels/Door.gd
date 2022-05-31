@@ -27,4 +27,4 @@ func open():
 
 func _on_WinZoneArea2D_body_entered(body):
 	if body.is_in_group("player"):
-		Game.victory()
+		Game.on_level_completed()
