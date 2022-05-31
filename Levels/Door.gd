@@ -22,8 +22,6 @@ func open():
 	static_body_shape.set_deferred("disabled", true)
 	close_sprite.visible = false
 	open_sprite.visible = true
-	
-
 
 func _on_WinZoneArea2D_body_entered(body):
 	if body.is_in_group("player"):

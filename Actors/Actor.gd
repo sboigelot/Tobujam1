@@ -17,7 +17,7 @@ func _process(delta):
 	if data == null:
 		return
 	regen_stamina(delta)
-	
+
 func regen_stamina(delta):
 	if data.stamina < data.max_stamina:
 		data.stamina += data.stamina_regen_per_second * delta

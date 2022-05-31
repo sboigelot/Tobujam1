@@ -32,7 +32,6 @@ var max_orb_per_colors: Dictionary
 var orb_per_colors: Dictionary
 
 func _ready():
-	
 	compute_max_orb_per_color()
 	register_orbs()
 	register_puzzle()
@@ -40,6 +39,8 @@ func _ready():
 	Game.setup_level(self)
 
 func compute_max_orb_per_color():
+	max_orb_per_colors.clear()
+	
 	for color in puzzel_colors:
 		if max_orb_per_colors.has(color):
 			max_orb_per_colors[color] += 1
@@ -48,24 +49,56 @@ func compute_max_orb_per_color():
 
 func register_orbs():
 	orb_per_colors.clear()
+	
 	for orb in orb_placeholder.get_children():
 		register_orb_color(orb.orb_color)
+		
 	for pickup in orb_pickup_placeholder.get_children():
 		if pickup is OrbPickup:
 			register_orb_color(pickup.orb_color)
+			
+	for mob in mob_placeholder.get_children():
+		if mob is Mob and mob.data.carry_orb:
+			register_orb_color(mob.data.orb_color)
 		
 func register_orb_color(color):
+#	print("register_orb_color(color) with %s" % color)
 	if orb_per_colors.has(color):
 		orb_per_colors[color] += 1
 	else:
 		orb_per_colors[color] = 1
 	
 func unregister_orb_color(color):
+#	print("unregister_orb_color(color) with %s" % color)
 	if orb_per_colors.has(color):
 		orb_per_colors[color] -= 1
 
-func pick_free_orb_color()->Color:
-	return Color.black
+func pick_free_orb_color(requester_set:PoolColorArray)->Color:
+	var potential_colors = get_potential_colors(requester_set)
+	if potential_colors.size() == 0:
+		return Color.black
+	
+	return potential_colors[randi() % potential_colors.size()]
+		
+func get_potential_colors(requester_set:PoolColorArray)->PoolColorArray:
+	
+	var potential_colors = PoolColorArray()
+	var requester_set_array = Array(requester_set)
+	
+	for orb_color in max_orb_per_colors:	
+		if (requester_set_array.size() != 0 and
+			not requester_set_array.has(orb_color)):
+				continue
+		
+		var max_orbs = max_orb_per_colors[orb_color]
+		var orb_count = 0
+		if orb_per_colors.has(orb_color):
+			orb_count = orb_per_colors[orb_color]
+		var remaining_orbs = max_orbs - orb_count 
+		if remaining_orbs > 0:
+			potential_colors.append(orb_color)
+	
+	return potential_colors
 
 func spawn_player(player_data)->Player:
 	

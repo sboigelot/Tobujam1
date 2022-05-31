@@ -134,16 +134,6 @@ position = Vector2( 1450, 702 )
 persistant = true
 orb_color = Color( 0, 1, 0, 1 )
 
-[node name="OrbPickup2" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 1531, 700 )
-persistant = true
-orb_color = Color( 0, 0, 1, 1 )
-
-[node name="OrbPickup3" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 1385, 703 )
-persistant = true
-orb_color = Color( 1, 0, 0, 1 )
-
 [node name="HeartPickup" parent="Pickups" instance=ExtResource( 10 )]
 position = Vector2( 1543, 484 )
 
@@ -153,13 +143,14 @@ position = Vector2( 1543, 484 )
 position = Vector2( 343, 801 )
 mob_scene = ExtResource( 3 )
 orb_color_chance = 0.3
-orb_color = Color( 0, 1, 0, 1 )
+potential_orb_colors = PoolColorArray( 1, 0, 0, 1 )
 
 [node name="MobSpawner2" parent="Spawners" instance=ExtResource( 9 )]
 position = Vector2( 351, 318 )
+initial_spawn_delay_second = 4.0
 mob_scene = ExtResource( 3 )
 orb_color_chance = 0.3
-orb_color = Color( 0, 0, 1, 1 )
+potential_orb_colors = PoolColorArray( 0, 0, 1, 1 )
 
 [node name="Mobs" type="Node2D" parent="."]
 
