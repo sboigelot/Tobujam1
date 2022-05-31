@@ -4,14 +4,30 @@ class_name HUD
 
 export(NodePath) var np_player_1
 export(NodePath) var np_player_2
+export(NodePath) var np_level_label
+export(NodePath) var np_time_label
 
 onready var player_1 = get_node(np_player_1) as PlayerHUD
 onready var player_2 = get_node(np_player_2) as PlayerHUD
+onready var level_label = get_node(np_level_label) as Label
+onready var time_label = get_node(np_time_label) as Label
 
 func _ready():
 	player_1.visible = false
 	player_2.visible = false
+	level_label.text = "Level %d" % Game.current_level_index
 
+func _process(delta):
+	var seconds = floor(Game.time)
+	var minutes = floor(seconds / 60)
+	seconds -= minutes * 60
+	var miliseconds = round((Game.time - seconds)*10)
+	time_label.text = "Time %02d:%02d:%02d" % [
+		minutes,
+		seconds,
+		miliseconds
+	] 
+	
 func setup_player(player, player_id):
 	
 	var player_hud = player_1

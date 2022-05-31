@@ -1,8 +1,6 @@
-extends Node2D
+extends Trigger
 
 class_name OrbSlot
-
-signal orb_accepted
 
 export(Color) var accepted_color
 var orb_color: Color
@@ -42,7 +40,7 @@ func accept_orb(orb:Orb):
 	status_sprite.visible = true
 	status_sprite.modulate = Color.green
 	
-	emit_signal("orb_accepted", self)
+	resolve()
 	
 func reject_orb(orb:Orb):
 	

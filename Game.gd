@@ -16,6 +16,7 @@ export(PackedScene) var orb_pickup_scene
 var current_player_datas: Array
 var player_datas: Array
 var current_level: Level
+var current_level_index: int
 
 var win: bool
 var score: int
@@ -35,6 +36,7 @@ func new_game():
 	randomize()
 	
 	current_level = null
+	current_level_index = 1
 	win = false
 	score = 0
 	time = 0
@@ -89,6 +91,7 @@ func on_level_completed():
 		victory()
 		return
 	
+	current_level_index += 1
 	respawn_dead_players()	
 	get_tree().change_scene(current_level.next_level)
 	

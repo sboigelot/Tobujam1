@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/HUD.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/airstrip-four/airstrip_28.tres" type="DynamicFont" id=2]
 [ext_resource path="res://PlayerHUD.tscn" type="PackedScene" id=3]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 1 )
 np_player_1 = NodePath("MainUi/MainContainer/TopContainer/Player1")
 np_player_2 = NodePath("MainUi/MainContainer/TopContainer/Player2")
+np_level_label = NodePath("MainUi/MainContainer/BottomContainer/MarginContainer/CenterContainer/VBoxContainer/LevelLabel")
+np_time_label = NodePath("MainUi/MainContainer/BottomContainer/MarginContainer/CenterContainer/VBoxContainer/TimeLabel")
 
 [node name="MainUi" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -39,4 +42,48 @@ size_flags_horizontal = 3
 margin_left = 1600.0
 margin_right = 1900.0
 margin_bottom = 117.0
-player_id = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUi/MainContainer"]
+margin_top = 121.0
+margin_right = 1900.0
+margin_bottom = 948.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="BottomContainer" type="HBoxContainer" parent="MainUi/MainContainer"]
+margin_top = 952.0
+margin_right = 1900.0
+margin_bottom = 1060.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainUi/MainContainer/BottomContainer"]
+margin_right = 1900.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 20
+
+[node name="CenterContainer" type="CenterContainer" parent="MainUi/MainContainer/BottomContainer/MarginContainer"]
+margin_top = 20.0
+margin_right = 1900.0
+margin_bottom = 88.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainUi/MainContainer/BottomContainer/MarginContainer/CenterContainer"]
+margin_left = 800.0
+margin_right = 1100.0
+margin_bottom = 68.0
+
+[node name="LevelLabel" type="Label" parent="MainUi/MainContainer/BottomContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+text = "LEVEL 0"
+align = 1
+
+[node name="TimeLabel" type="Label" parent="MainUi/MainContainer/BottomContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 300.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "TIME"
+align = 1

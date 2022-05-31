@@ -1,13 +1,13 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Levels/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://LevelComponents/Door.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Levels/OrbSlot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://LevelComponents/OrbSlot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Levels/Level.gd" type="Script" id=6]
+[ext_resource path="res://LevelComponents/Level.gd" type="Script" id=6]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=7]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Levels/MobSpawner.tscn" type="PackedScene" id=9]
+[ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Actors/ActorData.gd" type="Script" id=11]
 
@@ -56,13 +56,15 @@ orb_color = Color( 0, 0, 0, 1 )
 [node name="Level0" type="Node2D"]
 script = ExtResource( 6 )
 np_orb_placeholder = NodePath("Orbs")
-np_orb_slot_placeholder = NodePath("OrbSlots")
+np_trigger_placeholder = NodePath("Triggers")
+np_mechanism_placeholder = NodePath("Mechanisms")
 np_orb_pickup_placeholder = NodePath("Pickups")
 np_mob_placeholder = NodePath("Mobs")
-np_door = NodePath("Door")
+np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
+next_level = "res://Levels/Level1.tscn"
 puzzel_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
@@ -116,16 +118,25 @@ rotation = 1.5708
 position = Vector2( -13.0015, -418 )
 shape = SubResource( 4 )
 
-[node name="OrbSlots" type="Node2D" parent="."]
+[node name="Triggers" type="Node2D" parent="."]
 
-[node name="OrbSlot" parent="OrbSlots" instance=ExtResource( 4 )]
+[node name="OrbSlot" parent="Triggers" instance=ExtResource( 4 )]
 position = Vector2( 1300, 189 )
+trigger_group = "door"
 
-[node name="OrbSlot2" parent="OrbSlots" instance=ExtResource( 4 )]
+[node name="OrbSlot2" parent="Triggers" instance=ExtResource( 4 )]
 position = Vector2( 1428, 190 )
+trigger_group = "door"
 
-[node name="OrbSlot3" parent="OrbSlots" instance=ExtResource( 4 )]
+[node name="OrbSlot3" parent="Triggers" instance=ExtResource( 4 )]
 position = Vector2( 1555, 190 )
+trigger_group = "door"
+
+[node name="Mechanisms" type="Node2D" parent="."]
+
+[node name="Door" parent="Mechanisms" instance=ExtResource( 2 )]
+position = Vector2( 865, 74 )
+trigger_group = "door"
 
 [node name="Pickups" type="Node2D" parent="."]
 
@@ -163,9 +174,6 @@ position = Vector2( 535, 721 )
 data = SubResource( 9 )
 
 [node name="Orbs" type="Node2D" parent="."]
-
-[node name="Door" parent="." instance=ExtResource( 2 )]
-position = Vector2( 865, 74 )
 
 [node name="PlayerSpawnPoint1" type="Position2D" parent="."]
 position = Vector2( 860, 540 )

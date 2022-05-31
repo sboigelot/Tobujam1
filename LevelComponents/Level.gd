@@ -3,7 +3,8 @@ extends Node2D
 class_name Level
 
 export(NodePath) var np_orb_placeholder
-export(NodePath) var np_orb_slot_placeholder
+export(NodePath) var np_trigger_placeholder
+export(NodePath) var np_mechanism_placeholder
 export(NodePath) var np_orb_pickup_placeholder
 export(NodePath) var np_mob_placeholder
 export(NodePath) var np_door
@@ -12,7 +13,8 @@ export(NodePath) var np_player_spawnpoint_1
 export(NodePath) var np_player_spawnpoint_2
 
 onready var orb_placeholder = get_node(np_orb_placeholder) as Node2D
-onready var orb_slot_placeholder = get_node(np_orb_slot_placeholder) as Node2D
+onready var trigger_placeholder = get_node(np_trigger_placeholder) as Node2D
+onready var mechanism_placeholder = get_node(np_mechanism_placeholder) as Node2D
 onready var orb_pickup_placeholder = get_node(np_orb_pickup_placeholder) as Node2D
 onready var mob_placeholder = get_node(np_mob_placeholder) as Node2D
 onready var player_spawnpoint_1 = get_node(np_player_spawnpoint_1) as Position2D
@@ -24,7 +26,8 @@ onready var hud = get_node(np_hud) as HUD
 
 export(String, FILE, "*.tscn") var next_level
 
-var orb_slot_to_solve: Array
+var triggers: Array
+var mechanisms: Array
 var players : Array
 
 export(PoolColorArray) var puzzel_colors
@@ -34,10 +37,15 @@ var orb_per_colors: Dictionary
 func _ready():
 	compute_max_orb_per_color()
 	register_orbs()
-	register_puzzle()
+	
+	register_mechanisms()
+	register_triggers()
 	
 	Game.setup_level(self)
 
+func _process(delta):
+	Game.time += delta
+	
 func compute_max_orb_per_color():
 	max_orb_per_colors.clear()
 	
@@ -114,27 +122,45 @@ func spawn_player(player_data)->Player:
 	add_child(player)
 	players.append(player)
 	return player
-			
-func register_puzzle():
+
+func register_mechanisms():
+	for mechanism in mechanism_placeholder.get_children():
+		mechanisms.append(mechanism)
+	
+func register_triggers():
 	
 	var remaining_colors = PoolColorArray(puzzel_colors)
 	
-	for slot in orb_slot_placeholder.get_children():
-		orb_slot_to_solve.append(slot)
-		slot.connect("orb_accepted", self, "on_slot_accept_orb")
+	for trigger in trigger_placeholder.get_children():
+		triggers.append(trigger)
+		trigger.connect("activated", self, "on_trigger_activated")
 		
-		if slot.accepted_color == Color.black:
-			var picked_index = randi() % remaining_colors.size()
-			slot.accepted_color = remaining_colors[picked_index]
-			remaining_colors.remove(picked_index)
+		if trigger is OrbSlot:
+			var slot = trigger as OrbSlot
+			if slot.accepted_color == Color.black:
+				var picked_index = randi() % remaining_colors.size()
+				slot.accepted_color = remaining_colors[picked_index]
+				remaining_colors.remove(picked_index)
 
+func on_trigger_activated(trigger:Trigger):	
+	var group = trigger.trigger_group
+	var group_resolved = trigger.resolved
+	
+	if group_resolved:
+		for other_trigger in triggers:
+			if other_trigger.resolved:
+				continue
+				
+			if other_trigger.trigger_group == group:
+				group_resolved = false
+				break
+	
+	if group_resolved:
+		resolve_trigger_group(group)
 
+func resolve_trigger_group(group):
+	for mechanism in mechanisms:
+		if mechanism.trigger_group == group:
+			mechanism.open()
 
-func on_slot_accept_orb(slot:OrbSlot):
-	if orb_slot_to_solve.has(slot):
-		orb_slot_to_solve.erase(slot)
-		
-	if orb_slot_to_solve.size() == 0:
-		door.open()
-		
 

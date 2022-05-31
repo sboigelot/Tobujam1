@@ -19,10 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Actors/ActorData.gd"
 }, {
-"base": "Node2D",
+"base": "Mechanism",
 "class": "Door",
 "language": "GDScript",
-"path": "res://Levels/Door.gd"
+"path": "res://LevelComponents/Door.gd"
 }, {
 "base": "CanvasLayer",
 "class": "HUD",
@@ -32,7 +32,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
-"path": "res://Levels/Level.gd"
+"path": "res://LevelComponents/Level.gd"
+}, {
+"base": "Node2D",
+"class": "Mechanism",
+"language": "GDScript",
+"path": "res://LevelComponents/Mechanism.gd"
 }, {
 "base": "Actor",
 "class": "Mob",
@@ -49,10 +54,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Pickups/OrbPickup.gd"
 }, {
-"base": "Node2D",
+"base": "Trigger",
 "class": "OrbSlot",
 "language": "GDScript",
-"path": "res://Levels/OrbSlot.gd"
+"path": "res://LevelComponents/OrbSlot.gd"
 }, {
 "base": "Area2D",
 "class": "Pickup",
@@ -68,6 +73,11 @@ _global_script_classes=[ {
 "class": "PlayerHUD",
 "language": "GDScript",
 "path": "res://PlayerHUD.gd"
+}, {
+"base": "Node2D",
+"class": "Trigger",
+"language": "GDScript",
+"path": "res://LevelComponents/Trigger.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -75,13 +85,15 @@ _global_script_class_icons={
 "Door": "",
 "HUD": "",
 "Level": "",
+"Mechanism": "",
 "Mob": "",
 "Orb": "",
 "OrbPickup": "",
 "OrbSlot": "",
 "Pickup": "",
 "Player": "",
-"PlayerHUD": ""
+"PlayerHUD": "",
+"Trigger": ""
 }
 
 [application]

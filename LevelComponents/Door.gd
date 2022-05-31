@@ -1,4 +1,4 @@
-extends Node2D
+extends Mechanism
 
 class_name Door
 
