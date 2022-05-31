@@ -2,11 +2,15 @@
 
 # add score?
 
-# pressure plates (walk on them)
-# Walls / up-down
-# movable walls	
-# movable platform
-# popup heart pickup
+# Triggers
+# 	pressure plates (walk on them)
+#		timed pressure plates 
+
+# Mechanisms
+# 	Walls / up-down
+# 	movable walls	
+# 	movable platform
+# 	popup heart pickup
 
 # Levels
 #	pickup 1 orb in 1 colored slot

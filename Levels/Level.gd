@@ -134,6 +134,7 @@ func register_triggers():
 	for trigger in trigger_placeholder.get_children():
 		triggers.append(trigger)
 		trigger.connect("activated", self, "on_trigger_activated")
+		trigger.connect("deactivated", self, "on_trigger_deactivated")
 		
 		if trigger is OrbSlot:
 			var slot = trigger as OrbSlot
@@ -141,6 +142,10 @@ func register_triggers():
 				var picked_index = randi() % remaining_colors.size()
 				slot.accepted_color = remaining_colors[picked_index]
 				remaining_colors.remove(picked_index)
+
+func on_trigger_deactivated(trigger:Trigger):
+	var group = trigger.trigger_group
+	deresolve_trigger_group(group)
 
 func on_trigger_activated(trigger:Trigger):	
 	var group = trigger.trigger_group
@@ -163,4 +168,8 @@ func resolve_trigger_group(group):
 		if mechanism.trigger_group == group:
 			mechanism.open()
 
-
+func deresolve_trigger_group(group):
+	for mechanism in mechanisms:
+		if (mechanism.trigger_group == group and
+			not mechanism.stay_open_on_deresolve):
+			mechanism.close()
