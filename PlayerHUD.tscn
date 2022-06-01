@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://PlayerHUD.gd" type="Script" id=1]
 [ext_resource path="res://UI/HeartContainer.tscn" type="PackedScene" id=2]
@@ -10,6 +10,12 @@ bg_color = Color( 0.0117647, 0.627451, 0.529412, 1 )
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.0431373, 0.0431373, 0.0431373, 1 )
 
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 0 )
+
 [node name="PlayerHUD" type="MarginContainer"]
 margin_right = 300.0
 margin_bottom = 96.0
@@ -17,7 +23,8 @@ script = ExtResource( 1 )
 np_player_name = NodePath("VBoxContainer/Label")
 np_heart_placeholeder = NodePath("VBoxContainer/HealthContainer/HeartPlaceholder")
 scene_heart_container = ExtResource( 2 )
-np_stamina_bar = NodePath("VBoxContainer/StaminaBar")
+np_stamina_bar = NodePath("VBoxContainer/VBoxContainer/StaminaBar")
+np_super_bar = NodePath("VBoxContainer/VBoxContainer/SuperBar")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 300.0
@@ -42,12 +49,27 @@ margin_bottom = 67.0
 margin_right = 61.0
 margin_bottom = 67.0
 
-[node name="StaminaBar" type="ProgressBar" parent="VBoxContainer"]
+[node name="VBoxContainer" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 107.0
 margin_right = 300.0
 margin_bottom = 117.0
+
+[node name="StaminaBar" type="ProgressBar" parent="VBoxContainer/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 10.0
 rect_min_size = Vector2( 300, 10 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
+value = 50.0
+percent_visible = false
+
+[node name="SuperBar" type="ProgressBar" parent="VBoxContainer/VBoxContainer"]
+margin_top = 7.0
+margin_right = 300.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 300, 3 )
+size_flags_vertical = 8
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 value = 50.0
 percent_visible = false

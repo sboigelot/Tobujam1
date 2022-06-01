@@ -5,18 +5,24 @@ class_name OrbSlot
 export(Color) var accepted_color
 var orb_color: Color
 var orb_persistant: bool
+export var orb_ring_visible: bool
+export var throw_direction: Vector2 = Vector2(0,1)
 
 export(NodePath) var np_orb_sprite
+export(NodePath) var np_orb_ring
 export(NodePath) var np_slot_area_shape
 export(NodePath) var np_static_area_shape
 export(NodePath) var np_status_sprite
 
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
+onready var orb_ring = get_node(np_orb_ring) as Sprite
 onready var slot_area_shape = get_node(np_slot_area_shape) as CollisionShape2D
 onready var static_area_shape = get_node(np_static_area_shape) as CollisionShape2D
 onready var status_sprite = get_node(np_status_sprite) as Sprite
 
 func _ready():
+	orb_ring.modulate = accepted_color
+	orb_ring.visible = orb_ring_visible
 	static_area_shape.set_deferred("disabled", true)
 
 func _on_Area2D_body_entered(body):
@@ -63,7 +69,7 @@ func reject_orb(orb:Orb):
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	static_area_shape.set_deferred("disabled", true)
-	Game.spawn_orb(orb_color, orb_persistant, orb_sprite.global_position, Vector2(0, Game.orb_throw_speed*2))
+	Game.spawn_orb(orb_color, orb_persistant, orb_sprite.global_position, throw_direction * Game.orb_throw_speed*2)
 	orb_sprite.visible = false
 	status_sprite.modulate = Color.orange
 	

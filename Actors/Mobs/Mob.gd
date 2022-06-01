@@ -31,8 +31,15 @@ func hunt(delta):
 		attack()
 		return ATTACK
 		
-	if target == null:
-		target = Game.current_level.players[0] #todo choose player
+	if target == null or not is_instance_valid(target):
+		var player_alive = []
+		for player in Game.current_level.players:
+			if player.data.health > 0:
+				player_alive.append(player)
+		if player_alive.size() == 0:
+			rest_timer = hunt_rest_timer
+			return REST
+		target = player_alive[randi() % player_alive.size()]
 	
 	if target == null or not is_instance_valid(target):
 		target = null

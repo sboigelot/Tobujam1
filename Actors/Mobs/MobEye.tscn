@@ -1,29 +1,27 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Actors/Mobs/Mob.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/slime.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Mobs/flyingeye.png" type="Texture" id=2]
 [ext_resource path="res://Actors/ActorData.gd" type="Script" id=3]
 
 [sub_resource type="Resource" id=4]
 resource_local_to_scene = true
 script = ExtResource( 3 )
-max_health = 4
-health = 4
+max_health = 7
+health = 7
 max_stamina = 2.0
 stamina_regen_per_second = 0.2
 stamina = 2.0
 boost_stamina_cost_per_second = 1.0
 boost_speed_multiplier = 2
-speed = 50
+speed = 120
 carry_orb = false
 orb_persistant = false
 orb_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 37, 24 )
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 60.0
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 30.0
+height = 120.0
 
 [sub_resource type="Animation" id=3]
 resource_name = "Attack"
@@ -57,26 +55,58 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Mob" type="KinematicBody2D" groups=["mob"]]
+[sub_resource type="Animation" id=5]
+resource_name = "Walk"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -8.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionPolygon2D:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -8.0, 0.0 ]
+}
+
+[node name="MobEye" type="KinematicBody2D" groups=["mob"]]
 script = ExtResource( 1 )
 np_sprite = NodePath("Sprite")
+np_move_animation_player = NodePath("MoveAnimationPlayer")
 data = SubResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 0, -43, 12, -42, 26, -35, 33, -22, 50, -27, 68, -37, 81, -43, 87, -34, 88, -6, 85, 10, 79, 13, 71, -1, 62, 11, 55, 0, 50, 15, 43, 2, 38, 14, 35, 10, 29, 16, 25, 8, 14, 16, 0, 20, -19, 16, -33, 4, -39, 7, -41, 3, -48, 5, -47, -9, -62, 1, -64, -18, -82, -12, -89, -21, -82, -39, -60, -58, -29, -33, -14, -41 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -39 )
-scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
+position = Vector2( 0, -10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
-shape = SubResource( 2 )
+rotation = 1.5708
+shape = SubResource( 6 )
 
 [node name="AttackAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 3 )
+
+[node name="MoveAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Walk = SubResource( 5 )
 
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="DetectionArea2D" to="." method="_on_Area2D_body_exited"]

@@ -33,7 +33,7 @@ func add_player(input_prefix):
 	current_player_datas.append(player_data)
 	player_datas.append(player_data)
 
-func new_game():
+func new_game(with_tutorial:bool):
 	randomize()
 	
 	current_level = null
@@ -42,7 +42,10 @@ func new_game():
 	score = 0
 	time = 0
 	
-	get_tree().change_scene("res://Levels/Level0.tscn")
+	if with_tutorial:
+		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
+	else:	
+		get_tree().change_scene("res://Levels/L01.tscn")
 
 func setup_level(level:Level):
 	current_level = level
@@ -99,7 +102,7 @@ func on_level_completed():
 		return
 	
 	current_level_index += 1
-	respawn_dead_players()	
+	respawn_dead_players()
 	get_tree().change_scene(current_level.next_level)
 	
 func respawn_dead_players():

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Sprites/orb.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/orbbw.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/orbslot.png" type="Texture" id=2]
 [ext_resource path="res://LevelComponents/Triggers/OrbSlot.gd" type="Script" id=3]
 [ext_resource path="res://square.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/orbbwring.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 30.0
@@ -12,12 +13,18 @@ radius = 30.0
 script = ExtResource( 3 )
 on_time_activation = true
 np_orb_sprite = NodePath("Orb")
+np_orb_ring = NodePath("OrbRing")
 np_slot_area_shape = NodePath("SlotArea2D/CollisionShape2D")
 np_static_area_shape = NodePath("StaticBody2D/CollisionShape2D")
 np_status_sprite = NodePath("StatusSprite")
 
 [node name="Orbslot" type="Sprite" parent="."]
 texture = ExtResource( 2 )
+
+[node name="OrbRing" type="Sprite" parent="."]
+position = Vector2( 0, -10 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 5 )
 
 [node name="Orb" type="Sprite" parent="."]
 visible = false
@@ -36,6 +43,7 @@ shape = SubResource( 1 )
 [node name="StatusSprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 0, 30 )
+rotation = 0.785398
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 

@@ -24,7 +24,6 @@ func _process(delta):
 func spawn_next_mob():
 	$Particles2D.emitting = true
 	var mob = Game.spawn_mob(global_position, mob_scene)
-	mob.data = ActorData.new()
 	mob.data.carry_orb = randf() <= orb_color_chance
 	if mob.data.carry_orb:
 		var picked_orb_color = Game.current_level.pick_free_orb_color(potential_orb_colors)

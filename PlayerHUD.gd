@@ -10,7 +10,10 @@ export(PackedScene) var scene_heart_container
 onready var heart_placeholder = get_node(np_heart_placeholeder) as Control
 
 export(NodePath) var np_stamina_bar
+export(NodePath) var np_super_bar
+
 onready var stamina_bar = get_node(np_stamina_bar) as ProgressBar
+onready var super_bar = get_node(np_super_bar) as ProgressBar
 
 var player_data
 	
@@ -62,3 +65,7 @@ func update_stamina_bar():
 	stamina_bar.rect_min_size.x = player_data.max_stamina * 100
 	stamina_bar.max_value = player_data.max_stamina
 	stamina_bar.value = player_data.stamina
+	
+	super_bar.max_value = player_data.max_stamina
+	super_bar.value = player_data.super_stamina_cost
+	super_bar.visible = super_bar.value > player_data.stamina

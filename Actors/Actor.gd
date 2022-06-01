@@ -25,6 +25,9 @@ func regen_stamina(delta):
 
 func boost(direction, delta):
 	
+	if direction == Vector2(0,0):
+		return
+	
 	var stamina_cost = data.boost_stamina_cost_per_second * delta
 	if data.stamina < stamina_cost:
 		move(direction)

@@ -1,0 +1,170 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=5]
+[ext_resource path="res://LevelComponents/Triggers/OrbSlot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/Tutorial/throw_and_run.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 900 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 400 )
+
+[node name="Level" type="Node2D"]
+position = Vector2( -2, 0 )
+script = ExtResource( 1 )
+np_orb_placeholder = NodePath("Orbs")
+np_trigger_placeholder = NodePath("Triggers")
+np_mechanism_placeholder = NodePath("Mechanisms")
+np_orb_pickup_placeholder = NodePath("Pickups")
+np_mob_placeholder = NodePath("Mobs")
+np_door = NodePath("Mechanisms/Door")
+np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
+np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
+np_hud = NodePath("HUD")
+next_level = "res://Levels/AZ_tutorial_end.tscn"
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite" parent="Environment"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Walls" type="Node2D" parent="Environment"]
+
+[node name="Wall" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 163, 433 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall"]
+position = Vector2( 0, 114 )
+shape = SubResource( 2 )
+
+[node name="Wall2" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1766, 511 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall2"]
+shape = SubResource( 5 )
+
+[node name="Wall3" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1014, 942 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall3"]
+shape = SubResource( 1 )
+
+[node name="Wall4" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall4"]
+position = Vector2( -11.9982, 497 )
+shape = SubResource( 3 )
+
+[node name="Wall5" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall5"]
+position = Vector2( -13.0015, -418 )
+shape = SubResource( 4 )
+
+[node name="ThrowAndRun" type="Sprite" parent="Environment"]
+position = Vector2( 495, 349 )
+texture = ExtResource( 9 )
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="OrbSlot" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 1378, 531 )
+trigger_group = "door"
+accepted_color = Color( 0.87451, 0, 1, 1 )
+orb_ring_visible = true
+
+[node name="PressurePlate" parent="Triggers" instance=ExtResource( 8 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 610, 537 )
+trigger_group = "wall_inside"
+
+[node name="PressurePlate2" parent="Triggers" instance=ExtResource( 8 )]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( 302, 536 )
+trigger_group = "wall_outside"
+
+[node name="Mechanisms" type="Node2D" parent="."]
+
+[node name="Door" parent="Mechanisms" instance=ExtResource( 4 )]
+position = Vector2( 865, 74 )
+trigger_group = "door"
+
+[node name="PopupWall" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1291, 528 )
+scale = Vector2( 0.15, 1 )
+trigger_group = "wall_inside"
+
+[node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1475, 527 )
+scale = Vector2( 0.15, 1 )
+trigger_group = "wall_inside"
+
+[node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1378, 445 )
+rotation = 1.5708
+scale = Vector2( 0.15, 1 )
+trigger_group = "wall_inside"
+
+[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1383, 609 )
+rotation = 1.5708
+scale = Vector2( 0.15, 1 )
+trigger_group = "wall_inside"
+
+[node name="PopupWall5" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( 860, 536 )
+scale = Vector2( 0.15, 2 )
+trigger_group = "wall_outside"
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Orbs" type="Node2D" parent="."]
+
+[node name="OrbPickup" parent="Orbs" instance=ExtResource( 5 )]
+position = Vector2( 214, 535 )
+persistant = true
+orb_color = Color( 0.87451, 0, 1, 1 )
+
+[node name="PlayerSpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 860, 540 )
+
+[node name="PlayerSpawnPoint2" type="Position2D" parent="."]
+position = Vector2( 1060, 540 )

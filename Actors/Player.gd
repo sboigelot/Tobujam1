@@ -53,10 +53,11 @@ func twin_stick_rotation():
 func _physics_process(delta):
 	change_hands_tool()
 	
-	if "gp" in data.input_prefix:
-		twin_stick_rotation()
-	else:
-		mouse_rotation()
+	if hammer_animation_player.current_animation != "Swirl" or not hammer_animation_player.is_playing():
+		if "gp" in data.input_prefix:
+			twin_stick_rotation()
+		else:
+			mouse_rotation()
 
 	var direction = Input.get_vector(
 		data.input_prefix + "_move_left", 
@@ -69,6 +70,10 @@ func _physics_process(delta):
 			throw_orb()
 		else:
 			start_slash()
+			
+	if Input.is_action_just_pressed(data.input_prefix + "_super"):
+		if not data.carry_orb:
+			start_swirl()
 	
 	if (not data.carry_orb and
 		orb_pickups_nearby.size() > 0 and
@@ -85,8 +90,16 @@ func _physics_process(delta):
 func start_slash():
 	if hammer_animation_player.is_playing():
 		return
-		
+	
 	hammer_animation_player.play("Slash")
+
+func start_swirl():
+	if hammer_animation_player.is_playing():
+		return
+	
+	if data.stamina > data.super_stamina_cost:
+		data.stamina -= data.super_stamina_cost
+		hammer_animation_player.play("Swirl")
 
 func pickup_orb():
 	var orb_pickup_nearby = orb_pickups_nearby[orb_pickups_nearby.size() - 1]
