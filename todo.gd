@@ -9,5 +9,10 @@
 # pickup max stamina boost (sparkle)
 # pickup max health boost (sparkle)
 # pickup speed boost?
+# monster drop heart pickup
+
 
 # change music tracks according to number of mobs
+
+# spike trap (mechanism)
+# arrow trap (mechanism - arm both player and mob)
