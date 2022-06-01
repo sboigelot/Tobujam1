@@ -147,6 +147,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 3, 3 ), Vector2( 3, 3 ), Vector2( 1, 1 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("../../..:knockback_enabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "Walk"
@@ -180,22 +192,18 @@ np_orb_hinge = NodePath("HandsPivot/Hands/OrbHinge")
 np_orb_sprite = NodePath("HandsPivot/Hands/OrbHinge/OrbSprite")
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0, 1, 1, 1 )
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="HandsPivot" type="Node2D" parent="."]
-rotation = 6.28319
 
 [node name="Hands" type="Node2D" parent="HandsPivot"]
 position = Vector2( 50, 0 )
 
 [node name="HammerHinge" type="Node2D" parent="HandsPivot/Hands"]
-position = Vector2( 40, 0 )
-rotation = 0.785398
 scale = Vector2( 2, 2 )
 
 [node name="Sprite" type="Sprite" parent="HandsPivot/Hands/HammerHinge"]
@@ -207,7 +215,6 @@ position = Vector2( 7, -6.5 )
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HandsPivot/Hands/HammerHinge/HammerArea"]
-scale = Vector2( 3, 3 )
 shape = SubResource( 3 )
 
 [node name="OrbHinge" type="Node2D" parent="HandsPivot/Hands"]

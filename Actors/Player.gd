@@ -2,6 +2,7 @@ extends Actor
 
 class_name Player
 
+export var knockback_enabled: bool = false
 var orb_pickups_nearby: Array
 var direction = Vector2()
 
@@ -123,6 +124,8 @@ func _on_HammerArea2D_body_entered(body:Node2D):
 		
 	if body.is_in_group("mob"):
 		body.take_damage(Game.damage_hammer)
+		if knockback_enabled:
+			body.knockback(global_position, 200, 0.25)
 		return
 
 func enable_hammer_damage():

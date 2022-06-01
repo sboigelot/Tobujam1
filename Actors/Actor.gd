@@ -11,9 +11,16 @@ onready var move_animation_player = get_node(np_move_animation_player) as Animat
 signal took_damage
 signal died
 
+var knockback:Vector2
+var knockback_timer:float
+
 export(Resource) var data
 
 func _process(delta):
+	if knockback_timer > 0:
+		move_and_slide(knockback)
+		knockback_timer -= delta
+		
 	if data == null:
 		return
 	regen_stamina(delta)
@@ -25,6 +32,9 @@ func regen_stamina(delta):
 
 func boost(direction, delta):
 	
+	if knockback_timer > 0:
+		return
+		
 	if direction == Vector2(0,0):
 		return
 	
@@ -38,6 +48,9 @@ func boost(direction, delta):
 	move_and_slide (boost_velocity)
 
 func move(direction):
+	if knockback_timer > 0:
+		return
+		
 	# We don't need to multiply velocity by delta because "move_and_slide" already takes delta time into account.
 	# The second parameter of "move_and_slide" is the normal pointing up.
 	# In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
@@ -51,7 +64,12 @@ func flip_and_animate(direction):
 	sprite.flip_h = direction.x < 0
 	if move_animation_player != null and not move_animation_player.is_playing():
 		move_animation_player.play("Walk")
-			
+
+func knockback(origin:Vector2, force:float, time:float):
+	var direction = origin.direction_to(global_position)
+	knockback = direction * force
+	knockback_timer = time
+	
 func take_damage(damage):
 	if data.invincible:
 		return
