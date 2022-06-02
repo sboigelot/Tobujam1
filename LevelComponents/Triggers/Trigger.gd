@@ -6,8 +6,9 @@ signal activated
 signal deactivated
 
 export var trigger_group: String
+export var deactivate_trigger_group: String
 export var resolved:bool
-export var on_time_activation: bool
+export var one_time_activation: bool
 
 func resolve():
 	if resolved:
@@ -24,7 +25,7 @@ func revert():
 	if not resolved:
 		return
 	
-	if on_time_activation:
+	if one_time_activation:
 		return	
 	
 	resolved = false

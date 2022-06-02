@@ -3,6 +3,8 @@ extends Position2D
 var spawn_timer:float
 export var initial_spawn_delay_second:float = 3
 export var spawn_delay_second:float = 10
+export var spawn_group_size:int = 1
+export var spawn_group_delay:float = .2
 export var max_spawn_alive:int = 3
 export(PackedScene) var mob_scene
 
@@ -17,9 +19,13 @@ func _ready():
 func _process(delta):
 	spawn_timer -= delta
 	if spawn_timer <= 0:
-		if tracked_mobs.size() < max_spawn_alive:
-			spawn_next_mob()
 		spawn_timer = spawn_delay_second
+		if spawn_group_size > 1:
+			spawn_timer += (spawn_group_size * spawn_group_delay)
+		for i in spawn_group_size:
+			if tracked_mobs.size() < max_spawn_alive:
+				spawn_next_mob()
+				yield(get_tree().create_timer(spawn_group_delay), "timeout")
 		
 func spawn_next_mob():
 	$Particles2D.emitting = true

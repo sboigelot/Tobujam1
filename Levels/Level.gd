@@ -156,31 +156,40 @@ func assing_accepted_colors():
 
 func on_trigger_deactivated(trigger:Trigger):
 	var group = trigger.trigger_group
-	deresolve_trigger_group(group)
+	if trigger.trigger_group != "":
+		deresolve_trigger_group(group)
+#
+#	if trigger.deactivate_trigger_group != "":
+#		resolve_trigger_group(trigger.deactivate_trigger_group)
 
 func on_trigger_activated(trigger:Trigger):	
-	var group = trigger.trigger_group
-	var group_resolved = trigger.resolved
 	
-	if group_resolved:
-		for other_trigger in triggers:
-			if other_trigger.resolved:
-				continue
-				
-			if other_trigger.trigger_group == group:
-				group_resolved = false
-				break
-	
-	if group_resolved:
-		resolve_trigger_group(group)
-
+	if trigger.trigger_group != "":
+		resolve_trigger_group(trigger.trigger_group)
+		
+	if trigger.deactivate_trigger_group != "":
+		deresolve_trigger_group(trigger.deactivate_trigger_group, true)
+		
 func resolve_trigger_group(group):
+	var group_resolved = true
+	for other_trigger in triggers:
+		if other_trigger.resolved:
+			continue
+			
+		if other_trigger.trigger_group == group:
+			group_resolved = false
+			break
+	
+	if not group_resolved:
+		return
+	
 	for mechanism in mechanisms:
 		if mechanism.trigger_group == group:
 			mechanism.open()
 
-func deresolve_trigger_group(group):
+func deresolve_trigger_group(group, force:bool = false):
 	for mechanism in mechanisms:
-		if (mechanism.trigger_group == group and
-			not mechanism.stay_open_on_deresolve):
+		if not force and mechanism.stay_open_on_deresolve:
+			continue
+		if mechanism.trigger_group == group:
 			mechanism.close()

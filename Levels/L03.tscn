@@ -1,18 +1,15 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Actors/Mobs/MobEye.tscn" type="PackedScene" id=3]
 [ext_resource path="res://LevelComponents/Triggers/OrbSlot.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Actors/Mobs/MobSquid.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Levels/Level.gd" type="Script" id=6]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=7]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=10]
-[ext_resource path="res://LevelComponents/Mechanisms/SpikeTrap.tscn" type="PackedScene" id=11]
-[ext_resource path="res://LevelComponents/Mechanisms/PopupHeartPickup.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Actors/Mobs/MobGhost.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -37,8 +34,6 @@ np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
-next_level = "res://Levels/L03.tscn"
-puzzel_colors = PoolColorArray( 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
 
@@ -94,27 +89,42 @@ shape = SubResource( 4 )
 [node name="Triggers" type="Node2D" parent="."]
 
 [node name="OrbSlot" parent="Triggers" instance=ExtResource( 4 )]
-position = Vector2( 1421, 248 )
-rotation = 0.436332
+position = Vector2( 1659, 850 )
 trigger_group = "door"
+accepted_color = Color( 1, 0, 1, 1 )
+orb_ring_visible = true
 throw_direction = Vector2( -1, 1 )
 
 [node name="OrbSlot2" parent="Triggers" instance=ExtResource( 4 )]
-position = Vector2( 1518, 292 )
-rotation = 0.436332
+position = Vector2( 270, 850 )
 trigger_group = "door"
-throw_direction = Vector2( -1, 1 )
-
-[node name="OrbSlot3" parent="Triggers" instance=ExtResource( 4 )]
-position = Vector2( 1616, 339 )
-rotation = 0.436332
-trigger_group = "door"
+accepted_color = Color( 1, 1, 0, 1 )
+orb_ring_visible = true
 throw_direction = Vector2( -1, 1 )
 
 [node name="PressurePlate" parent="Triggers" instance=ExtResource( 10 )]
 modulate = Color( 0.439216, 0.776471, 1, 1 )
-position = Vector2( 541, 783 )
-trigger_group = "wall"
+position = Vector2( 648, 743 )
+trigger_group = "wall3"
+deactivate_trigger_group = "wall2"
+
+[node name="PressurePlate2" parent="Triggers" instance=ExtResource( 10 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 1300, 762 )
+trigger_group = "wall1"
+deactivate_trigger_group = "wall3"
+
+[node name="PressurePlate3" parent="Triggers" instance=ExtResource( 10 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 1317, 375 )
+trigger_group = "wall4"
+deactivate_trigger_group = "wall1"
+
+[node name="PressurePlate4" parent="Triggers" instance=ExtResource( 10 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 720, 363 )
+trigger_group = "wall2"
+deactivate_trigger_group = "wall4"
 
 [node name="Mechanisms" type="Node2D" parent="."]
 
@@ -122,60 +132,63 @@ trigger_group = "wall"
 position = Vector2( 865, 74 )
 trigger_group = "door"
 
-[node name="PopupHeartPickup" parent="Mechanisms" instance=ExtResource( 13 )]
-position = Vector2( 565, 295 )
-trigger_group = "heart"
-
 [node name="PopupWall" parent="Mechanisms" instance=ExtResource( 1 )]
 modulate = Color( 0.439216, 0.776471, 1, 1 )
-position = Vector2( 1409, 333 )
-rotation = 0.436332
-scale = Vector2( 4, 0.15 )
-trigger_group = "wall"
+position = Vector2( 1283, 514 )
+scale = Vector2( 5, 0.15 )
+trigger_group = "wall1"
+stay_open_on_deresolve = true
 
-[node name="SpikeTrap" parent="Mechanisms" instance=ExtResource( 11 )]
-position = Vector2( 1166, 753 )
-scale = Vector2( 0.5, 0.5 )
-trigger_group = "wall"
+[node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 1 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 639, 514 )
+scale = Vector2( 5, 0.15 )
+trigger_group = "wall2"
+stay_open_on_deresolve = true
+
+[node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 1 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 987, 725 )
+scale = Vector2( 0.15, 2 )
+trigger_group = "wall3"
+stay_open_on_deresolve = true
+
+[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 1 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 1104, 365 )
+scale = Vector2( 0.15, 2 )
+trigger_group = "wall4"
 stay_open_on_deresolve = true
 
 [node name="Pickups" type="Node2D" parent="."]
 
-[node name="OrbPickup" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 1450, 702 )
-persistant = true
-orb_color = Color( 0, 1, 0, 1 )
-
 [node name="Spawners" type="Node2D" parent="."]
 
 [node name="MobSpawner" parent="Spawners" instance=ExtResource( 9 )]
-position = Vector2( 442, 384 )
-spawn_delay_second = 8.0
-max_spawn_alive = 2
+position = Vector2( 378, 340 )
+spawn_delay_second = 15.0
+spawn_group_size = 3
+spawn_group_delay = 0.5
+max_spawn_alive = 4
 mob_scene = ExtResource( 3 )
-orb_color_chance = 0.3
-
-[node name="MobSpawner3" parent="Spawners" instance=ExtResource( 9 )]
-position = Vector2( 1620, 802 )
-initial_spawn_delay_second = 6.0
-spawn_delay_second = 7.0
-max_spawn_alive = 2
-mob_scene = ExtResource( 3 )
-orb_color_chance = 0.3
+orb_color_chance = 1.0
+potential_orb_colors = PoolColorArray( 1, 0, 1, 1 )
 
 [node name="MobSpawner2" parent="Spawners" instance=ExtResource( 9 )]
-position = Vector2( 351, 318 )
-initial_spawn_delay_second = 5.0
-max_spawn_alive = 2
-mob_scene = ExtResource( 14 )
-orb_color_chance = 0.3
+position = Vector2( 1638, 687 )
+initial_spawn_delay_second = 20.0
+spawn_delay_second = 80.0
+max_spawn_alive = 1
+mob_scene = ExtResource( 5 )
+orb_color_chance = 1.0
+potential_orb_colors = PoolColorArray( 1, 1, 0, 1 )
 
 [node name="Mobs" type="Node2D" parent="."]
 
 [node name="Orbs" type="Node2D" parent="."]
 
 [node name="PlayerSpawnPoint1" type="Position2D" parent="."]
-position = Vector2( 860, 540 )
+position = Vector2( 400, 796 )
 
 [node name="PlayerSpawnPoint2" type="Position2D" parent="."]
-position = Vector2( 1060, 540 )
+position = Vector2( 600, 796 )

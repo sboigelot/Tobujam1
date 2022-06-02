@@ -16,3 +16,6 @@
 
 # spike trap (mechanism)
 # arrow trap (mechanism - arm both player and mob)
+#	target (can be activated by orb / arrow / hammer)
+
+# end tutorial reset timer and level count

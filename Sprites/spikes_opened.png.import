@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/square.png-51b8b31f216285d75f625619e7157806.stex"
+path="res://.import/spikes_opened.png-9ad3e0e49537643d94adef7bac99dcf8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://square.png"
-dest_files=[ "res://.import/square.png-51b8b31f216285d75f625619e7157806.stex" ]
+source_file="res://Sprites/spikes_opened.png"
+dest_files=[ "res://.import/spikes_opened.png-9ad3e0e49537643d94adef7bac99dcf8.stex" ]
 
 [params]
 
