@@ -12,16 +12,20 @@ health = 7
 max_stamina = 2.0
 stamina_regen_per_second = 0.2
 stamina = 2.0
+super_stamina_cost = 0.8
 boost_stamina_cost_per_second = 1.0
 boost_speed_multiplier = 2
 speed = 120
+auto_boost = false
+auto_boost_threshold = 0.0
 carry_orb = false
 orb_persistant = false
 orb_color = Color( 0, 0, 0, 1 )
+suffer_knockback_on_hammer_attacks = false
 
 [sub_resource type="CapsuleShape2D" id=6]
-radius = 30.0
-height = 120.0
+radius = 35.0
+height = 110.0
 
 [sub_resource type="Animation" id=3]
 resource_name = "Attack"
@@ -90,9 +94,11 @@ np_move_animation_player = NodePath("MoveAnimationPlayer")
 data = SubResource( 4 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 0.75, 0.75 )
 polygon = PoolVector2Array( 0, -43, 12, -42, 26, -35, 33, -22, 50, -27, 68, -37, 81, -43, 87, -34, 88, -6, 85, 10, 79, 13, 71, -1, 62, 11, 55, 0, 50, 15, 43, 2, 38, 14, 35, 10, 29, 16, 25, 8, 14, 16, 0, 20, -19, 16, -33, 4, -39, 7, -41, 3, -48, 5, -47, -9, -62, 1, -64, -18, -82, -12, -89, -21, -82, -39, -60, -58, -29, -33, -14, -41 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
 
 [node name="DetectionArea2D" type="Area2D" parent="."]

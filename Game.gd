@@ -47,8 +47,8 @@ func new_game(with_tutorial:bool):
 	if with_tutorial:
 		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
 	else:	
-#		get_tree().change_scene("res://Levels/L01.tscn")
-		get_tree().change_scene("res://Levels/L02.tscn")
+		get_tree().change_scene("res://Levels/L01.tscn")
+#		get_tree().change_scene("res://Levels/L06.tscn")
 
 func setup_level(level:Level):
 	current_level = level
@@ -78,9 +78,10 @@ func spawn_orb_pickup(orb_color:Color, orb_persistant: bool, global_position:Vec
 	pickup.global_position = global_position
 	current_level.orb_pickup_placeholder.add_child(pickup)
 
-func spawn_arrow(global_position, shot_direction):
+func spawn_arrow(global_position, shot_direction, hurt_mobs):
 	var arrow = arrow_scene.instance() as Arrow
 	arrow.velocity = shot_direction
+	arrow.hurt_mobs = hurt_mobs
 	arrow.global_position = global_position
 	current_level.arrow_placeholder.add_child(arrow)
 
@@ -94,6 +95,7 @@ func spawn_mob(global_position:Vector2, mob_scene:PackedScene)->Mob:
 	var instance = mob_scene.instance() as Mob
 	instance.global_position = global_position
 	current_level.mob_placeholder.add_child(instance)
+	current_level.register_mob(instance)
 	return instance
 
 func defeat():

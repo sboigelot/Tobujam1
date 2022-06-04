@@ -1,27 +1,34 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/square.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/LevelComponents/pressure-plate-off.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/LevelComponents/pressure-plate-on-white.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/LevelComponents/pressure-plate-colorwaves.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30, 30 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 48.0
 
 [node name="PressurePlate" type="Node2D"]
 script = ExtResource( 1 )
 np_normal_sprite = NodePath("NormalSprite")
+np_highligth_sprite = NodePath("HighlightSprite")
 np_pressed_sprite = NodePath("PressedSprite")
-
-[node name="NormalSprite" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.392157 )
-texture = ExtResource( 2 )
-
-[node name="PressedSprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
+
+[node name="NormalSprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="HighlightSprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="PressedSprite" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0.686275, 0.145098, 0.145098, 1 )
+texture = ExtResource( 3 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

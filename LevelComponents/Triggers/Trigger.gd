@@ -9,6 +9,7 @@ export var trigger_group: String
 export var deactivate_trigger_group: String
 export var resolved:bool
 export var one_time_activation: bool
+export var any_trigger: bool = false
 
 func resolve():
 	if resolved:

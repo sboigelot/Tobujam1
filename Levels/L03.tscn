@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=10]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupHeartPickup.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -35,6 +36,7 @@ np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
+next_level = "res://Levels/L04.tscn"
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
 
@@ -92,7 +94,7 @@ shape = SubResource( 4 )
 [node name="OrbSlot" parent="Triggers" instance=ExtResource( 4 )]
 position = Vector2( 1659, 850 )
 trigger_group = "door"
-accepted_color = Color( 1, 0, 1, 1 )
+accepted_color = Color( 0, 1, 0, 1 )
 orb_ring_visible = true
 throw_direction = Vector2( -1, 1 )
 
@@ -104,28 +106,34 @@ orb_ring_visible = true
 throw_direction = Vector2( -1, 1 )
 
 [node name="PressurePlate" parent="Triggers" instance=ExtResource( 10 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
 position = Vector2( 648, 743 )
 trigger_group = "wall3"
 deactivate_trigger_group = "wall2"
+press_modulate = Color( 0.439216, 0.776471, 1, 1 )
 
 [node name="PressurePlate2" parent="Triggers" instance=ExtResource( 10 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
 position = Vector2( 1300, 762 )
 trigger_group = "wall1"
 deactivate_trigger_group = "wall3"
+press_modulate = Color( 0.439216, 0.776471, 1, 1 )
 
 [node name="PressurePlate3" parent="Triggers" instance=ExtResource( 10 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
 position = Vector2( 1317, 375 )
 trigger_group = "wall4"
 deactivate_trigger_group = "wall1"
+press_modulate = Color( 0.439216, 0.776471, 1, 1 )
 
 [node name="PressurePlate4" parent="Triggers" instance=ExtResource( 10 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
 position = Vector2( 720, 363 )
 trigger_group = "wall2"
 deactivate_trigger_group = "wall4"
+press_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
+[node name="PressurePlate5" parent="Triggers" instance=ExtResource( 10 )]
+position = Vector2( 217, 223 )
+trigger_group = "heart"
+one_time_activation = true
+press_modulate = Color( 1, 0, 0, 1 )
 
 [node name="Mechanisms" type="Node2D" parent="."]
 
@@ -161,19 +169,23 @@ scale = Vector2( 0.15, 2 )
 trigger_group = "wall4"
 stay_open_on_deresolve = true
 
+[node name="PopupHeartPickup" parent="Mechanisms" instance=ExtResource( 11 )]
+position = Vector2( 958, 403 )
+trigger_group = "heart"
+
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="Spawners" type="Node2D" parent="."]
 
 [node name="MobSpawner" parent="Spawners" instance=ExtResource( 9 )]
 position = Vector2( 378, 340 )
-spawn_delay_second = 15.0
+spawn_delay_second = 17.0
 spawn_group_size = 3
 spawn_group_delay = 0.5
 max_spawn_alive = 4
 mob_scene = ExtResource( 3 )
 orb_color_chance = 1.0
-potential_orb_colors = PoolColorArray( 1, 0, 1, 1 )
+potential_orb_colors = PoolColorArray( 0, 1, 0, 1 )
 
 [node name="MobSpawner2" parent="Spawners" instance=ExtResource( 9 )]
 position = Vector2( 1638, 687 )

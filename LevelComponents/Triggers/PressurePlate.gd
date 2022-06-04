@@ -1,14 +1,19 @@
 extends Trigger
 
 export(NodePath) var np_normal_sprite
+export(NodePath) var np_highligth_sprite
 export(NodePath) var np_pressed_sprite
 
+export(Color) var press_modulate = Color.white
+
 onready var normal_sprite = get_node(np_normal_sprite) as Sprite
+onready var highligth_sprite = get_node(np_highligth_sprite) as Sprite
 onready var pressed_sprite = get_node(np_pressed_sprite) as Sprite
 
 var players_on_plate : Array
 
 func _ready():
+	highligth_sprite.modulate = press_modulate
 	on_reverted()
 	
 func _on_Area2D_body_entered(body):
@@ -24,9 +29,8 @@ func _on_Area2D_body_exited(body):
 			revert()
 
 func on_resolved():
-	normal_sprite.visible = false
 	pressed_sprite.visible = true
+	pressed_sprite.modulate = press_modulate
 
 func on_reverted():
-	normal_sprite.visible = true
 	pressed_sprite.visible = false

@@ -1,0 +1,310 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://LevelComponents/Triggers/OrbSlot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=7]
+[ext_resource path="res://LevelComponents/Mechanisms/SpikeTrap.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 900 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "Rotate"
+length = 20.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("OrbSlot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 10, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("OrbSlot2:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 10, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("OrbSlot3:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 10, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("OrbSlot4:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 10, 20 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -360.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Evil"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpikeTrap:activated")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 4.1, 6, 7.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, true, false, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpikeTrap2:activated")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 4.1, 6.1, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpikeTrap3:activated")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 4.1, 6.1, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpikeTrap4:activated")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.001, 2, 2.001, 4.1, 6.1, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false, true, false, true, true ]
+}
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+np_orb_placeholder = NodePath("Orbs")
+np_trigger_placeholder = NodePath("Triggers")
+np_mechanism_placeholder = NodePath("Mechanisms")
+np_orb_pickup_placeholder = NodePath("Pickups")
+np_mob_placeholder = NodePath("Mobs")
+np_arrow_placeholder = NodePath("Arrows")
+np_door = NodePath("Mechanisms/Door")
+np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
+np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
+np_hud = NodePath("HUD")
+next_level = "res://Levels/L05.tscn"
+np_start_anim_1 = NodePath("Triggers/Hinge/OrbSlotAnimationPlayer")
+np_start_anim_2 = NodePath("Mechanisms/Spikes/SpikesAnimationPlayer")
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite" parent="Environment"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Walls" type="Node2D" parent="Environment"]
+
+[node name="Wall" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 163, 433 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall"]
+position = Vector2( 0, 114 )
+shape = SubResource( 2 )
+
+[node name="Wall2" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1766, 511 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall2"]
+shape = SubResource( 5 )
+
+[node name="Wall3" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1014, 942 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall3"]
+shape = SubResource( 1 )
+
+[node name="Wall4" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall4"]
+position = Vector2( -11.9982, 497 )
+shape = SubResource( 3 )
+
+[node name="Wall5" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall5"]
+position = Vector2( -13.0015, -418 )
+shape = SubResource( 4 )
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="Hinge" type="Node2D" parent="Triggers"]
+position = Vector2( 960, 540 )
+
+[node name="OrbSlot" parent="Triggers/Hinge" instance=ExtResource( 5 )]
+position = Vector2( 150, 0 )
+trigger_group = "door"
+accepted_color = Color( 1, 0, 1, 1 )
+orb_ring_visible = true
+
+[node name="OrbSlot2" parent="Triggers/Hinge" instance=ExtResource( 5 )]
+position = Vector2( 0, 150 )
+trigger_group = "door"
+accepted_color = Color( 1, 1, 0, 1 )
+orb_ring_visible = true
+
+[node name="OrbSlot3" parent="Triggers/Hinge" instance=ExtResource( 5 )]
+position = Vector2( -150, 0 )
+trigger_group = "door"
+accepted_color = Color( 0, 1, 1, 1 )
+orb_ring_visible = true
+
+[node name="OrbSlot4" parent="Triggers/Hinge" instance=ExtResource( 5 )]
+position = Vector2( 0, -150 )
+trigger_group = "door"
+accepted_color = Color( 1, 1, 1, 1 )
+orb_ring_visible = true
+
+[node name="OrbSlotAnimationPlayer" type="AnimationPlayer" parent="Triggers/Hinge"]
+playback_speed = 0.5
+anims/Rotate = SubResource( 6 )
+
+[node name="Arrows" type="Node2D" parent="Triggers/Hinge/OrbSlotAnimationPlayer"]
+
+[node name="Arrows" type="Node2D" parent="Triggers/Hinge/OrbSlotAnimationPlayer/Arrows"]
+
+[node name="Mechanisms" type="Node2D" parent="."]
+
+[node name="Door" parent="Mechanisms" instance=ExtResource( 4 )]
+position = Vector2( 865, 74 )
+trigger_group = "door"
+
+[node name="Spikes" type="Node2D" parent="Mechanisms"]
+position = Vector2( 960, 540 )
+
+[node name="SpikeTrap" parent="Mechanisms/Spikes" instance=ExtResource( 8 )]
+position = Vector2( -300, -300 )
+hurt_mob = false
+
+[node name="SpikeTrap5" parent="Mechanisms/Spikes" instance=ExtResource( 8 )]
+hurt_mob = false
+
+[node name="SpikeTrap2" parent="Mechanisms/Spikes" instance=ExtResource( 8 )]
+position = Vector2( 300, -300 )
+activated = false
+hurt_mob = false
+
+[node name="SpikeTrap3" parent="Mechanisms/Spikes" instance=ExtResource( 8 )]
+position = Vector2( 300, 300 )
+activated = false
+hurt_mob = false
+
+[node name="SpikeTrap4" parent="Mechanisms/Spikes" instance=ExtResource( 8 )]
+position = Vector2( -300, 300 )
+activated = false
+hurt_mob = false
+
+[node name="SpikesAnimationPlayer" type="AnimationPlayer" parent="Mechanisms/Spikes"]
+anims/Evil = SubResource( 7 )
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="MobSpawner" parent="Spawners" instance=ExtResource( 6 )]
+position = Vector2( 300, 310 )
+initial_spawn_delay_second = 0.0
+spawn_delay_second = 15.0
+mob_scene = ExtResource( 7 )
+orb_color_chance = 1.0
+
+[node name="MobSpawner2" parent="Spawners" instance=ExtResource( 6 )]
+position = Vector2( 1627, 318 )
+initial_spawn_delay_second = 0.0
+spawn_delay_second = 15.0
+mob_scene = ExtResource( 7 )
+orb_color_chance = 1.0
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Orbs" type="Node2D" parent="."]
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="PlayerSpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 554, 555 )
+
+[node name="PlayerSpawnPoint2" type="Position2D" parent="."]
+position = Vector2( 1353, 549 )

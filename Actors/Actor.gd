@@ -8,6 +8,9 @@ onready var sprite = get_node(np_sprite) as Sprite
 export(NodePath) var np_move_animation_player
 onready var move_animation_player = get_node(np_move_animation_player) as AnimationPlayer
 
+export(NodePath) var np_boost_particule
+onready var boost_particule = get_node(np_boost_particule) as Particles2D
+
 signal took_damage
 signal died
 
@@ -30,24 +33,31 @@ func regen_stamina(delta):
 		data.stamina += data.stamina_regen_per_second * delta
 		data.stamina = min(data.stamina, data.max_stamina)
 
-func boost(direction, delta):
-	
+func boost(direction, delta)->bool:
+	if boost_particule != null:
+		boost_particule.emitting = true
+		
 	if knockback_timer > 0:
-		return
+		return false
 		
 	if direction == Vector2(0,0):
-		return
+		return false
 	
 	var stamina_cost = data.boost_stamina_cost_per_second * delta
 	if data.stamina < stamina_cost:
 		move(direction)
-		return
+		return false
 		
 	data.stamina -= stamina_cost
 	var boost_velocity = direction * data.speed * data.boost_speed_multiplier
 	move_and_slide (boost_velocity)
+	return true
 
 func move(direction):
+	if boost_particule != null:
+		boost_particule.emitting = false
+		
+	modulate= Color.white
 	if knockback_timer > 0:
 		return
 		

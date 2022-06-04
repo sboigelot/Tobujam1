@@ -1,15 +1,15 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=5]
-[ext_resource path="res://LevelComponents/Triggers/OrbSlot.tscn" type="PackedScene" id=6]
-[ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=7]
-[ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Sprites/Tutorial/walls.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/Tutorial/pressure_plates.png" type="Texture" id=10]
+[ext_resource path="res://Actors/ActorData.gd" type="Script" id=5]
+[ext_resource path="res://Actors/Mobs/MobQueen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Actors/Mobs/MobGhost.tscn" type="PackedScene" id=8]
+[ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=9]
+[ext_resource path="res://LevelComponents/Mechanisms/ArrowTrap.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -26,8 +26,45 @@ extents = Vector2( 10, 300 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 400 )
 
+[sub_resource type="Resource" id=6]
+resource_local_to_scene = true
+script = ExtResource( 5 )
+max_health = 16
+health = 16
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 100
+auto_boost = false
+auto_boost_threshold = 0.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+suffer_knockback_on_hammer_attacks = false
+
+[sub_resource type="Resource" id=7]
+resource_local_to_scene = true
+script = ExtResource( 5 )
+max_health = 16
+health = 16
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 100
+auto_boost = false
+auto_boost_threshold = 0.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+suffer_knockback_on_hammer_attacks = false
+
 [node name="Level" type="Node2D"]
-position = Vector2( -2, 0 )
 script = ExtResource( 1 )
 np_orb_placeholder = NodePath("Orbs")
 np_trigger_placeholder = NodePath("Triggers")
@@ -39,7 +76,8 @@ np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
-next_level = "res://Levels/A5_tutorial_run.tscn"
+next_level = "res://Levels/L06.tscn"
+trigger_all_mob_dead = "door"
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
@@ -92,31 +130,22 @@ rotation = 1.5708
 position = Vector2( -13.0015, -418 )
 shape = SubResource( 4 )
 
-[node name="PressurePlates" type="Sprite" parent="Environment"]
-position = Vector2( 610, 670 )
-texture = ExtResource( 10 )
-
-[node name="Walls2" type="Sprite" parent="Environment"]
-position = Vector2( 1293, 849 )
-texture = ExtResource( 9 )
-
 [node name="Triggers" type="Node2D" parent="."]
 
-[node name="OrbSlot" parent="Triggers" instance=ExtResource( 6 )]
-position = Vector2( 1378, 531 )
-trigger_group = "door"
-accepted_color = Color( 0, 1, 0, 1 )
-orb_ring_visible = true
+[node name="PressurePlate" parent="Triggers" instance=ExtResource( 9 )]
+position = Vector2( 1247, 415 )
+trigger_group = "arrow"
+any_trigger = true
 
-[node name="PressurePlate" parent="Triggers" instance=ExtResource( 8 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 399, 538 )
-trigger_group = "wall_inside"
+[node name="PressurePlate2" parent="Triggers" instance=ExtResource( 9 )]
+position = Vector2( 710, 398 )
+trigger_group = "arrow"
+any_trigger = true
 
-[node name="PressurePlate2" parent="Triggers" instance=ExtResource( 8 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 802, 691 )
-trigger_group = "wall_outside"
+[node name="PressurePlate3" parent="Triggers" instance=ExtResource( 9 )]
+position = Vector2( 1049, 753 )
+trigger_group = "arrow"
+any_trigger = true
 
 [node name="Mechanisms" type="Node2D" parent="."]
 
@@ -124,74 +153,57 @@ trigger_group = "wall_outside"
 position = Vector2( 865, 74 )
 trigger_group = "door"
 
-[node name="PopupWall" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1291, 528 )
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
+[node name="ArrowTrap" parent="Mechanisms" instance=ExtResource( 10 )]
+position = Vector2( 192, 287 )
+trigger_group = "arrow"
+shot_direction = Vector2( 4, 0 )
 
-[node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1475, 527 )
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
+[node name="ArrowTrap2" parent="Mechanisms" instance=ExtResource( 10 )]
+position = Vector2( 189, 434 )
+trigger_group = "arrow"
+shot_direction = Vector2( 5, 0 )
 
-[node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1378, 445 )
-rotation = 1.5708
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
+[node name="ArrowTrap3" parent="Mechanisms" instance=ExtResource( 10 )]
+position = Vector2( 190, 595 )
+trigger_group = "arrow"
+shot_direction = Vector2( 4, 0 )
 
-[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1383, 609 )
-rotation = 1.5708
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
-
-[node name="PopupWall5" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 1201, 525 )
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall_outside"
-stay_open_on_deresolve = true
-
-[node name="PopupWall6" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 1559, 524 )
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall_outside"
-stay_open_on_deresolve = true
-
-[node name="PopupWall7" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 1379, 346 )
-rotation = 1.5708
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall_outside"
-stay_open_on_deresolve = true
-
-[node name="PopupWall8" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 1381, 703 )
-rotation = 1.5708
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall_outside"
-stay_open_on_deresolve = true
+[node name="ArrowTrap4" parent="Mechanisms" instance=ExtResource( 10 )]
+position = Vector2( 193, 787 )
+trigger_group = "arrow"
+shot_direction = Vector2( 5, 0 )
 
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="Spawners" type="Node2D" parent="."]
 
+[node name="MobSpawner" parent="Spawners" instance=ExtResource( 7 )]
+position = Vector2( 1649, 827 )
+initial_spawn_delay_second = 15.0
+spawn_delay_second = 25.0
+spawn_group_size = 2
+max_spawn_alive = 2
+mob_scene = ExtResource( 8 )
+
+[node name="MobSpawner2" parent="Spawners" instance=ExtResource( 7 )]
+position = Vector2( 282, 816 )
+initial_spawn_delay_second = 15.0
+spawn_delay_second = 25.0
+spawn_group_size = 2
+max_spawn_alive = 2
+mob_scene = ExtResource( 8 )
+
 [node name="Mobs" type="Node2D" parent="."]
 
-[node name="Orbs" type="Node2D" parent="."]
+[node name="MobQueen" parent="Mobs" instance=ExtResource( 6 )]
+position = Vector2( 1478, 523 )
+data = SubResource( 6 )
 
-[node name="OrbPickup" parent="Orbs" instance=ExtResource( 5 )]
-position = Vector2( 605, 543 )
-persistant = true
-orb_color = Color( 0, 1, 0, 1 )
+[node name="MobQueen2" parent="Mobs" instance=ExtResource( 6 )]
+position = Vector2( 498, 531 )
+data = SubResource( 7 )
+
+[node name="Orbs" type="Node2D" parent="."]
 
 [node name="Arrows" type="Node2D" parent="."]
 

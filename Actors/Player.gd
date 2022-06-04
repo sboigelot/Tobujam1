@@ -124,7 +124,7 @@ func _on_HammerArea2D_body_entered(body:Node2D):
 		
 	if body.is_in_group("mob"):
 		body.take_damage(Game.damage_hammer)
-		if knockback_enabled:
+		if knockback_enabled or body.data.suffer_knockback_on_hammer_attacks:
 			body.knockback(global_position, 200, 0.25)
 		return
 

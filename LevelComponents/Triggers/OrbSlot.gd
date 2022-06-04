@@ -37,6 +37,7 @@ func accept_orb(orb:Orb):
 	static_area_shape.set_deferred("disabled", false)
 	
 	orb_sprite.visible = true
+#	orb_ring.visible = false
 	orb_color = orb.orb_color
 	orb_persistant = orb.persistant
 	orb_sprite.modulate = orb_color

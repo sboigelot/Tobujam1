@@ -9,6 +9,7 @@ var player_in_range: Player
 export var hunt_rest_timer:float = 3
 var rest_timer: float = 0
 var mode = HUNT
+var is_boosting = false
 
 func _physics_process(delta):
 	if data == null:
@@ -34,6 +35,8 @@ func hunt(delta):
 	if target == null or not is_instance_valid(target):
 		var player_alive = []
 		for player in Game.current_level.players:
+			if player == null or not is_instance_valid(player):
+				continue
 			if player.data.health > 0:
 				player_alive.append(player)
 		if player_alive.size() == 0:
@@ -48,7 +51,15 @@ func hunt(delta):
 		
 	var move_direction = global_position.direction_to(target.global_position)
 	flip_and_animate(move_direction)
-	move(move_direction)
+	if data.auto_boost:
+		if is_boosting:
+			is_boosting = boost(move_direction, delta)
+		else:
+			move(move_direction)
+			if data.stamina >= data.auto_boost_threshold:
+				is_boosting = true
+	else:
+		move(move_direction)
 	return HUNT
 	
 func attack():

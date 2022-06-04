@@ -1,0 +1,97 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Actors/Mobs/Mob.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Mobs/3eyedude.png" type="Texture" id=2]
+[ext_resource path="res://Actors/ActorData.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/Effects/fire_particle.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Effects/flame_particles.tres" type="Material" id=5]
+
+[sub_resource type="Resource" id=4]
+resource_local_to_scene = true
+script = ExtResource( 3 )
+max_health = 6
+health = 6
+max_stamina = 2.0
+stamina_regen_per_second = 0.4
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 5
+speed = 40
+auto_boost = true
+auto_boost_threshold = 2.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+suffer_knockback_on_hammer_attacks = true
+
+[sub_resource type="CanvasItemMaterial" id=5]
+blend_mode = 1
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 90.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.3, 1.3 ), Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "attack_damage_player"
+}, {
+"args": [  ],
+"method": "stop_attack"
+} ]
+}
+
+[node name="Mob" type="KinematicBody2D" groups=["mob"]]
+script = ExtResource( 1 )
+np_sprite = NodePath("Sprite")
+np_boost_particule = NodePath("Particles2D")
+data = SubResource( 4 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 39 )
+polygon = PoolVector2Array( -3, -59, -3, -67, -11, -76, -1, -87, 8, -80, 3, -70, 3, -59, 14, -54, 22, -76, 14, -87, 23, -97, 32, -87, 26, -77, 22, -57, 19, -50, 29, -38, 37, -40, 41, -50, 49, -50, 50, -42, 43, -28, 33, -22, 23, 1, 27, 8, 27, 18, 21, 24, 14, 16, 16, 4, -1, 12, -23, 2, -21, 14, -27, 22, -34, 13, -28, -5, -35, -18, -36, -26, -47, -35, -48, -50, -42, -57, -37, -42, -32, -39, -25, -49, -30, -59, -25, -82, -34, -89, -31, -99, -22, -103, -15, -98, -12, -89, -19, -80, -23, -59, -20, -52 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+material = SubResource( 5 )
+amount = 64
+lifetime = 2.0
+explosiveness = 0.08
+randomness = 1.0
+process_material = ExtResource( 5 )
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="DetectionArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
+shape = SubResource( 2 )
+
+[node name="AttackAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 3 )
+
+[connection signal="body_entered" from="DetectionArea2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="DetectionArea2D" to="." method="_on_Area2D_body_exited"]
