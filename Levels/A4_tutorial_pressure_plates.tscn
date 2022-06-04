@@ -34,6 +34,7 @@ np_trigger_placeholder = NodePath("Triggers")
 np_mechanism_placeholder = NodePath("Mechanisms")
 np_orb_pickup_placeholder = NodePath("Pickups")
 np_mob_placeholder = NodePath("Mobs")
+np_arrow_placeholder = NodePath("Arrows")
 np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
@@ -116,7 +117,6 @@ trigger_group = "wall_inside"
 modulate = Color( 0.0313726, 0, 1, 1 )
 position = Vector2( 802, 691 )
 trigger_group = "wall_outside"
-on_time_activation = true
 
 [node name="Mechanisms" type="Node2D" parent="."]
 
@@ -188,6 +188,8 @@ trigger_group = "wall_outside"
 position = Vector2( 605, 543 )
 persistant = true
 orb_color = Color( 0, 1, 0, 1 )
+
+[node name="Arrows" type="Node2D" parent="."]
 
 [node name="PlayerSpawnPoint1" type="Position2D" parent="."]
 position = Vector2( 860, 540 )

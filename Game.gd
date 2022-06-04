@@ -8,11 +8,13 @@ export var damage_orb = 2
 export var damage_hammer = 3
 export var damage_mob = 1
 export var damage_swirl = 1
+export var damage_arrow = 1
 
 export(PackedScene) var player_scene
 export(PackedScene) var orb_scene
 export(PackedScene) var orb_pickup_scene
 export(PackedScene) var heart_pickup_scene
+export(PackedScene) var arrow_scene
 
 var current_player_datas: Array
 var player_datas: Array
@@ -46,7 +48,7 @@ func new_game(with_tutorial:bool):
 		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
 	else:	
 #		get_tree().change_scene("res://Levels/L01.tscn")
-		get_tree().change_scene("res://Levels/L03.tscn")
+		get_tree().change_scene("res://Levels/L02.tscn")
 
 func setup_level(level:Level):
 	current_level = level
@@ -75,6 +77,12 @@ func spawn_orb_pickup(orb_color:Color, orb_persistant: bool, global_position:Vec
 	pickup.persistant = orb_persistant
 	pickup.global_position = global_position
 	current_level.orb_pickup_placeholder.add_child(pickup)
+
+func spawn_arrow(global_position, shot_direction):
+	var arrow = arrow_scene.instance() as Arrow
+	arrow.velocity = shot_direction
+	arrow.global_position = global_position
+	current_level.arrow_placeholder.add_child(arrow)
 
 func spawn_heart_pickup(global_position:Vector2, persistant:bool):
 	var pickup = heart_pickup_scene.instance() as HeartPickup

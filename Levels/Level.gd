@@ -7,6 +7,7 @@ export(NodePath) var np_trigger_placeholder
 export(NodePath) var np_mechanism_placeholder
 export(NodePath) var np_orb_pickup_placeholder
 export(NodePath) var np_mob_placeholder
+export(NodePath) var np_arrow_placeholder
 export(NodePath) var np_door
 
 export(NodePath) var np_player_spawnpoint_1
@@ -17,6 +18,7 @@ onready var trigger_placeholder = get_node(np_trigger_placeholder) as Node2D
 onready var mechanism_placeholder = get_node(np_mechanism_placeholder) as Node2D
 onready var orb_pickup_placeholder = get_node(np_orb_pickup_placeholder) as Node2D
 onready var mob_placeholder = get_node(np_mob_placeholder) as Node2D
+onready var arrow_placeholder = get_node(np_arrow_placeholder) as Node2D
 onready var player_spawnpoint_1 = get_node(np_player_spawnpoint_1) as Position2D
 onready var player_spawnpoint_2 = get_node(np_player_spawnpoint_2) as Position2D
 onready var door = get_node(np_door) as Door

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Actors/ActorData.gd" type="Script" id=4]
 [ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=6]
+[ext_resource path="res://LevelComponents/Mechanisms/Arrow.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 4 )
@@ -14,6 +15,7 @@ health = 5
 max_stamina = 2.0
 stamina_regen_per_second = 0.2
 stamina = 2.0
+super_stamina_cost = 0.8
 boost_stamina_cost_per_second = 1.0
 boost_speed_multiplier = 2
 speed = 200
@@ -28,3 +30,4 @@ player_scene = ExtResource( 5 )
 orb_scene = ExtResource( 3 )
 orb_pickup_scene = ExtResource( 2 )
 heart_pickup_scene = ExtResource( 6 )
+arrow_scene = ExtResource( 7 )

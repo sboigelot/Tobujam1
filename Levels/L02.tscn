@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=10]
 [ext_resource path="res://LevelComponents/Mechanisms/SpikeTrap.tscn" type="PackedScene" id=11]
+[ext_resource path="res://LevelComponents/Mechanisms/ArrowTrap.tscn" type="PackedScene" id=12]
 [ext_resource path="res://LevelComponents/Mechanisms/PopupHeartPickup.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Actors/Mobs/MobGhost.tscn" type="PackedScene" id=14]
 
@@ -33,6 +34,7 @@ np_trigger_placeholder = NodePath("Triggers")
 np_mechanism_placeholder = NodePath("Mechanisms")
 np_orb_pickup_placeholder = NodePath("Pickups")
 np_mob_placeholder = NodePath("Mobs")
+np_arrow_placeholder = NodePath("Arrows")
 np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
@@ -116,6 +118,11 @@ modulate = Color( 0.439216, 0.776471, 1, 1 )
 position = Vector2( 541, 783 )
 trigger_group = "wall"
 
+[node name="PressurePlate2" parent="Triggers" instance=ExtResource( 10 )]
+modulate = Color( 0.439216, 0.776471, 1, 1 )
+position = Vector2( 764, 672 )
+trigger_group = "arrow"
+
 [node name="Mechanisms" type="Node2D" parent="."]
 
 [node name="Door" parent="Mechanisms" instance=ExtResource( 2 )]
@@ -138,6 +145,11 @@ position = Vector2( 1166, 753 )
 scale = Vector2( 0.5, 0.5 )
 trigger_group = "wall"
 stay_open_on_deresolve = true
+
+[node name="ArrowTrap" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 205, 658 )
+trigger_group = "arrow"
+shot_direction = Vector2( 3, 0 )
 
 [node name="Pickups" type="Node2D" parent="."]
 
@@ -173,6 +185,8 @@ orb_color_chance = 0.3
 [node name="Mobs" type="Node2D" parent="."]
 
 [node name="Orbs" type="Node2D" parent="."]
+
+[node name="Arrows" type="Node2D" parent="."]
 
 [node name="PlayerSpawnPoint1" type="Position2D" parent="."]
 position = Vector2( 860, 540 )
