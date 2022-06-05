@@ -104,14 +104,14 @@ accepted_color = Color( 0.87451, 0, 1, 1 )
 orb_ring_visible = true
 
 [node name="PressurePlate" parent="Triggers" instance=ExtResource( 8 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 610, 537 )
+position = Vector2( 756, 537 )
 trigger_group = "wall_inside"
+press_modulate = Color( 1, 0, 0, 1 )
 
 [node name="PressurePlate2" parent="Triggers" instance=ExtResource( 8 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
 position = Vector2( 302, 536 )
 trigger_group = "wall_outside"
+press_modulate = Color( 0.0313726, 0, 1, 1 )
 
 [node name="Mechanisms" type="Node2D" parent="."]
 
@@ -160,7 +160,7 @@ trigger_group = "wall_outside"
 [node name="Orbs" type="Node2D" parent="."]
 
 [node name="OrbPickup" parent="Orbs" instance=ExtResource( 5 )]
-position = Vector2( 214, 535 )
+position = Vector2( 538, 610 )
 persistant = true
 orb_color = Color( 0.87451, 0, 1, 1 )
 
