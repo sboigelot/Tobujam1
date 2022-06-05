@@ -10,6 +10,9 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
+	
+	rotation = velocity.angle()
+	
 	var collision = move_and_collide(velocity, true) as KinematicCollision2D
 	if collision == null:
 		return

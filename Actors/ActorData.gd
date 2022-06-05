@@ -3,7 +3,8 @@ extends Resource
 class_name ActorData
 
 export var max_health:int = 5
-export var health:int = 5
+export var health:float = 5
+export var health_regen_per_second:float = 0
 
 export var max_stamina:float = 2
 export var stamina_regen_per_second:float = 0.2
@@ -21,6 +22,8 @@ export var auto_boost_threshold: float
 export var carry_orb: bool
 export var orb_persistant: bool
 export var orb_color: Color
+
+export var carry_heart: bool
 
 export var suffer_knockback_on_hammer_attacks: bool = false
 

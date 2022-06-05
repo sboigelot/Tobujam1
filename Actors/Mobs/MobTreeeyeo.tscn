@@ -1,16 +1,17 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Actors/Mobs/Mob.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/Mobs/3eyedude.png" type="Texture" id=2]
-[ext_resource path="res://Actors/ActorData.gd" type="Script" id=3]
-[ext_resource path="res://Sprites/Effects/fire_particle.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Effects/flame_particles.tres" type="Material" id=5]
+[ext_resource path="res://Actors/ActorData.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/Effects/flame_particles.tres" type="Material" id=3]
+[ext_resource path="res://Sprites/Mobs/3eyedude.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Effects/fire_particle.png" type="Texture" id=5]
 
 [sub_resource type="Resource" id=4]
 resource_local_to_scene = true
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 max_health = 6
-health = 6
+health = 6.0
+health_regen_per_second = 0.0
 max_stamina = 2.0
 stamina_regen_per_second = 0.4
 stamina = 2.0
@@ -79,11 +80,11 @@ amount = 64
 lifetime = 2.0
 explosiveness = 0.08
 randomness = 1.0
-process_material = ExtResource( 5 )
-texture = ExtResource( 4 )
+process_material = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
 

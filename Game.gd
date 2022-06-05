@@ -45,10 +45,11 @@ func new_game(with_tutorial:bool):
 	time = 0
 	
 	if with_tutorial:
-		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
+		get_tree().change_scene("res://Levels/A5_tutorial_run.tscn")
+#		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
 	else:	
-		get_tree().change_scene("res://Levels/L01.tscn")
-#		get_tree().change_scene("res://Levels/L06.tscn")
+#		get_tree().change_scene("res://Levels/L01.tscn")
+		get_tree().change_scene("res://Levels/L03.tscn")
 
 func setup_level(level:Level):
 	current_level = level

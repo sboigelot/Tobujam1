@@ -4,20 +4,25 @@
 [ext_resource path="res://Sprites/Mobs/lee.png" type="Texture" id=2]
 [ext_resource path="res://Actors/ActorData.gd" type="Script" id=3]
 
-[sub_resource type="Resource" id=4]
+[sub_resource type="Resource" id=6]
 resource_local_to_scene = true
 script = ExtResource( 3 )
-max_health = 3
-health = 3
+max_health = 4
+health = 4.0
+health_regen_per_second = 0.0
 max_stamina = 2.0
 stamina_regen_per_second = 0.2
 stamina = 2.0
+super_stamina_cost = 0.8
 boost_stamina_cost_per_second = 1.0
 boost_speed_multiplier = 2
 speed = 50
+auto_boost = false
+auto_boost_threshold = 0.0
 carry_orb = false
 orb_persistant = false
 orb_color = Color( 0, 0, 0, 1 )
+suffer_knockback_on_hammer_attacks = false
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 60.0
@@ -86,7 +91,7 @@ tracks/1/keys = {
 script = ExtResource( 1 )
 np_sprite = NodePath("Sprite")
 np_move_animation_player = NodePath("MoveAnimationPlayer")
-data = SubResource( 4 )
+data = SubResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 0, -31, 9, -28, 17, -19, 19, -8, 19, 1, 22, 2, 27, -8, 32, -14, 37, -15, 43, -9, 42, 1, 37, 7, 28, 9, 21, 8, 22, 11, 32, 12, 43, 23, 44, 27, 40, 30, 29, 26, 22, 30, 13, 29, 4, 22, -8, 27, -13, 25, -15, 21, -33, 23, -44, 21, -45, 16, -40, 12, -30, 11, -26, 5, -29, -2, -40, -8, -43, -13, -42, -19, -37, -22, -30, -20, -26, -12, -22, -3, -19, -5, -18, -17, -12, -26, -5, -30 )

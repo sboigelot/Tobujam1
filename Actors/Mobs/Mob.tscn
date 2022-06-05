@@ -8,16 +8,21 @@
 resource_local_to_scene = true
 script = ExtResource( 3 )
 max_health = 4
-health = 4
+health = 4.0
+health_regen_per_second = 0.0
 max_stamina = 2.0
 stamina_regen_per_second = 0.2
 stamina = 2.0
+super_stamina_cost = 0.8
 boost_stamina_cost_per_second = 1.0
 boost_speed_multiplier = 2
 speed = 50
+auto_boost = false
+auto_boost_threshold = 0.0
 carry_orb = false
 orb_persistant = false
 orb_color = Color( 0, 0, 0, 1 )
+suffer_knockback_on_hammer_attacks = false
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 37, 24 )

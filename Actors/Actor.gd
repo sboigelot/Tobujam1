@@ -26,13 +26,23 @@ func _process(delta):
 		
 	if data == null:
 		return
+		
 	regen_stamina(delta)
+	regen_health(delta)
 
 func regen_stamina(delta):
 	if data.stamina < data.max_stamina:
 		data.stamina += data.stamina_regen_per_second * delta
 		data.stamina = min(data.stamina, data.max_stamina)
-
+		
+func regen_health(delta):
+	if data.health_regen_per_second == 0:
+		return
+		
+	if data.health < data.max_health:
+		data.health += data.health_regen_per_second * delta
+		data.health = min(data.health, data.max_health)
+		
 func boost(direction, delta)->bool:
 	if boost_particule != null:
 		boost_particule.emitting = true
@@ -57,7 +67,7 @@ func move(direction):
 	if boost_particule != null:
 		boost_particule.emitting = false
 		
-	modulate= Color.white
+#	modulate= Color.white
 	if knockback_timer > 0:
 		return
 		
@@ -92,21 +102,23 @@ func take_damage(damage):
 	
 	emit_signal("took_damage", self)
 	data.invincible = true
-	yield(get_tree().create_timer(0.2), "timeout")
+	yield(get_tree().create_timer(0.3), "timeout")
 	data.invincible = false
 		
 func die():
 	data.speed = 0
 	modulate = Color.red
-	yield(get_tree().create_timer(0.2), "timeout")
+	yield(get_tree().create_timer(0.3), "timeout")
 	
 	if data.carry_orb:
 		Game.spawn_orb_pickup(data.orb_color, data.orb_persistant, global_position)
+	elif data.carry_heart:
+		Game.spawn_heart_pickup(global_position, false)
 	
 	emit_signal("died",self)
 	queue_free()
 
-func blink(color:Color, time:float = 0.2):
+func blink(color:Color, time:float = 0.3):
 	modulate = color
 	yield(get_tree().create_timer(time), "timeout")
 	modulate = Color.white

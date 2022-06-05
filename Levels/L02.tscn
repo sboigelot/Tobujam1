@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=1]
 [ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=10]
+[ext_resource path="res://LevelComponents/PickupWindZone.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Actors/Mobs/MobGhost.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -90,6 +91,11 @@ rotation = 1.5708
 position = Vector2( -13.0015, -418 )
 shape = SubResource( 4 )
 
+[node name="PickupWindZone" parent="Environment" instance=ExtResource( 11 )]
+position = Vector2( 1465, 554 )
+scale = Vector2( 3.33214, 3.91608 )
+wind_speed = Vector2( -100, 0 )
+
 [node name="Triggers" type="Node2D" parent="."]
 
 [node name="OrbSlot" parent="Triggers" instance=ExtResource( 4 )]
@@ -131,7 +137,7 @@ trigger_group = "wall"
 [node name="Pickups" type="Node2D" parent="."]
 
 [node name="OrbPickup" parent="Pickups" instance=ExtResource( 5 )]
-position = Vector2( 1130, 344 )
+position = Vector2( 1481, 412 )
 lifespan = 60.0
 orb_color = Color( 1, 0, 0, 1 )
 

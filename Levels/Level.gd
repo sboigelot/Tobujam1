@@ -64,7 +64,6 @@ func _ready():
 	Game.setup_level(self)
 	start_animations()
 
-
 func register_mob(mob:Actor):
 	if not mob_alive.has(mob):
 		mob_alive.append(mob)
@@ -207,6 +206,7 @@ func assing_accepted_colors():
 				var picked_index = randi() % remaining_colors.size()
 				slot.accepted_color = remaining_colors[picked_index]
 				remaining_colors.remove(picked_index)
+				slot.update_orb_ring()
 
 func on_trigger_deactivated(trigger:Trigger):
 	var group = trigger.trigger_group

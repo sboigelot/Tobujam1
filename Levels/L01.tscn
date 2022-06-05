@@ -29,6 +29,7 @@ resource_local_to_scene = true
 script = ExtResource( 11 )
 max_health = 5
 health = 5
+health_regen_per_second = 0.0
 max_stamina = 2.0
 stamina_regen_per_second = 0.2
 stamina = 2.0
@@ -41,6 +42,7 @@ auto_boost_threshold = 0.0
 carry_orb = true
 orb_persistant = false
 orb_color = Color( 1, 0, 0, 1 )
+carry_heart = false
 suffer_knockback_on_hammer_attacks = false
 
 [node name="Level" type="Node2D"]

@@ -1,0 +1,350 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://LevelComponents/Triggers/TimerTrigger.tscn" type="PackedScene" id=5]
+[ext_resource path="res://LevelComponents/Mechanisms/ArrowTrap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupHeartPickup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sprites/Tutorial/survive.png" type="Texture" id=8]
+[ext_resource path="res://LevelComponents/Mechanisms/SpikeTrap.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 900 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "Rotate"
+length = 3.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+np_orb_placeholder = NodePath("Orbs")
+np_trigger_placeholder = NodePath("Triggers")
+np_mechanism_placeholder = NodePath("Mechanisms")
+np_orb_pickup_placeholder = NodePath("Pickups")
+np_mob_placeholder = NodePath("Mobs")
+np_arrow_placeholder = NodePath("Arrows")
+np_door = NodePath("Mechanisms/Door")
+np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
+np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
+np_hud = NodePath("HUD")
+np_start_anim_1 = NodePath("Mechanisms/Group1/AnimationPlayer")
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite" parent="Environment"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Walls" type="Node2D" parent="Environment"]
+
+[node name="Wall" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 163, 433 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall"]
+position = Vector2( 0, 114 )
+shape = SubResource( 2 )
+
+[node name="Wall2" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1766, 511 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall2"]
+shape = SubResource( 5 )
+
+[node name="Wall3" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1014, 942 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall3"]
+shape = SubResource( 1 )
+
+[node name="Wall4" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall4"]
+position = Vector2( -11.9982, 497 )
+shape = SubResource( 3 )
+
+[node name="Wall5" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall5"]
+position = Vector2( -13.0015, -418 )
+shape = SubResource( 4 )
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="Group1Timer" parent="Triggers" instance=ExtResource( 5 )]
+trigger_group = "arrow1"
+any_trigger = true
+start_time = 3.0
+wait_time = 0.8
+end_time = 10.0
+
+[node name="HeartsTimer" parent="Triggers" instance=ExtResource( 5 )]
+trigger_group = "hearths"
+one_time_activation = true
+start_time = 3.0
+wait_time = 8.0
+
+[node name="Group2Timer" parent="Triggers" instance=ExtResource( 5 )]
+trigger_group = "arrow2"
+any_trigger = true
+start_time = 9.0
+wait_time = 2.0
+end_time = 28.0
+
+[node name="Group3Timer" parent="Triggers" instance=ExtResource( 5 )]
+trigger_group = "group3"
+one_time_activation = true
+any_trigger = true
+start_time = 18.0
+wait_time = 2.0
+
+[node name="HeartsTimer2" parent="Triggers" instance=ExtResource( 5 )]
+trigger_group = "hearths2"
+one_time_activation = true
+start_time = 28.0
+wait_time = 2.0
+
+[node name="FinalTimer" parent="Triggers" instance=ExtResource( 5 )]
+trigger_group = "door"
+one_time_activation = true
+wait_time = 30.0
+
+[node name="Survive" type="Sprite" parent="Triggers/FinalTimer"]
+position = Vector2( 960, 779 )
+texture = ExtResource( 8 )
+
+[node name="Mechanisms" type="Node2D" parent="."]
+
+[node name="Door" parent="Mechanisms" instance=ExtResource( 4 )]
+position = Vector2( 865, 74 )
+trigger_group = "door"
+
+[node name="Group1" type="Node2D" parent="Mechanisms"]
+position = Vector2( 960, 540 )
+
+[node name="ArrowTrap7" parent="Mechanisms/Group1" instance=ExtResource( 6 )]
+position = Vector2( 320, 0 )
+trigger_group = "arrow1"
+shot_direction = Vector2( -6, 0 )
+shot_rotate_with_parent = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mechanisms/Group1"]
+anims/Rotate = SubResource( 6 )
+
+[node name="Group2" type="Node2D" parent="Mechanisms"]
+
+[node name="ArrowTrap2" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 224, 516 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 5, 0 )
+
+[node name="ArrowTrap3" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 1711, 647 )
+trigger_group = "arrow2"
+shot_direction = Vector2( -5, 0 )
+
+[node name="ArrowTrap4" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 225, 761 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 5, 0 )
+
+[node name="ArrowTrap5" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 1710, 385 )
+trigger_group = "arrow2"
+shot_direction = Vector2( -5, 0 )
+
+[node name="ArrowTrap6" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 217, 261 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 5, 0 )
+
+[node name="ArrowTrap7" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 548, 878 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 0, -5 )
+
+[node name="ArrowTrap8" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 1380, 882 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 0, -5 )
+
+[node name="ArrowTrap9" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 943, 884 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 0, -5 )
+
+[node name="ArrowTrap10" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 701, 212 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 0, 5 )
+
+[node name="ArrowTrap11" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 1168, 212 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 0, 5 )
+
+[node name="PopupHeartPickup" parent="Mechanisms/Group2" instance=ExtResource( 7 )]
+position = Vector2( 1390, 728 )
+trigger_group = "hearths"
+
+[node name="PopupHeartPickup2" parent="Mechanisms/Group2" instance=ExtResource( 7 )]
+position = Vector2( 1395, 520 )
+trigger_group = "hearths"
+
+[node name="PopupHeartPickup3" parent="Mechanisms/Group2" instance=ExtResource( 7 )]
+position = Vector2( 1394, 293 )
+trigger_group = "hearths"
+
+[node name="PopupHeartPickup4" parent="Mechanisms/Group2" instance=ExtResource( 7 )]
+position = Vector2( 551, 741 )
+trigger_group = "hearths"
+
+[node name="PopupHeartPickup5" parent="Mechanisms/Group2" instance=ExtResource( 7 )]
+position = Vector2( 543, 505 )
+trigger_group = "hearths"
+
+[node name="PopupHeartPickup6" parent="Mechanisms/Group2" instance=ExtResource( 7 )]
+position = Vector2( 538, 292 )
+trigger_group = "hearths"
+
+[node name="Group4" type="Node2D" parent="Mechanisms"]
+
+[node name="PopupHeartPickup" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
+position = Vector2( 839, 482 )
+trigger_group = "hearths2"
+
+[node name="PopupHeartPickup2" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
+position = Vector2( 965, 483 )
+trigger_group = "hearths2"
+
+[node name="PopupHeartPickup3" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
+position = Vector2( 1099, 483 )
+trigger_group = "hearths2"
+
+[node name="PopupHeartPickup4" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
+position = Vector2( 841, 602 )
+trigger_group = "hearths2"
+
+[node name="PopupHeartPickup5" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
+position = Vector2( 963, 603 )
+trigger_group = "hearths2"
+
+[node name="PopupHeartPickup6" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
+position = Vector2( 1089, 606 )
+trigger_group = "hearths2"
+
+[node name="Group3" type="Node2D" parent="Mechanisms"]
+
+[node name="SpikeTrap" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 400, 430 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap2" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 400, 530 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap3" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 400, 630 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap4" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 400, 730 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap5" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 1544, 460 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap6" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 1544, 560 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap7" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 1544, 660 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap8" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 1544, 760 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap9" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 822, 356 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap10" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 922, 356 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap11" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 1022, 356 )
+trigger_group = "group3"
+activated = false
+
+[node name="SpikeTrap12" parent="Mechanisms/Group3" instance=ExtResource( 9 )]
+position = Vector2( 1122, 356 )
+trigger_group = "group3"
+activated = false
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Orbs" type="Node2D" parent="."]
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="PlayerSpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 860, 540 )
+
+[node name="PlayerSpawnPoint2" type="Position2D" parent="."]
+position = Vector2( 1060, 540 )

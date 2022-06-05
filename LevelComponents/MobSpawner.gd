@@ -8,6 +8,9 @@ export var spawn_group_delay:float = .2
 export var max_spawn_alive:int = 3
 export(PackedScene) var mob_scene
 
+export var carry_heart_chance: float = 1
+export var carry_heart_reserve: int = 0
+
 export var orb_color_chance:float = 0
 export(PoolColorArray) var potential_orb_colors
 
@@ -36,7 +39,11 @@ func spawn_next_mob():
 		mob.data.carry_orb = picked_orb_color != Color.black
 		mob.data.orb_color = picked_orb_color
 		Game.current_level.register_orb_color(picked_orb_color)
-		
+	elif carry_heart_reserve > 0:
+		mob.data.carry_heart = 	randf() <= carry_heart_chance
+		if mob.data.carry_heart:
+			carry_heart_reserve -= 1
+	
 	tracked_mobs.append(mob)
 	mob.connect("died", self, "on_mob_death")
 

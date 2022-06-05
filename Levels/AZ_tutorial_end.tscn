@@ -95,9 +95,9 @@ texture = ExtResource( 5 )
 [node name="Triggers" type="Node2D" parent="."]
 
 [node name="PressurePlate" parent="Triggers" instance=ExtResource( 8 )]
-modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 861, 409 )
 trigger_group = "door"
+press_modulate = Color( 1, 0, 0, 1 )
 
 [node name="Mechanisms" type="Node2D" parent="."]
 

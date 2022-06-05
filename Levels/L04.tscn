@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=7]
 [ext_resource path="res://LevelComponents/Mechanisms/SpikeTrap.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Actors/Mobs/MobEye.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -296,6 +297,15 @@ initial_spawn_delay_second = 0.0
 spawn_delay_second = 15.0
 mob_scene = ExtResource( 7 )
 orb_color_chance = 1.0
+
+[node name="MobSpawner3" parent="Spawners" instance=ExtResource( 6 )]
+position = Vector2( 1612, 771 )
+initial_spawn_delay_second = 20.0
+spawn_delay_second = 40.0
+spawn_group_size = 3
+mob_scene = ExtResource( 9 )
+carry_heart_chance = 0.5
+carry_heart_reserve = 2
 
 [node name="Mobs" type="Node2D" parent="."]
 

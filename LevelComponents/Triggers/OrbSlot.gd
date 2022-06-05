@@ -21,10 +21,13 @@ onready var static_area_shape = get_node(np_static_area_shape) as CollisionShape
 onready var status_sprite = get_node(np_status_sprite) as Sprite
 
 func _ready():
-	orb_ring.modulate = accepted_color
-	orb_ring.visible = orb_ring_visible
+	update_orb_ring()
 	static_area_shape.set_deferred("disabled", true)
 
+func update_orb_ring():
+	orb_ring.modulate = accepted_color
+	orb_ring.visible = orb_ring_visible
+	
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("orb"):
 		if  body.orb_color == accepted_color:

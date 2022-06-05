@@ -4,7 +4,7 @@
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Actors/Mobs/Treeeyeo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Actors/Mobs/MobTreeeyeo.tscn" type="PackedScene" id=5]
 [ext_resource path="res://LevelComponents/MobSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://LevelComponents/Triggers/OrbSlot.tscn" type="PackedScene" id=7]
 
@@ -35,6 +35,7 @@ np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
+next_level = "res://Levels/L07.tscn"
 puzzel_colors = PoolColorArray( 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
@@ -90,31 +91,31 @@ shape = SubResource( 4 )
 
 [node name="Triggers" type="Node2D" parent="."]
 
-[node name="Mechanisms" type="Node2D" parent="."]
-
-[node name="Door" parent="Mechanisms" instance=ExtResource( 4 )]
-position = Vector2( 865, 74 )
-trigger_group = "door"
-
-[node name="OrbSlot" parent="Mechanisms" instance=ExtResource( 7 )]
+[node name="OrbSlot" parent="Triggers" instance=ExtResource( 7 )]
 position = Vector2( 1342, 225 )
 trigger_group = "door"
 
-[node name="OrbSlot2" parent="Mechanisms" instance=ExtResource( 7 )]
+[node name="OrbSlot2" parent="Triggers" instance=ExtResource( 7 )]
 position = Vector2( 528, 213 )
 trigger_group = "door"
 
-[node name="OrbSlot3" parent="Mechanisms" instance=ExtResource( 7 )]
+[node name="OrbSlot3" parent="Triggers" instance=ExtResource( 7 )]
 position = Vector2( 517, 903 )
 rotation = 3.14159
 trigger_group = "door"
 throw_direction = Vector2( 0, -1 )
 
-[node name="OrbSlot4" parent="Mechanisms" instance=ExtResource( 7 )]
+[node name="OrbSlot4" parent="Triggers" instance=ExtResource( 7 )]
 position = Vector2( 1349, 903 )
 rotation = 3.14159
 trigger_group = "door"
 throw_direction = Vector2( 0, -1 )
+
+[node name="Mechanisms" type="Node2D" parent="."]
+
+[node name="Door" parent="Mechanisms" instance=ExtResource( 4 )]
+position = Vector2( 865, 74 )
+trigger_group = "door"
 
 [node name="Pickups" type="Node2D" parent="."]
 

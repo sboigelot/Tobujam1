@@ -184,6 +184,8 @@ spawn_group_size = 3
 spawn_group_delay = 0.5
 max_spawn_alive = 4
 mob_scene = ExtResource( 3 )
+carry_heart_chance = 0.5
+carry_heart_reserve = 2
 orb_color_chance = 1.0
 potential_orb_colors = PoolColorArray( 0, 1, 0, 1 )
 
