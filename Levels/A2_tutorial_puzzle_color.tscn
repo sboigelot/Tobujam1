@@ -37,6 +37,7 @@ np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
 next_level = "res://Levels/A3_tutorial_fight.tscn"
+tutorial = true
 puzzel_colors = PoolColorArray( 0, 0.929412, 1, 1, 0.921569, 1, 0, 1, 1, 0, 0.866667, 1 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]

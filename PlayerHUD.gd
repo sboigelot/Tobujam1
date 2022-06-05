@@ -62,10 +62,11 @@ func update_stamina_bar():
 	if player_data == null:
 		return
 		
-	stamina_bar.rect_min_size.x = player_data.max_stamina * 100
+	stamina_bar.rect_min_size.x = player_data.max_stamina * 128
 	stamina_bar.max_value = player_data.max_stamina
 	stamina_bar.value = player_data.stamina
 	
+	super_bar.rect_min_size.x = player_data.max_stamina * 128
 	super_bar.max_value = player_data.max_stamina
 	super_bar.value = player_data.super_stamina_cost
 	super_bar.visible = super_bar.value > player_data.stamina

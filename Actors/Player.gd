@@ -12,18 +12,26 @@ onready var hammer_animation_player = get_node(np_hammer_animation_player) as An
 export(NodePath) var np_hands_pivot
 export(NodePath) var np_hands
 export(NodePath) var np_hammer_hinge
+export(NodePath) var np_hammer_sprite
 export(NodePath) var np_hammer_area
 export(NodePath) var np_orb_hinge
 
 onready var hands_pivot = get_node(np_hands_pivot) as Node2D
 onready var hands = get_node(np_hands) as Node2D
 onready var hammer_hinge = get_node(np_hammer_hinge) as Node2D
+onready var hammer_sprite = get_node(np_hammer_sprite) as Sprite
 onready var hammer_area = get_node(np_hammer_area) as Area2D
 onready var orb_hinge = get_node(np_orb_hinge) as Node2D
 
 export(NodePath) var np_orb_sprite
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
 
+export(Texture) var upgraded_hammer_texture
+
+func upgrade_hammer():
+	data.upgraded_weapon = true
+	hammer_sprite.texture = upgraded_hammer_texture
+	
 func change_hands_tool():
 	hammer_hinge.visible = not data.carry_orb
 	orb_hinge.visible = data.carry_orb
@@ -123,7 +131,8 @@ func _on_HammerArea2D_body_entered(body:Node2D):
 		return
 		
 	if body.is_in_group("mob"):
-		body.take_damage(Game.damage_hammer)
+		var damage = Game.damage_upgraded_hammer if data.upgraded_weapon else Game.damage_hammer 
+		body.take_damage(damage)
 		if knockback_enabled or body.data.suffer_knockback_on_hammer_attacks:
 			body.knockback(global_position, 200, 0.25)
 		return
@@ -137,14 +146,15 @@ func disable_hammer_damage():
 func _on_PickupArea2D_area_entered(area:Area2D):
 	if area == self:
 		return
-		
+
 	if area.is_in_group("orb_pickup"):
 		if not orb_pickups_nearby.has(area):
 			orb_pickups_nearby.append(area)
 		return
-		
-	if area.is_in_group("heart_pickup"):
-		pickup_heart(area)
+	
+	
+	if area is Pickup:
+		area.picked_by(self)
 		return
 		
 	if area.is_in_group("moving_orb_pickup"):
@@ -161,8 +171,3 @@ func _on_PickupArea2D_area_exited(area):
 	if orb_pickups_nearby.has(area.get_parent()):
 		orb_pickups_nearby.erase(area.get_parent())
 		return
-
-func pickup_heart(heart_pickup):
-	heart_pickup.queue_free()
-	data.health = min(data.health+1, data.max_health)
-	emit_signal("took_damage", self)

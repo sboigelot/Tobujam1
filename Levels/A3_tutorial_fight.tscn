@@ -37,6 +37,7 @@ np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
 next_level = "res://Levels/A4_tutorial_pressure_plates.tscn"
+tutorial = true
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

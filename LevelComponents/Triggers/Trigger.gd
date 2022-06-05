@@ -34,4 +34,4 @@ func revert():
 	emit_signal("deactivated", self)
 
 func on_reverted():
-	pass 
+	pass

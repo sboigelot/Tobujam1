@@ -34,6 +34,8 @@ export(NodePath) var np_start_anim_3
 export(NodePath) var np_start_anim_4
 export(NodePath) var np_start_anim_5
 
+export(bool) var tutorial
+
 onready var np_start_anims = [
 	np_start_anim_1,
 	np_start_anim_2,
@@ -80,7 +82,7 @@ func un_register_mob(mob):
 func start_animations():
 	for np in np_start_anims:
 		if np != null:
-			var anim = get_node(np) as AnimationPlayer
+			var anim = get_node_or_null(np) as AnimationPlayer
 			if anim != null:
 				var animations = anim.get_animation_list()
 				anim.play(animations[0])
@@ -179,6 +181,10 @@ func spawn_player(player_data)->Player:
 	hud.setup_player(player, players.size())
 	add_child(player)
 	players.append(player)
+	
+	if player_data.upgraded_weapon:
+		player.upgrade_hammer()
+	
 	return player
 
 func register_mechanisms(container):

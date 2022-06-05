@@ -6,10 +6,10 @@ export(NodePath) var np_sprite
 onready var sprite = get_node(np_sprite) as Sprite
 
 export(NodePath) var np_move_animation_player
-onready var move_animation_player = get_node(np_move_animation_player) as AnimationPlayer
+onready var move_animation_player = get_node_or_null(np_move_animation_player) as AnimationPlayer
 
 export(NodePath) var np_boost_particule
-onready var boost_particule = get_node(np_boost_particule) as Particles2D
+onready var boost_particule = get_node_or_null(np_boost_particule) as Particles2D
 
 signal took_damage
 signal died

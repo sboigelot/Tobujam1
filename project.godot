@@ -44,6 +44,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Levels/Level.gd"
 }, {
+"base": "Pickup",
+"class": "MaxHeartPickup",
+"language": "GDScript",
+"path": "res://Pickups/MaxHeartPickup.gd"
+}, {
+"base": "Pickup",
+"class": "MaxStaminaPickup",
+"language": "GDScript",
+"path": "res://Pickups/MaxStaminaPickup.gd"
+}, {
 "base": "Node2D",
 "class": "Mechanism",
 "language": "GDScript",
@@ -89,15 +99,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://LevelComponents/Mechanisms/PopupWall.gd"
 }, {
+"base": "Pickup",
+"class": "SpeedBoostPickup",
+"language": "GDScript",
+"path": "res://Pickups/SpeedBoostPickup.gd"
+}, {
 "base": "Mechanism",
 "class": "SpikeTrap",
 "language": "GDScript",
 "path": "res://LevelComponents/Mechanisms/SpikeTrap.gd"
 }, {
+"base": "Pickup",
+"class": "StaminaPickup",
+"language": "GDScript",
+"path": "res://Pickups/StaminaPickup.gd"
+}, {
 "base": "Node2D",
 "class": "Trigger",
 "language": "GDScript",
 "path": "res://LevelComponents/Triggers/Trigger.gd"
+}, {
+"base": "Pickup",
+"class": "UpgradedHammerPickup",
+"language": "GDScript",
+"path": "res://Pickups/UpgradedHammerPickup.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -107,6 +132,8 @@ _global_script_class_icons={
 "HUD": "",
 "HeartPickup": "",
 "Level": "",
+"MaxHeartPickup": "",
+"MaxStaminaPickup": "",
 "Mechanism": "",
 "Mob": "",
 "Orb": "",
@@ -116,8 +143,11 @@ _global_script_class_icons={
 "Player": "",
 "PlayerHUD": "",
 "PopupWall": "",
+"SpeedBoostPickup": "",
 "SpikeTrap": "",
-"Trigger": ""
+"StaminaPickup": "",
+"Trigger": "",
+"UpgradedHammerPickup": ""
 }
 
 [application]

@@ -6,6 +6,7 @@ export var orb_throw_speed = 400
 
 export var damage_orb = 2
 export var damage_hammer = 3
+export var damage_upgraded_hammer = 4
 export var damage_mob = 1
 export var damage_swirl = 1
 export var damage_arrow = 1
@@ -24,6 +25,7 @@ var current_level_index: int
 var win: bool
 var score: int
 var time: float
+var tutorial: bool
 
 func ready():
 	current_player_datas.clear()
@@ -43,22 +45,28 @@ func new_game(with_tutorial:bool):
 	win = false
 	score = 0
 	time = 0
+	tutorial = with_tutorial
 	
 	if with_tutorial:
-		get_tree().change_scene("res://Levels/A5_tutorial_run.tscn")
+		get_tree().change_scene("res://Levels/AZ_tutorial_end.tscn")
 #		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
 	else:	
-#		get_tree().change_scene("res://Levels/L01.tscn")
-		get_tree().change_scene("res://Levels/L03.tscn")
+		get_tree().change_scene("res://Levels/L01.tscn")
+#		get_tree().change_scene("res://Levels/L03.tscn")
 
 func setup_level(level:Level):
 	current_level = level
 	for player_data in current_player_datas:
 		var player = level.spawn_player(player_data)
 		player.connect("died", self, "on_player_death")
+	
+	if tutorial and not level.tutorial:
+		tutorial = level.tutorial
+		time = 0
+		score = 0
+		current_level_index = 1
 
 func on_player_death(player):
-#	todo check if all players are dead
 	current_player_datas.erase(player.data)
 	if current_player_datas.size() == 0:
 		defeat()

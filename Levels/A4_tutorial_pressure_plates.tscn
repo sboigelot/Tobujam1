@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/Tutorial/walls.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/Tutorial/pressure_plates.png" type="Texture" id=10]
+[ext_resource path="res://LevelComponents/Triggers/TimerTrigger.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -40,6 +41,7 @@ np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
 next_level = "res://Levels/A5_tutorial_run.tscn"
+tutorial = true
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 
@@ -117,6 +119,9 @@ press_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 802, 691 )
 trigger_group = "wall_outside"
 press_modulate = Color( 0.0313726, 0, 1, 1 )
+
+[node name="TimerTrigger" parent="Triggers" instance=ExtResource( 11 )]
+position = Vector2( 822, 420 )
 
 [node name="Mechanisms" type="Node2D" parent="."]
 

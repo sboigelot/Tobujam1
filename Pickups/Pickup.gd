@@ -9,6 +9,9 @@ var blink_opacity_warning = [
 	10, 5, 2
 ]
 
+func picked_by(player):
+	pass
+
 func _process(delta):
 	if not persistant:
 		lifespan -= delta

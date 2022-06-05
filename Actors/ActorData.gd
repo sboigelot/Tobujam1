@@ -27,4 +27,6 @@ export var carry_heart: bool
 
 export var suffer_knockback_on_hammer_attacks: bool = false
 
+export var upgraded_weapon: bool
+
 var input_prefix = "none"

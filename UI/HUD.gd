@@ -15,9 +15,13 @@ onready var time_label = get_node(np_time_label) as Label
 func _ready():
 	player_1.visible = false
 	player_2.visible = false
-	level_label.text = "Level %d" % Game.current_level_index
 
 func _process(delta):
+	
+	level_label.text = "%s %d" % [
+		"Turorial" if Game.tutorial else "Level",
+		Game.current_level_index]
+	
 	var seconds = floor(Game.time)
 	var minutes = floor(seconds / 60)
 	seconds -= minutes * 60

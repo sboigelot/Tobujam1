@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Actors/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/orbbw.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/Players/robert.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/Weapons/hammer.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Weapons/better_hammer.png" type="Texture" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 30.0
@@ -186,9 +187,11 @@ np_hammer_animation_player = NodePath("HammerAnimationPlayer")
 np_hands_pivot = NodePath("HandsPivot")
 np_hands = NodePath("HandsPivot/Hands")
 np_hammer_hinge = NodePath("HandsPivot/Hands/HammerHinge")
+np_hammer_sprite = NodePath("HandsPivot/Hands/HammerHinge/Sprite")
 np_hammer_area = NodePath("HandsPivot/Hands/HammerHinge/HammerArea")
 np_orb_hinge = NodePath("HandsPivot/Hands/OrbHinge")
 np_orb_sprite = NodePath("HandsPivot/Hands/OrbHinge/OrbSprite")
+upgraded_hammer_texture = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.6, 0.6 )
