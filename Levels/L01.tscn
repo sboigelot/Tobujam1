@@ -44,6 +44,7 @@ orb_persistant = false
 orb_color = Color( 1, 0, 0, 1 )
 carry_heart = false
 suffer_knockback_on_hammer_attacks = false
+upgraded_weapon = false
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 6 )

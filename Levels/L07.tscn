@@ -54,6 +54,7 @@ np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
+next_level = "res://Levels/B02.tscn"
 np_start_anim_1 = NodePath("Mechanisms/Group1/AnimationPlayer")
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
