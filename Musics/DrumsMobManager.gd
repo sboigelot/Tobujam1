@@ -6,6 +6,7 @@ var slime_count = 0
 var ghost_count = 0
 var eye_count = 0
 var squid_count = 0
+var spicy_count = 0
 var boss_count = 0
 
 func _ready():
@@ -21,6 +22,7 @@ func clear():
 	Drums.isEnd = false
 	Drums.inMenu = false
 	slime_count = 0
+	spicy_count = 0
 	ghost_count = 0
 	eye_count = 0
 	squid_count = 0
@@ -46,7 +48,7 @@ func count_mob(mob, amount):
 		"res://Actors/Mobs/MobSquid.tscn":
 			squid_count += amount
 		"res://Actors/Mobs/MobTreeeyeo.tscn":
-			boss_count += amount
+			spicy_count += amount
 		_:
 			printerr("DrumsMobManager: unknown mob filename")
 
@@ -61,6 +63,7 @@ func update_drums():
 		eye_count +
 		ghost_count +
 		slime_count +
+		spicy_count +
 		boss_count +
 		squid_count)
 		
@@ -70,5 +73,6 @@ func update_drums():
 	Drums.isGhost = ghost_count > 0
 	Drums.isEye = eye_count > 0
 	Drums.isSquid = squid_count > 0
+	Drums.isSpicy = spicy_count > 0
 	Drums.isBoss = boss_count > 0
 	Drums.CheckMusicLayer()

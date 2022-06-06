@@ -48,6 +48,7 @@ export var isSlime = false
 export var isGhost = false
 export var isEye = false
 export var isSquid = false
+export var isSpicy = false
 export var isBoss = false
 export var isEnd = false
 export var inMenu = false
@@ -61,6 +62,7 @@ var eyePlaying =false
 var slimePlaying=false
 var bigCombatPlaying=false
 var squidPlaying=false 
+var spicyPlaying=false 
 var bossPlaying=false 
 var endPlaying=false
 
@@ -89,6 +91,9 @@ onready var ghostMusic = get_node(ghostPlayer)
 
 export var squidPlayer: NodePath
 onready var squidMusic = get_node(squidPlayer) 
+
+export var spicyPlayer: NodePath
+onready var spicyMusic = get_node(spicyPlayer) 
 
 export var bossPlayer: NodePath
 onready var bossMusic = get_node(bossPlayer) 
@@ -153,6 +158,14 @@ func CheckMusicLayer():
 			FadeOut(slimeMusic)
 			slimePlaying=false
 			
+	if isSpicy: #simple bool option
+		if(!spicyPlaying):
+			FadeIn(spicyMusic)
+			spicyPlaying=true
+	else:
+		if(spicyPlaying):
+			FadeOut(spicyMusic)
+			spicyPlaying=false
 
 	if isGhost: #simple bool option
 		if(!ghostPlaying):
