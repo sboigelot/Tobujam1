@@ -1,0 +1,294 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://LevelComponents/Mechanisms/Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Actors/ActorData.gd" type="Script" id=5]
+[ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=6]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=7]
+[ext_resource path="res://LevelComponents/DualInputDisplay.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/Tutorial/swirl_attack.png" type="Texture" id=9]
+[ext_resource path="res://LevelComponents/Triggers/TimerTrigger.tscn" type="PackedScene" id=11]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 900 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 10, 400 )
+
+[sub_resource type="Resource" id=6]
+resource_local_to_scene = true
+script = ExtResource( 5 )
+max_health = 4
+health = 4.0
+health_regen_per_second = 0.0
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 50
+can_move = true
+auto_boost = false
+auto_boost_threshold = 0.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+carry_heart = false
+suffer_knockback_on_hammer_attacks = false
+upgraded_weapon = false
+
+[sub_resource type="Resource" id=7]
+resource_local_to_scene = true
+script = ExtResource( 5 )
+max_health = 4
+health = 4.0
+health_regen_per_second = 0.0
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 50
+can_move = true
+auto_boost = false
+auto_boost_threshold = 0.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+carry_heart = false
+suffer_knockback_on_hammer_attacks = false
+upgraded_weapon = false
+
+[sub_resource type="Resource" id=8]
+resource_local_to_scene = true
+script = ExtResource( 5 )
+max_health = 4
+health = 4.0
+health_regen_per_second = 0.0
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 50
+can_move = true
+auto_boost = false
+auto_boost_threshold = 0.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+carry_heart = false
+suffer_knockback_on_hammer_attacks = false
+upgraded_weapon = false
+
+[sub_resource type="Resource" id=9]
+resource_local_to_scene = true
+script = ExtResource( 5 )
+max_health = 4
+health = 4.0
+health_regen_per_second = 0.0
+max_stamina = 2.0
+stamina_regen_per_second = 0.2
+stamina = 2.0
+super_stamina_cost = 0.8
+boost_stamina_cost_per_second = 1.0
+boost_speed_multiplier = 2
+speed = 50
+can_move = true
+auto_boost = false
+auto_boost_threshold = 0.0
+carry_orb = false
+orb_persistant = false
+orb_color = Color( 0, 0, 0, 1 )
+carry_heart = false
+suffer_knockback_on_hammer_attacks = false
+upgraded_weapon = false
+
+[node name="Level" type="Node2D"]
+position = Vector2( -2, 0 )
+script = ExtResource( 1 )
+np_orb_placeholder = NodePath("Orbs")
+np_trigger_placeholder = NodePath("Triggers")
+np_mechanism_placeholder = NodePath("Mechanisms")
+np_orb_pickup_placeholder = NodePath("Pickups")
+np_mob_placeholder = NodePath("Mobs")
+np_arrow_placeholder = NodePath("Arrows")
+np_door = NodePath("Mechanisms/Door")
+np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
+np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
+np_hud = NodePath("HUD")
+next_level = "res://Levels/AZ_tutorial_end.tscn"
+tutorial = true
+trigger_all_mob_dead = "door"
+
+[node name="HUD" parent="." instance=ExtResource( 3 )]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite" parent="Environment"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Walls" type="Node2D" parent="Environment"]
+
+[node name="Wall" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 163, 433 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall"]
+position = Vector2( 0, 114 )
+shape = SubResource( 2 )
+
+[node name="Wall2" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1766, 511 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall2"]
+shape = SubResource( 5 )
+
+[node name="Wall3" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1014, 942 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall3"]
+shape = SubResource( 1 )
+
+[node name="Wall4" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall4"]
+position = Vector2( -11.9982, 497 )
+shape = SubResource( 3 )
+
+[node name="Wall5" type="StaticBody2D" parent="Environment/Walls"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 955, 186 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/Wall5"]
+position = Vector2( -13.0015, -418 )
+shape = SubResource( 4 )
+
+[node name="DualInputDisplay" parent="Environment" instance=ExtResource( 8 )]
+position = Vector2( 408, 795 )
+input = "super"
+
+[node name="SwirlAttack" type="Sprite" parent="Environment"]
+position = Vector2( 427, 657 )
+texture = ExtResource( 9 )
+
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="TimerTrigger" parent="Triggers" instance=ExtResource( 11 )]
+position = Vector2( 822, 420 )
+
+[node name="Mechanisms" type="Node2D" parent="."]
+
+[node name="Door" parent="Mechanisms" instance=ExtResource( 4 )]
+position = Vector2( 865, 74 )
+trigger_group = "door"
+
+[node name="PopupWall" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 728, 540 )
+scale = Vector2( 0.15, 1 )
+trigger_group = "door"
+
+[node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1181, 540 )
+scale = Vector2( 0.15, 1 )
+trigger_group = "door"
+
+[node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 954, 458 )
+rotation = 1.5708
+scale = Vector2( 0.15, 2.25 )
+trigger_group = "door"
+
+[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 952, 621 )
+rotation = 1.5708
+scale = Vector2( 0.15, 2.25 )
+trigger_group = "door"
+
+[node name="PopupWall5" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( 663, 537 )
+scale = Vector2( 0.15, 1.6 )
+trigger_group = "door"
+stay_open_on_deresolve = true
+
+[node name="PopupWall6" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( 1240, 536 )
+scale = Vector2( 0.15, 1.6 )
+trigger_group = "door"
+stay_open_on_deresolve = true
+
+[node name="PopupWall7" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( 950, 397 )
+rotation = 1.5708
+scale = Vector2( 0.15, 3 )
+trigger_group = "door"
+stay_open_on_deresolve = true
+
+[node name="PopupWall8" parent="Mechanisms" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 1 )
+position = Vector2( 951, 677 )
+rotation = 1.5708
+scale = Vector2( 0.15, 3 )
+trigger_group = "door"
+stay_open_on_deresolve = true
+
+[node name="Pickups" type="Node2D" parent="."]
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="MobLee" parent="Mobs" instance=ExtResource( 6 )]
+position = Vector2( 313, 481 )
+data = SubResource( 6 )
+
+[node name="MobLee2" parent="Mobs" instance=ExtResource( 6 )]
+position = Vector2( 1384, 491 )
+data = SubResource( 7 )
+
+[node name="MobLee3" parent="Mobs" instance=ExtResource( 6 )]
+position = Vector2( 522, 843 )
+data = SubResource( 8 )
+
+[node name="MobLee4" parent="Mobs" instance=ExtResource( 6 )]
+position = Vector2( 1111, 244 )
+data = SubResource( 9 )
+
+[node name="Orbs" type="Node2D" parent="."]
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="PlayerSpawnPoint1" type="Position2D" parent="."]
+position = Vector2( 860, 540 )
+
+[node name="PlayerSpawnPoint2" type="Position2D" parent="."]
+position = Vector2( 1060, 540 )

@@ -12,7 +12,3 @@
 # level selection screen
 
 # review all inputs
-
-# take picture for pedestal (ask bu)
-
-# tutorial level to teach swirl attack - player locked in box, monsters aroud - box disapear when all mob dead

@@ -49,7 +49,7 @@ func new_game(with_tutorial:bool):
 	tutorial = with_tutorial
 	
 	if with_tutorial:
-#		change_level("res://Levels/AZ_tutorial_end.tscn")
+#		change_level("res://Levels/A6_swirl.tscn")
 		change_level("res://Levels/A1_tutorial_slot.tscn")
 	else:	
 #		change_level("res://Levels/B01.tscn")

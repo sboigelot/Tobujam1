@@ -20,6 +20,7 @@ super_stamina_cost = 0.8
 boost_stamina_cost_per_second = 1.0
 boost_speed_multiplier = 2
 speed = 200
+can_move = true
 auto_boost = false
 auto_boost_threshold = 0.0
 carry_orb = false
