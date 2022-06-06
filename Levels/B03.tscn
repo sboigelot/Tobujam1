@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/BaseLevelEnvironment.tscn" type="PackedScene" id=2]
@@ -9,8 +9,9 @@
 [ext_resource path="res://Pickups/MaxHeartPickup.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/square.png" type="Texture" id=8]
 [ext_resource path="res://Pickups/MaxStaminaPickup.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Pickups/UpgradedHammerPickup.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Pickups/SpeedBoostPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://LevelComponents/Triggers/TimerTrigger.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 10, 120 )
@@ -244,8 +245,17 @@ position = Vector2( 765, 595 )
 [node name="MaxStaminaPickup" parent="Pickups" instance=ExtResource( 9 )]
 position = Vector2( 963, 592 )
 
-[node name="UpgradedHammerPickup" parent="Pickups" instance=ExtResource( 10 )]
-position = Vector2( 1163, 587 )
+[node name="SpeedBoostPickup" parent="Pickups" instance=ExtResource( 10 )]
+position = Vector2( 1164, 597 )
+
+[node name="HeartPickup" parent="Pickups" instance=ExtResource( 12 )]
+position = Vector2( 754, 333 )
+
+[node name="HeartPickup2" parent="Pickups" instance=ExtResource( 12 )]
+position = Vector2( 957, 329 )
+
+[node name="HeartPickup3" parent="Pickups" instance=ExtResource( 12 )]
+position = Vector2( 1152, 334 )
 
 [node name="Spawners" type="Node2D" parent="."]
 

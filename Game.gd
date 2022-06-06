@@ -52,7 +52,7 @@ func new_game(with_tutorial:bool):
 #		change_level("res://Levels/A6_swirl.tscn")
 		change_level("res://Levels/A1_tutorial_slot.tscn")
 	else:	
-#		change_level("res://Levels/B01.tscn")
+#		change_level("res://Levels/L10.tscn")
 		change_level("res://Levels/L01.tscn")
 
 func change_level(path):

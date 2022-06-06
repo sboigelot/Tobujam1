@@ -1,0 +1,115 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Sprites/Level/ground-texture.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Level/walls.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 10, 100 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 300 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 10, 100 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 10, 700 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 10, 100 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 10, 260 )
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 10, 100 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 10, 260 )
+
+[node name="BaseLevelEnvironment" type="Node2D"]
+
+[node name="Floor" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Walls2" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 150, 527 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/LeftWall"]
+position = Vector2( -17, 0 )
+shape = SubResource( 6 )
+
+[node name="DTLWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 194, 167 )
+rotation = 0.785398
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/DTLWall"]
+shape = SubResource( 10 )
+
+[node name="RightWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1766, 511 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/RightWall"]
+position = Vector2( 13, 0 )
+shape = SubResource( 5 )
+
+[node name="DTRWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1711, 160 )
+rotation = -0.785398
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/DTRWall"]
+shape = SubResource( 11 )
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1014, 942 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/BottomWall"]
+position = Vector2( 18.0002, 52.9999 )
+shape = SubResource( 7 )
+
+[node name="DBLWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 202, 895 )
+rotation = -0.785398
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/DBLWall"]
+shape = SubResource( 12 )
+
+[node name="TopLeftWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 501, 98 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/TopLeftWall"]
+position = Vector2( -1.00012, -34 )
+shape = SubResource( 8 )
+
+[node name="DBRLWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1713, 890 )
+rotation = 0.785398
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/DBRLWall"]
+shape = SubResource( 13 )
+
+[node name="TopRightWall" type="StaticBody2D" parent="Walls2"]
+modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
+position = Vector2( 1384, 103 )
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls2/TopRightWall"]
+shape = SubResource( 9 )

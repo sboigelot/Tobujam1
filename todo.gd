@@ -1,6 +1,6 @@
 # Todo
 
-# add score?
+
 # add "You reached level x in x time" in victory screen
 
 # split main menu & join game
@@ -10,3 +10,4 @@
 # level selection screen
 
 # review all inputs
+# input visual for gamepad joystick is not lighting up properly

@@ -2,6 +2,7 @@ extends Position2D
 
 var spawn_timer:float
 export var initial_spawn_delay_second:float = 3
+export var deactivate_delay_second:float = 0
 export var spawn_delay_second:float = 10
 export var spawn_group_size:int = 1
 export var spawn_group_delay:float = .2
@@ -15,13 +16,17 @@ export var orb_color_chance:float = 0
 export(PoolColorArray) var potential_orb_colors
 
 var tracked_mobs: Array
+var deactivate_timer: float
 
 func _ready():
 	spawn_timer = initial_spawn_delay_second
+	deactivate_timer = deactivate_delay_second
+	modulate = Color.transparent
 
 func _process(delta):
 	spawn_timer -= delta
 	if spawn_timer <= 0:
+		modulate = Color.white
 		spawn_timer = spawn_delay_second
 		if spawn_group_size > 1:
 			spawn_timer += (spawn_group_size * spawn_group_delay)
@@ -29,6 +34,11 @@ func _process(delta):
 			if tracked_mobs.size() < max_spawn_alive:
 				spawn_next_mob()
 				yield(get_tree().create_timer(spawn_group_delay), "timeout")
+		
+	if deactivate_delay_second != 0:
+		deactivate_timer -= delta
+		if deactivate_timer <= 0:
+			queue_free()
 		
 func spawn_next_mob():
 	$Particles2D.emitting = true

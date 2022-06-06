@@ -19,6 +19,7 @@ Use the SetMusic(string,bool) function. Valid string inputs:
 \"baseline\",\"combat\",\"bigCombat\",\"ghost\",\"slime\",\"eye\",\"squid\",\"boss\",\"end\""
 }
 checkTime = 0.1
+maxVolume = -6.0
 inMenu = true
 menuMusicPlayer = NodePath("MenuMusic")
 baselinePlayer = NodePath("BaselineMusic")
