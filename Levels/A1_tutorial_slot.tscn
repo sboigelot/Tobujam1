@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sprites/Tutorial/pickup.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Tutorial/thrown_orb.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Tutorial/escape.png" type="Texture" id=9]
+[ext_resource path="res://LevelComponents/DualInputDisplay.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -102,6 +103,60 @@ texture = ExtResource( 8 )
 [node name="Escape" type="Sprite" parent="Environment"]
 position = Vector2( 873, 298 )
 texture = ExtResource( 9 )
+
+[node name="PickupInputDisplay" parent="Environment" instance=ExtResource( 11 )]
+position = Vector2( 671, 657 )
+rotation = -0.307178
+input = "pickup"
+
+[node name="ThrowInputDisplay" parent="Environment" instance=ExtResource( 11 )]
+position = Vector2( 1190, 657 )
+rotation = -0.102974
+input = "throw"
+
+[node name="P1Move" type="Node2D" parent="Environment"]
+position = Vector2( 323, 787 )
+
+[node name="UpInputDisplay" parent="Environment/P1Move" instance=ExtResource( 11 )]
+input = "move_up"
+single_p1 = true
+
+[node name="LeftInputDisplay" parent="Environment/P1Move" instance=ExtResource( 11 )]
+position = Vector2( -75, 65 )
+input = "move_left"
+single_p1 = true
+
+[node name="DownInputDisplay" parent="Environment/P1Move" instance=ExtResource( 11 )]
+position = Vector2( 0, 65 )
+input = "move_down"
+single_p1 = true
+
+[node name="RightInputDisplay" parent="Environment/P1Move" instance=ExtResource( 11 )]
+position = Vector2( 75, 65 )
+input = "move_right"
+single_p1 = true
+
+[node name="P2Move" type="Node2D" parent="Environment"]
+position = Vector2( 1623, 787 )
+
+[node name="UpInputDisplay" parent="Environment/P2Move" instance=ExtResource( 11 )]
+input = "move_up"
+single_p2 = true
+
+[node name="LeftInputDisplay" parent="Environment/P2Move" instance=ExtResource( 11 )]
+position = Vector2( -75, 65 )
+input = "move_left"
+single_p2 = true
+
+[node name="DownInputDisplay" parent="Environment/P2Move" instance=ExtResource( 11 )]
+position = Vector2( 0, 65 )
+input = "move_down"
+single_p2 = true
+
+[node name="RightInputDisplay" parent="Environment/P2Move" instance=ExtResource( 11 )]
+position = Vector2( 75, 65 )
+input = "move_right"
+single_p2 = true
 
 [node name="Triggers" type="Node2D" parent="."]
 

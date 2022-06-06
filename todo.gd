@@ -5,8 +5,6 @@
 
 # trigger: button (can be activated by orb / arrow / hammer)
 
-# 1 player gam - die - continue game - 2 player present on next level (respawn?)
-
 # split main menu & join game
 # setting change volume music / soundfx
 # implement sound fx
@@ -14,4 +12,7 @@
 # level selection screen
 
 # review all inputs
-# write inputs somewhere
+
+# take picture for pedestal (ask bu)
+
+# tutorial level to teach swirl attack - player locked in box, monsters aroud - box disapear when all mob dead

@@ -40,6 +40,16 @@ _global_script_classes=[ {
 "path": "res://Pickups/HeartPickup.gd"
 }, {
 "base": "Node2D",
+"class": "InputDisplay",
+"language": "GDScript",
+"path": "res://LevelComponents/InputDisplay.gd"
+}, {
+"base": "Resource",
+"class": "InputVisual",
+"language": "GDScript",
+"path": "res://LevelComponents/InputVisual.gd"
+}, {
+"base": "Node2D",
 "class": "Level",
 "language": "GDScript",
 "path": "res://Levels/Level.gd"
@@ -131,6 +141,8 @@ _global_script_class_icons={
 "Door": "",
 "HUD": "",
 "HeartPickup": "",
+"InputDisplay": "",
+"InputVisual": "",
 "Level": "",
 "MaxHeartPickup": "",
 "MaxStaminaPickup": "",
