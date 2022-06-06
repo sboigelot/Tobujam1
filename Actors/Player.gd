@@ -9,6 +9,7 @@ var direction = Vector2()
 export(NodePath) var np_hammer_animation_player
 onready var hammer_animation_player = get_node(np_hammer_animation_player) as AnimationPlayer
 
+export(NodePath) var np_body_pivot
 export(NodePath) var np_hands_pivot
 export(NodePath) var np_hands
 export(NodePath) var np_hammer_hinge
@@ -16,6 +17,7 @@ export(NodePath) var np_hammer_sprite
 export(NodePath) var np_hammer_area
 export(NodePath) var np_orb_hinge
 
+onready var body_pivot = get_node(np_body_pivot) as Node2D
 onready var hands_pivot = get_node(np_hands_pivot) as Node2D
 onready var hands = get_node(np_hands) as Node2D
 onready var hammer_hinge = get_node(np_hammer_hinge) as Node2D
@@ -37,9 +39,9 @@ func change_hands_tool():
 	orb_hinge.visible = data.carry_orb
 
 func rotate_hands(angle):
-	hands_pivot.rotation = angle
+	body_pivot.rotation = angle
 	
-	var flip_h = hands_pivot.rotation_degrees > 90 or hands_pivot.rotation_degrees < -90
+	var flip_h = body_pivot.rotation_degrees > 90 or body_pivot.rotation_degrees < -90
 	if flip_h:
 		hands.scale = Vector2(1, -1)
 	else:
@@ -99,7 +101,7 @@ func _physics_process(delta):
 func start_slash():
 	if hammer_animation_player.is_playing():
 		return
-	
+#	hammer_animation_player.stop(true)
 	hammer_animation_player.play("Slash")
 
 func start_swirl():

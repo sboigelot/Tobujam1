@@ -113,7 +113,7 @@ func _ready():
 	pass # Replace with function body.
 
 func CheckMusicLayer():
-	print("checking for input")
+#	print("checking for input")
 	#Checks every layer to see if changes are necessary.
 	#BigFight: uses Bigfight function to read enemy count
 	#TODO: Combine with Fight for optimization
