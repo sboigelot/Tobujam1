@@ -159,6 +159,8 @@ config/icon="res://Sprites/icon.png"
 [autoload]
 
 Game="*res://Game.tscn"
+Drums="*res://Musics/DRUMS.tscn"
+DrumsMobManager="*res://Musics/DrumsMobManager.tscn"
 
 [display]
 

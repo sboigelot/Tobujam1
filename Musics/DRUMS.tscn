@@ -1,0 +1,114 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Musics/drums.gd" type="Script" id=1]
+[ext_resource path="res://Musics/music/Odinsteel Slimes Master.wav" type="AudioStream" id=2]
+[ext_resource path="res://Musics/music/Odinsteel Eyebats Master.wav" type="AudioStream" id=3]
+[ext_resource path="res://Musics/music/Odinsteel Ghosts Master.wav" type="AudioStream" id=4]
+[ext_resource path="res://Musics/music/Odinsteel BigFight Master.wav" type="AudioStream" id=5]
+[ext_resource path="res://Musics/music/Odinsteel Fight Master.wav" type="AudioStream" id=6]
+[ext_resource path="res://Musics/music/Odinsteel Squids Master.wav" type="AudioStream" id=7]
+[ext_resource path="res://Musics/music/Odinsteel Baseline Master.wav" type="AudioStream" id=8]
+
+[node name="DRUMS System" type="Node"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Call on the DRUMS System node (class name: DRUMS) to change the active music layers.
+
+Use the SetMusic(string,bool) function. Valid string inputs:
+\"baseline\",\"combat\",\"bigCombat\",\"ghost\",\"slime\",\"eye\",\"squid\",\"boss\",\"end\""
+}
+checkTime = 0.1
+baselinePlayer = NodePath("BaselineMusic")
+combatPlayer = NodePath("CombatMusic")
+bigCombatPlayer = NodePath("BigCombatMusic")
+slimePlayer = NodePath("SlimeMusic")
+eyePlayer = NodePath("EyeMusic")
+ghostPlayer = NodePath("GhostMusic")
+squidPlayer = NodePath("SquidMusic")
+bossPlayer = NodePath("BossMusic")
+endPlayer = NodePath("EndMusic")
+CheckTimerPath = NodePath("CheckTimer")
+FadeTimerPath = NodePath("FadeTimer")
+tweenInPath = NodePath("InTween")
+tweenOutPath = NodePath("OutTween")
+
+[node name="BaselineMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "This music will play on loop for most of the game."
+}
+
+[node name="CombatMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "This plays on loop when there is more than 1 enemy present."
+}
+
+[node name="BigCombatMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "This plays on loop when more than X enemies are present (set in DRUMS System node)"
+}
+
+[node name="GhostMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "Plays on loop when ghosts are present"
+}
+
+[node name="EyeMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+__meta__ = {
+"_editor_description_": "Plays on loop when EyeBats are present"
+}
+
+[node name="SlimeMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "Plays on loop when Slimes are present"
+}
+
+[node name="SquidMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "Plays on loop when fighting Big Squid"
+}
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "Plays on loop when fighting Big Queen Slime"
+}
+
+[node name="EndMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -80.0
+autoplay = true
+__meta__ = {
+"_editor_description_": "Plays at the end of the game"
+}
+
+[node name="CheckTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="FadeTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="InTween" type="Tween" parent="."]
+
+[node name="OutTween" type="Tween" parent="."]

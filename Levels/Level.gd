@@ -55,8 +55,8 @@ var orb_per_colors: Dictionary
 export var trigger_all_mob_dead: String 
 var mob_alive: Array
 
-
 func _ready():
+	DrumsMobManager.clear()
 	register_mechanisms(mechanism_placeholder)
 	register_triggers(trigger_placeholder)
 	register_mobs(mob_placeholder)
@@ -70,14 +70,15 @@ func register_mob(mob:Actor):
 	if not mob_alive.has(mob):
 		mob_alive.append(mob)
 		mob.connect("died", self, "un_register_mob")
-
+		DrumsMobManager.add_mob(mob)
+		
 func un_register_mob(mob):
 	if mob_alive.has(mob):
 		mob_alive.erase(mob)
+		DrumsMobManager.remove_mob(mob)
 	
 	if trigger_all_mob_dead != "" and mob_alive.size() == 0:
 		resolve_trigger_group(trigger_all_mob_dead)
-
 
 func start_animations():
 	for np in np_start_anims:
@@ -244,6 +245,9 @@ func resolve_trigger_group(group):
 	
 	if not group_resolved:
 		return
+		
+	if group == "door":
+		DrumsMobManager.on_victory()
 	
 	for mechanism in mechanisms:
 		if mechanism.trigger_group == group:

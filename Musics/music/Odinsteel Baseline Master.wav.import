@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Odinsteel Baseline Master.wav-b755879937a946d9d0ba8785d6282c7c.sample"
+
+[deps]
+
+source_file="res://Musics/music/Odinsteel Baseline Master.wav"
+dest_files=[ "res://.import/Odinsteel Baseline Master.wav-b755879937a946d9d0ba8785d6282c7c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Odinsteel 04 BossSynth1.wav-a77bf287e65db2ee03ec3183d3a53083.sample"
+
+[deps]
+
+source_file="res://Musics/music/test0/Odinsteel 04 BossSynth1.wav"
+dest_files=[ "res://.import/Odinsteel 04 BossSynth1.wav-a77bf287e65db2ee03ec3183d3a53083.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0
