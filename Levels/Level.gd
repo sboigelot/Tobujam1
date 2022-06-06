@@ -178,9 +178,13 @@ func spawn_player(player_data)->Player:
 	var player = Game.player_scene.instance()
 	player.global_position = spawn_point.global_position
 	player.data = player_data
+	player.data.can_move = true
 	
 	hud.setup_player(player, players.size())
 	add_child(player)
+	
+	if players.size() != 0:
+		player.set_as_player2()
 	players.append(player)
 	
 	if player_data.upgraded_weapon:

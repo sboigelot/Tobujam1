@@ -19,6 +19,7 @@ export(PackedScene) var arrow_scene
 
 var current_player_datas: Array
 var player_datas: Array
+var current_level_path = ""
 var current_level: Level
 var current_level_index: int
 
@@ -48,11 +49,15 @@ func new_game(with_tutorial:bool):
 	tutorial = with_tutorial
 	
 	if with_tutorial:
-#		get_tree().change_scene("res://Levels/AZ_tutorial_end.tscn")
-		get_tree().change_scene("res://Levels/A1_tutorial_slot.tscn")
+#		change_level("res://Levels/AZ_tutorial_end.tscn")
+		change_level("res://Levels/A1_tutorial_slot.tscn")
 	else:	
-#		get_tree().change_scene("res://Levels/B01.tscn")
-		get_tree().change_scene("res://Levels/L01.tscn")
+#		change_level("res://Levels/B01.tscn")
+		change_level("res://Levels/L01.tscn")
+
+func change_level(path):
+	current_level_path = path
+	get_tree().change_scene(path)
 
 func setup_level(level:Level):
 	current_level = level
@@ -110,8 +115,11 @@ func spawn_mob(global_position:Vector2, mob_scene:PackedScene)->Mob:
 func defeat():
 	win = false
 	current_player_datas.clear()
-	DrumsMobManager.on_victory
 	get_tree().change_scene("res://UI/VictoryScreen.tscn")
+
+func retry_level():
+	respawn_dead_players(true)
+	change_level(current_level_path)
 
 func victory():
 	win = true
@@ -124,14 +132,16 @@ func on_level_completed():
 	
 	current_level_index += 1
 	respawn_dead_players()
-	get_tree().change_scene(current_level.next_level)
+	change_level(current_level.next_level)
 	
-func respawn_dead_players():
+func respawn_dead_players(full_health:bool = false):
 	current_player_datas = player_datas.duplicate()
 	for player_data in current_player_datas:
 		var half_health = floor(player_data.max_health / 2)
 		if player_data.health < half_health:
 			player_data.health = half_health
+		if full_health:
+			player_data.health = player_data.max_health
 			
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):

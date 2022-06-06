@@ -29,6 +29,10 @@ export(NodePath) var np_orb_sprite
 onready var orb_sprite = get_node(np_orb_sprite) as Sprite
 
 export(Texture) var upgraded_hammer_texture
+export(Texture) var player_2_sprite
+
+func set_as_player2():
+	sprite.texture = player_2_sprite
 
 func upgrade_hammer():
 	data.upgraded_weapon = true

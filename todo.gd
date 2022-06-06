@@ -12,7 +12,6 @@
 # implement sound fx
 
 # level selection screen
-# on death: repeat level
 
 # review all inputs
 # write inputs somewhere

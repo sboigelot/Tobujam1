@@ -44,6 +44,9 @@ func regen_health(delta):
 		data.health = min(data.health, data.max_health)
 		
 func boost(direction, delta)->bool:
+	if not data.can_move:
+		return false
+		
 	if boost_particule != null:
 		boost_particule.emitting = true
 		
@@ -64,6 +67,9 @@ func boost(direction, delta)->bool:
 	return true
 
 func move(direction):
+	if not data.can_move:
+		return
+		
 	if boost_particule != null:
 		boost_particule.emitting = false
 		
@@ -106,7 +112,7 @@ func take_damage(damage):
 	data.invincible = false
 		
 func die():
-	data.speed = 0
+	data.can_move = false
 	modulate = Color.red
 	yield(get_tree().create_timer(0.3), "timeout")
 	

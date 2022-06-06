@@ -16,6 +16,7 @@ export var boost_speed_multiplier = 2
 
 var invincible:bool = false
 export var speed: int = 50
+export var can_move: bool = true
 export var auto_boost: bool
 export var auto_boost_threshold: float
 
