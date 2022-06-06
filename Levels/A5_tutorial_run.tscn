@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=7]
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/Tutorial/throw_and_run.png" type="Texture" id=9]
+[ext_resource path="res://LevelComponents/DualInputDisplay.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -172,3 +173,7 @@ position = Vector2( 860, 540 )
 
 [node name="PlayerSpawnPoint2" type="Position2D" parent="."]
 position = Vector2( 1060, 540 )
+
+[node name="DualInputDisplay" parent="." instance=ExtResource( 10 )]
+position = Vector2( 462, 426 )
+input = "boost"

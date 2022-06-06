@@ -1,14 +1,16 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://LevelComponents/InputDisplay.gd" type="Script" id=1]
 [ext_resource path="res://LevelComponents/InputVisual.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/airstrip-four/airstrip_12.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Sprites/Inputs/keycap.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Inputs/gp_rt.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Inputs/gp_lb.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Inputs/gp_lt.png" type="Texture" id=6]
 [ext_resource path="res://Sprites/Inputs/rmb.png" type="Texture" id=7]
 [ext_resource path="res://Sprites/Inputs/lmb.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/Inputs/gp_lj.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Inputs/gp_rb.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Inputs/gp_lb.png" type="Texture" id=11]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -19,18 +21,18 @@ label = ""
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
 input = "gp_pickup"
-texture = ExtResource( 6 )
+texture = ExtResource( 11 )
 label = ""
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 2 )
-input = "*_throw"
+input = "*_attack"
 texture = ExtResource( 8 )
 label = ""
 
 [sub_resource type="Resource" id=4]
 script = ExtResource( 2 )
-input = "gp_throw"
+input = "gp_attack"
 texture = ExtResource( 5 )
 label = ""
 
@@ -94,9 +96,33 @@ input = "gp_move_down"
 texture = ExtResource( 9 )
 label = ""
 
+[sub_resource type="Resource" id=15]
+script = ExtResource( 2 )
+input = "*_super"
+texture = ExtResource( 4 )
+label = "space"
+
+[sub_resource type="Resource" id=16]
+script = ExtResource( 2 )
+input = "gp_super"
+texture = ExtResource( 10 )
+label = ""
+
+[sub_resource type="Resource" id=17]
+script = ExtResource( 2 )
+input = "*_boost"
+texture = ExtResource( 4 )
+label = "shift"
+
+[sub_resource type="Resource" id=18]
+script = ExtResource( 2 )
+input = "gp_boost"
+texture = ExtResource( 6 )
+label = ""
+
 [node name="InputDisplay" type="Node2D"]
 script = ExtResource( 1 )
-visuals = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ]
+visuals = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ) ]
 
 [node name="ButtonSprite" type="Sprite" parent="."]
 texture = ExtResource( 4 )

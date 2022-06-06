@@ -112,7 +112,6 @@ input = "pickup"
 [node name="ThrowInputDisplay" parent="Environment" instance=ExtResource( 11 )]
 position = Vector2( 1190, 657 )
 rotation = -0.102974
-input = "throw"
 
 [node name="P1Move" type="Node2D" parent="Environment"]
 position = Vector2( 323, 787 )

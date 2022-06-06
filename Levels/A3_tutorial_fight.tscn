@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/floor.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://LevelComponents/Triggers/OrbSlot.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Sprites/Tutorial/fight.png" type="Texture" id=7]
 [ext_resource path="res://Actors/Mobs/MobLee.tscn" type="PackedScene" id=8]
+[ext_resource path="res://LevelComponents/DualInputDisplay.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 400 )
@@ -93,6 +94,9 @@ shape = SubResource( 4 )
 [node name="Fight" type="Sprite" parent="Environment"]
 position = Vector2( 488, 391 )
 texture = ExtResource( 7 )
+
+[node name="DualInputDisplay" parent="Environment" instance=ExtResource( 9 )]
+position = Vector2( 678, 344 )
 
 [node name="Triggers" type="Node2D" parent="."]
 
