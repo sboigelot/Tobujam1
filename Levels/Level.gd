@@ -236,6 +236,10 @@ func on_trigger_activated(trigger:Trigger):
 		deresolve_trigger_group(trigger.deactivate_trigger_group, true)
 		
 func resolve_trigger_group(group):
+	
+	if group == "door":
+		door.blink_lights()
+	
 	var group_resolved = true
 	for other_trigger in triggers:
 		if other_trigger.resolved:
