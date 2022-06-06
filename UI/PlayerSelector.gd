@@ -37,8 +37,8 @@ var conflicting_layouts = {
 var layout_inputs = {
 	LAYOUT.AZERTY : "azerty_move_left",
 	LAYOUT.QWERTY : "qwerty_move_left",
-	LAYOUT.GP0 : "gp0_pickup",
-	LAYOUT.GP1 : "gp1_pickup",	
+	LAYOUT.GP0 : "gp0_attack",
+	LAYOUT.GP1 : "gp1_attack",	
 }
 
 var layout_input_prefixes = {
