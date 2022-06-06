@@ -10,6 +10,9 @@ onready var start_game_skip_button = get_node(np_start_game_skip_button) as Butt
 onready var player_selector_1 = get_node(np_player_selector_1)
 onready var player_selector_2 = get_node(np_player_selector_2)
 
+func _ready():
+	DrumsMobManager.open_menu()
+	
 func _on_NewGameButton_pressed():
 	Game.new_game(true)
 

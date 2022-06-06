@@ -8,15 +8,24 @@ var eye_count = 0
 var squid_count = 0
 var boss_count = 0
 
+func _ready():
+	clear()
+	Drums.CheckMusicLayer()
+	
+func open_menu():
+	Drums.inMenu = true
+	Drums.isEnd = true
+	Drums.CheckMusicLayer()
+
 func clear():
 	Drums.isEnd = false
+	Drums.inMenu = false
 	slime_count = 0
 	ghost_count = 0
 	eye_count = 0
 	squid_count = 0
 	boss_count = 0
 	update_drums()
-	
 
 func add_mob(mob:Mob):
 	count_mob(mob, +1)
@@ -62,3 +71,4 @@ func update_drums():
 	Drums.isEye = eye_count > 0
 	Drums.isSquid = squid_count > 0
 	Drums.isBoss = boss_count > 0
+	Drums.CheckMusicLayer()

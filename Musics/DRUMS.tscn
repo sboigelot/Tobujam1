@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Musics/drums.gd" type="Script" id=1]
 [ext_resource path="res://Musics/music/Odinsteel Slimes Master.wav" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Musics/music/Odinsteel Fight Master.wav" type="AudioStream" id=6]
 [ext_resource path="res://Musics/music/Odinsteel Squids Master.wav" type="AudioStream" id=7]
 [ext_resource path="res://Musics/music/Odinsteel Baseline Master.wav" type="AudioStream" id=8]
+[ext_resource path="res://Musics/music/PositivelySmashing.wav" type="AudioStream" id=9]
 
 [node name="DRUMS System" type="Node"]
 script = ExtResource( 1 )
@@ -18,6 +19,8 @@ Use the SetMusic(string,bool) function. Valid string inputs:
 \"baseline\",\"combat\",\"bigCombat\",\"ghost\",\"slime\",\"eye\",\"squid\",\"boss\",\"end\""
 }
 checkTime = 0.1
+inMenu = true
+menuMusicPlayer = NodePath("MenuMusic")
 baselinePlayer = NodePath("BaselineMusic")
 combatPlayer = NodePath("CombatMusic")
 bigCombatPlayer = NodePath("BigCombatMusic")
@@ -34,6 +37,15 @@ tweenOutPath = NodePath("OutTween")
 
 [node name="BaselineMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -80.0
+autoplay = true
+bus = "Music"
+__meta__ = {
+"_editor_description_": "This music will play on loop for most of the game."
+}
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
 volume_db = -80.0
 autoplay = true
 bus = "Music"

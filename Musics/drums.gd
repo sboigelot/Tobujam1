@@ -50,8 +50,10 @@ export var isEye = false
 export var isSquid = false
 export var isBoss = false
 export var isEnd = false
+export var inMenu = false
 
 #vars for whether track is active or not; purely for system
+var menuPlaying=false
 var baselinePlaying=false
 var combatPlaying = false
 var ghostPlaying = false
@@ -64,6 +66,8 @@ var endPlaying=false
 
 
 #Set up audio streams
+export var menuMusicPlayer: NodePath
+onready var menuMusic = get_node(menuMusicPlayer) 
 
 export var baselinePlayer: NodePath
 onready var baselineMusic = get_node(baselinePlayer) 
@@ -107,10 +111,10 @@ onready var tween_in = get_node(tweenInPath)
 onready var tween_out = get_node(tweenOutPath)
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+#func _ready():
 	#Start timer:
-	checkTimer.connect("timeout",self,"CheckMusicLayer",[],0)
-	pass # Replace with function body.
+#	checkTimer.connect("timeout",self,"CheckMusicLayer",[],0)
+	
 
 func CheckMusicLayer():
 #	print("checking for input")
@@ -179,6 +183,18 @@ func CheckMusicLayer():
 		if(baselinePlaying):
 			FadeOut(baselineMusic)
 			baselinePlaying=false
+			
+	if inMenu:
+		if(!menuPlaying):
+			if not baselinePlaying:
+				menuMusic.volume_db = maxVolume
+			else:
+				FadeIn(menuMusic)
+			menuPlaying=true
+	else:
+		if(menuPlaying):
+			FadeOut(menuMusic)
+			menuPlaying=false
 	
 	#Boss Battle music 1
 	#not sure if second layer will be implemented

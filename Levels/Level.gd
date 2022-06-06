@@ -245,9 +245,6 @@ func resolve_trigger_group(group):
 	
 	if not group_resolved:
 		return
-		
-	if group == "door":
-		DrumsMobManager.on_victory()
 	
 	for mechanism in mechanisms:
 		if mechanism.trigger_group == group:

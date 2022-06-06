@@ -110,6 +110,7 @@ func spawn_mob(global_position:Vector2, mob_scene:PackedScene)->Mob:
 func defeat():
 	win = false
 	current_player_datas.clear()
+	DrumsMobManager.on_victory
 	get_tree().change_scene("res://UI/VictoryScreen.tscn")
 
 func victory():

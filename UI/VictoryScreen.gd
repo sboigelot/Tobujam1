@@ -6,6 +6,7 @@ onready var victory_label = get_node(np_victory_label) as Label
 
 func _ready():
 	update_ui(Game.win, Game.score, Game.time)
+	DrumsMobManager.open_menu()
 
 func update_ui(win:bool, score:int, time:float):
 	victory_label.text = "Victory" if win else "Haha! U dieded!"
