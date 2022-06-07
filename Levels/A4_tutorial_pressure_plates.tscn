@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/BaseLevelEnvironment.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Sprites/Tutorial/walls.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/Tutorial/pressure_plates.png" type="Texture" id=10]
 [ext_resource path="res://LevelComponents/Triggers/TimerTrigger.tscn" type="PackedScene" id=11]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWallPost.tscn" type="PackedScene" id=12]
 
 [node name="Level" type="Node2D"]
 position = Vector2( -2, 0 )
@@ -69,59 +70,107 @@ position = Vector2( 822, 420 )
 position = Vector2( 950, 56 )
 trigger_group = "door"
 
-[node name="PopupWall" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1291, 528 )
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
+[node name="InsideWall" type="Node2D" parent="Mechanisms"]
 
-[node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1475, 527 )
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
-
-[node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1378, 445 )
+[node name="TopWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1380, 424 )
 rotation = 1.5708
-scale = Vector2( 0.15, 1 )
+scale = Vector2( 1, 0.25 )
 trigger_group = "wall_inside"
 
-[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1383, 609 )
+[node name="TLPost" parent="Mechanisms/InsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1280, 430 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="TRPost" parent="Mechanisms/InsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1480, 430 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="LeftWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1281, 521 )
+scale = Vector2( 1, 0.25 )
+trigger_group = "wall_inside"
+
+[node name="RightWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1482, 523 )
+scale = Vector2( 1, 0.25 )
+trigger_group = "wall_inside"
+
+[node name="BLPost" parent="Mechanisms/InsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1280, 620 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="BRPost" parent="Mechanisms/InsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1480, 620 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="BottomWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1380, 615 )
 rotation = 1.5708
-scale = Vector2( 0.15, 1 )
+scale = Vector2( 1, 0.25 )
 trigger_group = "wall_inside"
 
-[node name="PopupWall5" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 1201, 525 )
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall_outside"
-stay_open_on_deresolve = true
+[node name="OutsideWall" type="Node2D" parent="Mechanisms"]
 
-[node name="PopupWall6" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 1559, 524 )
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall_outside"
-stay_open_on_deresolve = true
-
-[node name="PopupWall7" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
+[node name="TopWall" parent="Mechanisms/OutsideWall" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 0.588235 )
 position = Vector2( 1379, 346 )
 rotation = 1.5708
-scale = Vector2( 0.15, 2 )
+scale = Vector2( 1, 0.45 )
 trigger_group = "wall_outside"
 stay_open_on_deresolve = true
 
-[node name="PopupWall8" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
+[node name="LeftWall" parent="Mechanisms/OutsideWall" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 0.588235 )
+position = Vector2( 1203, 522 )
+scale = Vector2( 1, 0.45 )
+trigger_group = "wall_outside"
+stay_open_on_deresolve = true
+
+[node name="TLPost" parent="Mechanisms/OutsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1200, 350 )
+trigger_group = "wall_outside"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0, 0, 1, 1 )
+
+[node name="TRPost" parent="Mechanisms/OutsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1560, 350 )
+trigger_group = "wall_outside"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0, 0, 1, 1 )
+
+[node name="RigthWall" parent="Mechanisms/OutsideWall" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 0.588235 )
+position = Vector2( 1559, 524 )
+scale = Vector2( 1, 0.45 )
+trigger_group = "wall_outside"
+stay_open_on_deresolve = true
+
+[node name="BLPost" parent="Mechanisms/OutsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1200, 705 )
+trigger_group = "wall_outside"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0, 0, 1, 1 )
+
+[node name="BRPost" parent="Mechanisms/OutsideWall" instance=ExtResource( 12 )]
+position = Vector2( 1560, 705 )
+trigger_group = "wall_outside"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0, 0, 1, 1 )
+
+[node name="BottomWall" parent="Mechanisms/OutsideWall" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 0.588235 )
 position = Vector2( 1381, 703 )
 rotation = 1.5708
-scale = Vector2( 0.15, 2 )
+scale = Vector2( 1, 0.45 )
 trigger_group = "wall_outside"
 stay_open_on_deresolve = true
 

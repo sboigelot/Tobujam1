@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWallPost.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/LevelComponents/laserpost.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/LevelComponents/laserpost-light.png" type="Texture" id=3]
+
+[node name="PopupWallPost" type="Node2D"]
+script = ExtResource( 1 )
+np_highligth_sprite = NodePath("LightSprite")
+
+[node name="WallSprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="LightSprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )

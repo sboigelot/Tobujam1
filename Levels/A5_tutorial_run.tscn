@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/BaseLevelEnvironment.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/Tutorial/throw_and_run.png" type="Texture" id=9]
 [ext_resource path="res://LevelComponents/DualInputDisplay.tscn" type="PackedScene" id=10]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWallPost.tscn" type="PackedScene" id=11]
 
 [node name="Level" type="Node2D"]
 position = Vector2( -2, 0 )
@@ -61,37 +62,72 @@ press_modulate = Color( 0.0313726, 0, 1, 1 )
 position = Vector2( 950, 56 )
 trigger_group = "door"
 
-[node name="PopupWall" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1291, 528 )
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
+[node name="InsideWall" type="Node2D" parent="Mechanisms"]
+position = Vector2( 0, 13 )
 
-[node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1475, 527 )
-scale = Vector2( 0.15, 1 )
-trigger_group = "wall_inside"
-
-[node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1378, 445 )
+[node name="TopWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1380, 424 )
 rotation = 1.5708
-scale = Vector2( 0.15, 1 )
+scale = Vector2( 1, 0.25 )
 trigger_group = "wall_inside"
 
-[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 1, 0, 0, 1 )
-position = Vector2( 1383, 609 )
+[node name="TLPost" parent="Mechanisms/InsideWall" instance=ExtResource( 11 )]
+position = Vector2( 1280, 430 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="TRPost" parent="Mechanisms/InsideWall" instance=ExtResource( 11 )]
+position = Vector2( 1480, 430 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="LeftWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1281, 521 )
+scale = Vector2( 1, 0.25 )
+trigger_group = "wall_inside"
+
+[node name="RightWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1482, 523 )
+scale = Vector2( 1, 0.25 )
+trigger_group = "wall_inside"
+
+[node name="BLPost" parent="Mechanisms/InsideWall" instance=ExtResource( 11 )]
+position = Vector2( 1280, 620 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="BRPost" parent="Mechanisms/InsideWall" instance=ExtResource( 11 )]
+position = Vector2( 1480, 620 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="BottomWall" parent="Mechanisms/InsideWall" instance=ExtResource( 7 )]
+modulate = Color( 1, 0, 0, 0.588235 )
+position = Vector2( 1380, 615 )
 rotation = 1.5708
-scale = Vector2( 0.15, 1 )
+scale = Vector2( 1, 0.25 )
 trigger_group = "wall_inside"
 
-[node name="PopupWall5" parent="Mechanisms" instance=ExtResource( 7 )]
-modulate = Color( 0.0313726, 0, 1, 1 )
-position = Vector2( 860, 536 )
-scale = Vector2( 0.15, 2 )
+[node name="WallVertical" type="Node2D" parent="Mechanisms"]
+
+[node name="TLPost" parent="Mechanisms/WallVertical" instance=ExtResource( 11 )]
+position = Vector2( 860, 305 )
 trigger_group = "wall_outside"
+highligth_modulate = Color( 0, 0, 1, 1 )
+
+[node name="PopupWall5" parent="Mechanisms/WallVertical" instance=ExtResource( 7 )]
+modulate = Color( 0.0313726, 0, 1, 0.588235 )
+position = Vector2( 860, 536 )
+scale = Vector2( 1, 0.6 )
+trigger_group = "wall_outside"
+
+[node name="BLPost" parent="Mechanisms/WallVertical" instance=ExtResource( 11 )]
+position = Vector2( 860, 800 )
+trigger_group = "wall_outside"
+highligth_modulate = Color( 0, 0, 1, 1 )
 
 [node name="Pickups" type="Node2D" parent="."]
 
