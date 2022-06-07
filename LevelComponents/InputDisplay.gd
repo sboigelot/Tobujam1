@@ -34,7 +34,7 @@ func _process(delta):
 		return
 	
 	if not actions.has(input_listen):
-		print("input_listen not found: %s" % input_listen)
+#		print("input_listen not found: %s" % input_listen)
 		input_listen = ""
 		return
 		

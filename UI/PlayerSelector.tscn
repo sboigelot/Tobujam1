@@ -28,7 +28,7 @@ player_2_sprite = ExtResource( 7 )
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 207.0
-margin_bottom = 370.0
+margin_bottom = 238.0
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 200.0
@@ -48,12 +48,13 @@ align = 1
 [node name="HBox" type="VBoxContainer" parent="VBoxContainer"]
 margin_top = 59.0
 margin_right = 200.0
-margin_bottom = 363.0
+margin_bottom = 231.0
 rect_min_size = Vector2( 200, 172 )
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBox"]
+visible = false
 margin_left = 36.0
 margin_right = 164.0
 margin_bottom = 128.0
@@ -64,9 +65,8 @@ texture = ExtResource( 6 )
 expand = true
 
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBox"]
-margin_top = 132.0
 margin_right = 200.0
-margin_bottom = 172.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
@@ -109,9 +109,9 @@ align = 1
 valign = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBox"]
-margin_top = 176.0
+margin_top = 44.0
 margin_right = 200.0
-margin_bottom = 216.0
+margin_bottom = 84.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
@@ -157,9 +157,9 @@ __meta__ = {
 }
 
 [node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBox"]
-margin_top = 220.0
+margin_top = 88.0
 margin_right = 200.0
-margin_bottom = 260.0
+margin_bottom = 128.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
@@ -194,9 +194,9 @@ expand = true
 stretch_mode = 4
 
 [node name="PanelContainer4" type="PanelContainer" parent="VBoxContainer/HBox"]
-margin_top = 264.0
+margin_top = 132.0
 margin_right = 200.0
-margin_bottom = 304.0
+margin_bottom = 172.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 

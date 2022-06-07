@@ -14,7 +14,7 @@ export(NodePath) var np_ui_audio_master
 export(NodePath) var np_ui_audio_music
 export(NodePath) var np_ui_audio_soundfx
 
-export(float) var volume_min = -80
+export(float) var volume_min = -40
 export(float) var volume_max = 6
 
 onready var ui_audio_master = get_node(np_ui_audio_master) as HSlider
@@ -53,7 +53,6 @@ func _on_PlayerSelector2_joined():
 			player_selector_2.selected_layout
 		]
 	)
-
 
 func update_tab_sliders():
 	var master_volume:float = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))

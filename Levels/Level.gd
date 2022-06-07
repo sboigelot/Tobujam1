@@ -35,6 +35,7 @@ export(NodePath) var np_start_anim_4
 export(NodePath) var np_start_anim_5
 
 export(bool) var tutorial
+export(bool) var bonus_level
 
 onready var np_start_anims = [
 	np_start_anim_1,
@@ -179,6 +180,7 @@ func spawn_player(player_data)->Player:
 	player.global_position = spawn_point.global_position
 	player.data = player_data
 	player.data.can_move = true
+	player.data.invincible = false
 	
 	hud.setup_player(player, players.size())
 	add_child(player)

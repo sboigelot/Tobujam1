@@ -20,7 +20,7 @@ func add_players(value:int)->void:
 		add_child(player)
 
 func load_samples(list:Array)->void:											# Let the manager handle loading sample - async if possible
-	var samples:Array 
+	var samples:Array
 	if loader.can_async:
 		samples = yield(loader.load_start( list ), "completed")
 	else:

@@ -27,24 +27,25 @@ margin_bottom = 1070.0
 
 [node name="TopContainer" type="HBoxContainer" parent="MainUi/MainContainer"]
 margin_right = 1900.0
-margin_bottom = 117.0
+margin_bottom = 171.0
 
 [node name="Player1" parent="MainUi/MainContainer/TopContainer" instance=ExtResource( 3 )]
-margin_bottom = 117.0
+margin_right = 364.0
+margin_bottom = 171.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainUi/MainContainer/TopContainer"]
-margin_left = 304.0
-margin_right = 1596.0
-margin_bottom = 117.0
+margin_left = 368.0
+margin_right = 1532.0
+margin_bottom = 171.0
 size_flags_horizontal = 3
 
 [node name="Player2" parent="MainUi/MainContainer/TopContainer" instance=ExtResource( 3 )]
-margin_left = 1600.0
+margin_left = 1536.0
 margin_right = 1900.0
-margin_bottom = 117.0
+margin_bottom = 171.0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainUi/MainContainer"]
-margin_top = 121.0
+margin_top = 175.0
 margin_right = 1900.0
 margin_bottom = 948.0
 size_flags_horizontal = 3

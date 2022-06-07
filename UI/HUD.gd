@@ -17,10 +17,15 @@ func _ready():
 	player_2.visible = false
 
 func _process(delta):
-	
-	level_label.text = "%s %d" % [
-		"Turorial" if Game.tutorial else "Level",
-		Game.current_level_index]
+	if Game.current_level == null:
+		return
+		
+	if Game.current_level.tutorial:
+		level_label.text = "Turorial %d" % Game.current_tutorial_level_count
+	elif Game.current_level.bonus_level:
+		level_label.text = "Bonus Room %d" % Game.current_bonus_level_count
+	else:
+		level_label.text = "Level %d" % Game.current_level_count
 	
 	var seconds = floor(Game.time)
 	var minutes = floor(seconds / 60)

@@ -21,12 +21,15 @@ var current_player_datas: Array
 var player_datas: Array
 var current_level_path = ""
 var current_level: Level
-var current_level_index: int
+var current_level_count: int
+var current_tutorial_level_count: int
+var current_bonus_level_count: int
 
 var win: bool
 var score: int
 var time: float
 var tutorial: bool
+var bonus: bool
 
 func ready():
 	current_player_datas.clear()
@@ -42,7 +45,9 @@ func new_game(with_tutorial:bool):
 	randomize()
 	
 	current_level = null
-	current_level_index = 1
+	current_level_count = 1
+	current_tutorial_level_count = 1
+	current_bonus_level_count = 1
 	win = false
 	score = 0
 	time = 0
@@ -58,8 +63,7 @@ func new_game(with_tutorial:bool):
 func _input(event):
 	if event.is_action_pressed("skip_level"):
 		on_level_completed()
-		
-		
+			
 func change_level(path):
 	current_level_path = path
 	get_tree().change_scene(path)
@@ -74,7 +78,8 @@ func setup_level(level:Level):
 		tutorial = level.tutorial
 		time = 0
 		score = 0
-		current_level_index = 1
+	
+	bonus = level.bonus_level
 
 func on_player_death(player):
 	current_player_datas.erase(player.data)
@@ -135,7 +140,12 @@ func on_level_completed():
 		victory()
 		return
 	
-	current_level_index += 1
+	if current_level.tutorial:
+		current_tutorial_level_count += 1
+	elif current_level.bonus_level:
+		current_bonus_level_count += 1
+	else:
+		current_level_count += 1
 	respawn_dead_players()
 	change_level(current_level.next_level)
 	
@@ -150,7 +160,13 @@ func respawn_dead_players(full_health:bool = false):
 			
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+		if current_level != null and current_player_datas.size() > 0:
+			get_tree().change_scene("res://UI/MainMenu.tscn")
+			current_level = null
+			win = false
+			current_player_datas.clear()
+		else:
+			get_tree().quit()
 		
 	if Input.is_action_just_pressed("toggle_fullscreen"):
 		OS.set_window_fullscreen(!OS.window_fullscreen)
