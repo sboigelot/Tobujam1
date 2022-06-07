@@ -21,7 +21,14 @@ onready var ui_audio_master = get_node(np_ui_audio_master) as HSlider
 onready var ui_audio_music = get_node(np_ui_audio_music) as HSlider
 onready var ui_audio_soundfx = get_node(np_ui_audio_soundfx) as HSlider
 
+export(NodePath) var np_webgl_button
+onready var webgl_button = get_node(np_webgl_button) as Button
+
 func _ready():
+	if OS.get_name() != "HTML5":
+		webgl_button.queue_free()
+	else:
+		webgl_button.visible = true
 	update_tab_sliders()
 	DrumsMobManager.open_menu()
 	
@@ -83,3 +90,6 @@ func _on_SoundFxHSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), value)
 	SfxManager.play("ui-button-click")
 
+func _on_WebGlFullScreenButton_pressed():
+	OS.set_window_fullscreen(true)
+	webgl_button.queue_free()

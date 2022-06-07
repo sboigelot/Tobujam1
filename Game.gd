@@ -1,7 +1,5 @@
 extends Node
 
-export(Resource) var default_player_setup
-
 export var orb_throw_speed = 400
 
 export var damage_orb = 2
@@ -36,7 +34,8 @@ func ready():
 	player_datas.clear()
 
 func add_player(input_prefix):
-	var player_data = default_player_setup.duplicate(true)
+	var player_data = ActorData.new()
+	player_data.speed = 200
 	player_data.input_prefix = input_prefix
 	current_player_datas.append(player_data)
 	player_datas.append(player_data)

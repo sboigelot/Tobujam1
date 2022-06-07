@@ -31,6 +31,7 @@ np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
 next_level = "res://Levels/L08.tscn"
+bonus_level = true
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
 

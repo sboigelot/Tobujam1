@@ -1,38 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://Pickups/OrbPickup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Orbs/Orb.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Actors/ActorData.gd" type="Script" id=4]
 [ext_resource path="res://Actors/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=6]
 [ext_resource path="res://LevelComponents/Mechanisms/Arrow.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Resource" id=1]
-script = ExtResource( 4 )
-max_health = 5
-health = 5.0
-health_regen_per_second = 0.0
-max_stamina = 2.0
-stamina_regen_per_second = 0.2
-stamina = 2.0
-super_stamina_cost = 0.8
-boost_stamina_cost_per_second = 1.0
-boost_speed_multiplier = 2
-speed = 200
-can_move = true
-auto_boost = false
-auto_boost_threshold = 0.0
-carry_orb = false
-orb_persistant = false
-orb_color = Color( 0, 0, 0, 1 )
-carry_heart = false
-suffer_knockback_on_hammer_attacks = false
-upgraded_weapon = false
-
 [node name="Game" type="Node2D"]
 script = ExtResource( 1 )
-default_player_setup = SubResource( 1 )
 player_scene = ExtResource( 5 )
 orb_scene = ExtResource( 3 )
 orb_pickup_scene = ExtResource( 2 )
