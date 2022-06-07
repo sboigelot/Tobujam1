@@ -24,10 +24,10 @@ extends Node
 
 #intentionally exposed vars
 #checkTime controls how long between checking on game state
-export var checkTime = 1.2
+#export var checkTime = 1.2
 
 #enemiesThreshold determines how many enemies it takes to make a fight a BIG fight
-export var enemiesThreshold = 3
+#export var enemiesThreshold = 3
 
 export var minVolume = -80.0;
 #set maxVolume with a slider and fading audio won't ever go past it.
@@ -66,40 +66,30 @@ var spicyPlaying=false
 var bossPlaying=false 
 var endPlaying=false
 
-
 #Set up audio streams
 export var menuMusicPlayer: NodePath
-onready var menuMusic = get_node(menuMusicPlayer) 
-
 export var baselinePlayer: NodePath
-onready var baselineMusic = get_node(baselinePlayer) 
-
 export var combatPlayer: NodePath
-onready var combatMusic = get_node(combatPlayer) 
-
 export var bigCombatPlayer: NodePath
-onready var bigCombatMusic = get_node(bigCombatPlayer) 
-
 export var slimePlayer: NodePath
-onready var slimeMusic = get_node(slimePlayer) 
-
 export var eyePlayer: NodePath
-onready var eyeMusic = get_node(eyePlayer) 
-
 export var ghostPlayer: NodePath
-onready var ghostMusic = get_node(ghostPlayer) 
-
 export var squidPlayer: NodePath
-onready var squidMusic = get_node(squidPlayer) 
-
 export var spicyPlayer: NodePath
-onready var spicyMusic = get_node(spicyPlayer) 
-
 export var bossPlayer: NodePath
-onready var bossMusic = get_node(bossPlayer) 
+#export var endPlayer: NodePath
 
-export var endPlayer: NodePath
-onready var endMusic = get_node(endPlayer) 
+onready var menuMusic = get_node(menuMusicPlayer) 
+onready var baselineMusic = get_node(baselinePlayer) 
+onready var combatMusic = get_node(combatPlayer) 
+onready var bigCombatMusic = get_node(bigCombatPlayer) 
+onready var slimeMusic = get_node(slimePlayer)  
+onready var eyeMusic = get_node(eyePlayer) 
+onready var ghostMusic = get_node(ghostPlayer) 
+onready var squidMusic = get_node(squidPlayer) 
+onready var spicyMusic = get_node(spicyPlayer) 
+onready var bossMusic = get_node(bossPlayer) 
+#onready var endMusic = get_node(endPlayer) 
 
 #Set up timers
 
@@ -119,7 +109,17 @@ onready var tween_out = get_node(tweenOutPath)
 #func _ready():
 	#Start timer:
 #	checkTimer.connect("timeout",self,"CheckMusicLayer",[],0)
-	
+
+#simple bool solution, handle with another script and SetMusic(layer,bool)
+func CheckLayer(desired, is_playing, music_player)->bool:
+	if desired: 
+		if not is_playing:
+			FadeIn(music_player)
+		return true
+		
+	if is_playing:
+		FadeOut(music_player)
+	return false
 
 func CheckMusicLayer():
 #	print("checking for input")
@@ -129,107 +129,20 @@ func CheckMusicLayer():
 	
 	#report that enemies are greater than (enemyThreshold) and this will trigger
 	#if(BigFightMusic()): #Use this if you want to pass enemies with SetEnemyCount(int)
-	if isBigCombat: #simple bool solution, handle with another script and SetMusic(layer,bool)
-		if(!bigCombatPlaying):
-			FadeIn(bigCombatMusic)
-			bigCombatPlaying=true
-	else:
-		if(bigCombatPlaying):
-			FadeOut(bigCombatMusic)
-			bigCombatPlaying=false
 	
 	#report that enemies are greater than 0 and this will enable
 	#if(FightMusic()): Use this if you want to actually pass enemy count to script
-	if isCombat: #simple bool option
-		if(!combatPlaying):
-			FadeIn(combatMusic)
-			combatPlaying=true
-	else:
-		if(combatPlaying):
-			FadeOut(combatMusic)
-			combatPlaying=false
 	
-	if isSlime: #simple bool option
-		if(!slimePlaying):
-			FadeIn(slimeMusic)
-			slimePlaying=true
-	else:
-		if(slimePlaying):
-			FadeOut(slimeMusic)
-			slimePlaying=false
-			
-	if isSpicy: #simple bool option
-		if(!spicyPlaying):
-			FadeIn(spicyMusic)
-			spicyPlaying=true
-	else:
-		if(spicyPlaying):
-			FadeOut(spicyMusic)
-			spicyPlaying=false
-
-	if isGhost: #simple bool option
-		if(!ghostPlaying):
-			FadeIn(ghostMusic)
-			ghostPlaying=true
-	else:
-		if(ghostPlaying):
-			FadeOut(ghostMusic)
-			ghostPlaying=false
-
-
-	if isEye: #simple bool option
-		if(!eyePlaying):
-			FadeIn(eyeMusic)
-			eyePlaying=true
-	else:
-		if(eyePlaying):
-			FadeOut(eyeMusic)
-			eyePlaying=false
-			
-			
-	#trigger isEnd after killing the final boss and the baseline music will go away
-	if(!isEnd):
-		if(!baselinePlaying):
-			FadeIn(baselineMusic)
-			baselinePlaying=true
-	else:
-		if(baselinePlaying):
-			FadeOut(baselineMusic)
-			baselinePlaying=false
-			
-	if inMenu:
-		if(!menuPlaying):
-			if not baselinePlaying:
-				menuMusic.volume_db = maxVolume
-			else:
-				FadeIn(menuMusic)
-			menuPlaying=true
-	else:
-		if(menuPlaying):
-			FadeOut(menuMusic)
-			menuPlaying=false
-	
-	#Boss Battle music 1
-	#not sure if second layer will be implemented
-	#enable at start of boss and disable when boss dies
-
-	if(isSquid):
-		if(!squidPlaying):
-			FadeIn(squidMusic)
-			squidPlaying = true
-	else:
-		if(squidPlaying):
-			FadeOut(squidMusic)
-			squidPlaying=false
-	
-	if(isBoss):
-		if(!bossPlaying):
-			FadeIn(bossMusic)
-			bossPlaying = true
-	else:
-		if(bossPlaying):
-			FadeOut(bossMusic)
-			bossPlaying=false
+	bigCombatPlaying = CheckLayer(isBigCombat, bigCombatPlaying, bigCombatMusic)
+	combatPlaying = CheckLayer(isCombat, combatPlaying, combatMusic)
+	slimePlaying = CheckLayer(isSlime, slimePlaying, slimeMusic)
+	spicyPlaying = CheckLayer(isSpicy, spicyPlaying, spicyMusic)
+	ghostPlaying = CheckLayer(isGhost, ghostPlaying, ghostMusic)
+	eyePlaying = CheckLayer(isEye, eyePlaying, eyeMusic)
+	squidPlaying = CheckLayer(isSquid, squidPlaying, squidMusic)
+	bossPlaying = CheckLayer(isBoss, bossPlaying, bossMusic)
+	baselinePlaying = CheckLayer(not isEnd and not inMenu, baselinePlaying, baselineMusic)
+	menuPlaying = CheckLayer(inMenu, menuPlaying, menuMusic)
 	
 
 func FadeIn(audiosource):
@@ -250,46 +163,46 @@ func FadeOut(audiosource):
 	tween_out.start()
 	
 	pass
+#
+#func BossFight(toggle):
+#	isBoss = toggle
+#	pass
 
-func BossFight(toggle):
-	isBoss = toggle
-	pass
+#func FightMusic():
+#	if(enemiesCount > 0):
+#		return true
+#	else:
+#		return false
 
-func FightMusic():
-	if(enemiesCount > 0):
-		return true
-	else:
-		return false
+#func BigFightMusic():
+#	if (enemiesCount > enemiesThreshold):
+#		return true
+#	else:
+#		return false
 
-func BigFightMusic():
-	if (enemiesCount > enemiesThreshold):
-		return true
-	else:
-		return false
-
-func SetMusic(layer,enabled):
-	match layer:
-		"baseline":
-			isEnd = !enabled
-		"combat" or "fight":
-			isCombat = enabled
-		"bigCombat" or "bigFight" or "bigcombat" or "bigfight":
-			isBigCombat = enabled
-		"slime" or "slimes":
-			isSlime = enabled
-		"ghost" or "ghoul" or "ghosts" or "ghouls":
-			isGhost = enabled
-		"eye" or "bat" or "eyes" or "bats":
-			isEye = enabled
-		"squid" or "boss0":
-			isSquid = enabled
-		"boss" or "boss1" or "finalboss" or "queenslime":
-			isBoss = enabled
-		"end" or "win":
-			isEnd = enabled
-
-func SetEnemyCount(enemyCount):
-	enemiesCount = enemyCount
+#func SetMusic(layer,enabled):
+#	match layer:
+#		"baseline":
+#			isEnd = !enabled
+#		"combat" or "fight":
+#			isCombat = enabled
+#		"bigCombat" or "bigFight" or "bigcombat" or "bigfight":
+#			isBigCombat = enabled
+#		"slime" or "slimes":
+#			isSlime = enabled
+#		"ghost" or "ghoul" or "ghosts" or "ghouls":
+#			isGhost = enabled
+#		"eye" or "bat" or "eyes" or "bats":
+#			isEye = enabled
+#		"squid" or "boss0":
+#			isSquid = enabled
+#		"boss" or "boss1" or "finalboss" or "queenslime":
+#			isBoss = enabled
+#		"end" or "win":
+#			isEnd = enabled
+#
+#func SetEnemyCount(enemyCount):
+#	enemiesCount = enemyCount
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

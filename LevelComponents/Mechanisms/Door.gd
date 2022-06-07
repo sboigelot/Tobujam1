@@ -20,8 +20,10 @@ func close():
 	static_body_shape.set_deferred("disabled", false)
 
 func open():
+	yield(get_tree().create_timer(1),"timeout")
 	static_body_shape.set_deferred("disabled", true)
 	close_sprite.visible = false
+	lights_sprite.visible = false
 
 func _on_WinZoneArea2D_body_entered(body):
 	if body.is_in_group("player"):

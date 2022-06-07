@@ -19,8 +19,8 @@ __meta__ = {
 Use the SetMusic(string,bool) function. Valid string inputs:
 \"baseline\",\"combat\",\"bigCombat\",\"ghost\",\"slime\",\"eye\",\"squid\",\"boss\",\"end\""
 }
-checkTime = 0.1
 maxVolume = -6.0
+isEnd = true
 inMenu = true
 menuMusicPlayer = NodePath("MenuMusic")
 baselinePlayer = NodePath("BaselineMusic")
@@ -32,7 +32,6 @@ ghostPlayer = NodePath("GhostMusic")
 squidPlayer = NodePath("SquidMusic")
 spicyPlayer = NodePath("SpicyAlien")
 bossPlayer = NodePath("BossMusic")
-endPlayer = NodePath("EndMusic")
 CheckTimerPath = NodePath("CheckTimer")
 FadeTimerPath = NodePath("FadeTimer")
 tweenInPath = NodePath("InTween")
@@ -85,6 +84,7 @@ __meta__ = {
 
 [node name="EyeMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -80.0
 autoplay = true
 bus = "Music"
 __meta__ = {

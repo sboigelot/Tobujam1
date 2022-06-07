@@ -62,6 +62,18 @@ custom_fonts/font = ExtResource( 3 )
 disabled = true
 text = "start game (skip tutorial)"
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+bbcode_text = "[center]Music: [color=aqua]anchorlight[/color]	2dArt: [color=aqua]Bu[/color]	SplashScreen: [color=aqua]StudioAlfaZeta[/color]	Code: [color=aqua]Togis[/color][/center]"
+text = "Music: anchorlight	2dArt: Bu	SplashScreen: StudioAlfaZeta	Code: Togis"
+fit_content_height = true
+scroll_active = false
+
 [connection signal="joined" from="CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1" to="." method="_on_PlayerSelector1_joined"]
 [connection signal="joined" from="CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2" to="." method="_on_PlayerSelector2_joined"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/NewGameButton" to="." method="_on_NewGameButton_pressed"]

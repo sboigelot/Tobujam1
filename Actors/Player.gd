@@ -107,6 +107,7 @@ func start_slash():
 		return
 #	hammer_animation_player.stop(true)
 	hammer_animation_player.play("Slash")
+	SfxManager.play("swish")
 
 func start_swirl():
 	if hammer_animation_player.is_playing():
@@ -115,6 +116,7 @@ func start_swirl():
 	if data.stamina > data.super_stamina_cost:
 		data.stamina -= data.super_stamina_cost
 		hammer_animation_player.play("Swirl")
+		SfxManager.play("super")
 
 func pickup_orb():
 	var orb_pickup_nearby = orb_pickups_nearby[orb_pickups_nearby.size() - 1]
@@ -125,12 +127,14 @@ func pickup_orb():
 	orb_sprite.modulate = data.orb_color
 	orb_pickup_nearby = null
 	data.carry_orb = true
+	SfxManager.play("ui-button-click")
 
 func throw_orb():
 	data.carry_orb = false
 	var direction = global_position.direction_to(hands.global_position).normalized()
 	var throw_velocity = direction * Game.orb_throw_speed
 	Game.spawn_orb(data.orb_color, data.orb_persistant, hands.global_position, throw_velocity)
+	SfxManager.play("trow")
 
 func _on_HammerArea2D_body_entered(body:Node2D):
 	if body == self:

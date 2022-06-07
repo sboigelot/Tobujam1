@@ -14,12 +14,15 @@ func _ready():
 	DrumsMobManager.open_menu()
 	
 func _on_NewGameButton_pressed():
+	SfxManager.play("ui-button-click")
 	Game.new_game(true)
 
 func _on_NewGameSkipTutoButton_pressed():
+	SfxManager.play("ui-button-click")
 	Game.new_game(false)
 
 func _on_PlayerSelector1_joined():
+	SfxManager.play("ui-button-click")
 	player_selector_2.listening = true
 	player_selector_2.forbidden_layouts = player_selector_2.conflicting_layouts[player_selector_1.selected_layout]
 	player_selector_2.update_ui()
@@ -32,6 +35,7 @@ func _on_PlayerSelector1_joined():
 	start_game_skip_button.disabled = false
 
 func _on_PlayerSelector2_joined():
+	SfxManager.play("ui-button-click")
 	Game.add_player(
 		player_selector_2.layout_input_prefixes[
 			player_selector_2.selected_layout

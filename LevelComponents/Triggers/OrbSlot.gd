@@ -48,6 +48,7 @@ func accept_orb(orb:Orb):
 	
 	status_sprite.visible = true
 	status_sprite.modulate = Color.green
+	SfxManager.play("harp_metal")
 	
 	resolve()
 	
@@ -62,7 +63,8 @@ func reject_orb(orb:Orb):
 	orb_sprite.modulate = orb_color
 	
 	orb.queue_free()
-	
+
+	SfxManager.play("fail")
 	status_sprite.modulate = Color.red
 	
 	status_sprite.visible = true
@@ -81,6 +83,5 @@ func reject_orb(orb:Orb):
 	status_sprite.visible = false
 	
 	slot_area_shape.set_deferred("disabled", false)
-	
 	
 	

@@ -1,0 +1,15 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://SoundFx/SfxManager.gd" type="Script" id=1]
+[ext_resource path="res://SoundFx/ui-button-click.wav" type="AudioStream" id=2]
+[ext_resource path="res://SoundFx/TestBeep.wav" type="AudioStream" id=3]
+[ext_resource path="res://SoundFx/swish.wav" type="AudioStream" id=4]
+[ext_resource path="res://SoundFx/super.wav" type="AudioStream" id=5]
+[ext_resource path="res://SoundFx/ding.wav" type="AudioStream" id=6]
+[ext_resource path="res://SoundFx/fail.wav" type="AudioStream" id=7]
+[ext_resource path="res://SoundFx/trow.wav" type="AudioStream" id=8]
+[ext_resource path="res://SoundFx/harp_metal.wav" type="AudioStream" id=9]
+
+[node name="SfxManager" type="Node"]
+script = ExtResource( 1 )
+sample_collection = [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 9 ) ]

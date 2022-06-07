@@ -18,13 +18,22 @@ export(PoolColorArray) var potential_orb_colors
 var tracked_mobs: Array
 var deactivate_timer: float
 
+export(NodePath) var np_sprite
+onready var sprite = get_node(np_sprite) as Sprite
+var sprite_rotation_speed: float
+
 func _ready():
 	spawn_timer = initial_spawn_delay_second
 	deactivate_timer = deactivate_delay_second
 	modulate = Color.transparent
+	sprite_rotation_speed = rand_range(20,50)
 
 func _process(delta):
 	spawn_timer -= delta
+	
+	sprite.visible = spawn_timer <= 2.0 and spawn_timer > 0
+	sprite.rotation_degrees += (delta * sprite_rotation_speed)
+	
 	if spawn_timer <= 0:
 		modulate = Color.white
 		spawn_timer = spawn_delay_second

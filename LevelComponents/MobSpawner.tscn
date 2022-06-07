@@ -2,7 +2,7 @@
 
 [ext_resource path="res://LevelComponents/MobSpawner.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Effects/spark_particle2.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/square.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/LevelComponents/spawner.png" type="Texture" id=3]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
@@ -14,6 +14,7 @@ orbit_velocity_random = 0.0
 
 [node name="MobSpawner" type="Position2D"]
 script = ExtResource( 1 )
+np_sprite = NodePath("Sprite")
 
 [node name="Particles2D" type="Particles2D" parent="."]
 emitting = false
@@ -25,5 +26,5 @@ process_material = SubResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
+modulate = Color( 0.768627, 0.0235294, 0.0235294, 0.611765 )
 texture = ExtResource( 3 )
