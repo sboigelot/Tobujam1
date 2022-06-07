@@ -9,6 +9,9 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 np_start_game_button = NodePath("CenterContainer/VBoxContainer/NewGameButton")
 np_start_game_skip_button = NodePath("CenterContainer/VBoxContainer/NewGameSkipTutoButton")
 np_player_selector_1 = NodePath("CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1")

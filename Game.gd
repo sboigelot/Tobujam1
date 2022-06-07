@@ -55,6 +55,11 @@ func new_game(with_tutorial:bool):
 #		change_level("res://Levels/L10.tscn")
 		change_level("res://Levels/L01.tscn")
 
+func _input(event):
+	if event.is_action_pressed("skip_level"):
+		on_level_completed()
+		
+		
 func change_level(path):
 	current_level_path = path
 	get_tree().change_scene(path)
