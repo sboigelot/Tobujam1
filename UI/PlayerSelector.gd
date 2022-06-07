@@ -12,9 +12,8 @@ export(NodePath) var np_box_azerty
 export(NodePath) var np_box_qwerty
 export(NodePath) var np_box_gp0
 export(NodePath) var np_box_gp1
-export(NodePath) var np_hslider_volume_master
-export(NodePath) var np_hslider_volume_music
-export(NodePath) var np_hslider_volume_sfx
+export(NodePath) var np_texture
+export(Texture) var player_2_sprite
 
 export var listening:bool = false
 export var forbidden_layouts: Array
@@ -22,9 +21,7 @@ export var player_id: int
 
 onready var player_label = get_node(np_player_label) as Label
 onready var info_label = get_node(np_info_label) as Label
-onready var hslider_volume_master = get_node(np_hslider_volume_master) as HSlider
-onready var hslider_volume_music = get_node(np_hslider_volume_music) as HSlider
-onready var hslider_volume_sfx = get_node(np_hslider_volume_sfx) as HSlider
+onready var texture = get_node(np_texture) as TextureRect
 
 onready var layout_boxes = {
 	LAYOUT.AZERTY : get_node(np_box_azerty),
@@ -67,15 +64,19 @@ func update_ui():
 			info_label.text = "Joined"
 	else:
 		info_label.text = "Press key to join"
-		if player_id != 1:
-			info_label.text += " (optional)"
+#		if player_id != 1:
+#			info_label.text += " (optional)"
 	
 	for layout in layout_boxes:
 		var box = layout_boxes[layout]
 		box.visible = (not forbidden_layouts.has(layout) and
 						(listening and selected_layout == LAYOUT.NONE) or
 						layout == selected_layout)
-
+	
+	texture.visible = selected_layout != LAYOUT.NONE
+	if player_id != 1:
+		texture.texture = player_2_sprite
+		
 func _process(delta):
 	if not listening:
 		return

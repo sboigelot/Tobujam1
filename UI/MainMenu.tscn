@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://UI/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://UI/PlayerSelector.tscn" type="PackedScene" id=2]
@@ -6,33 +6,61 @@
 [ext_resource path="res://Sprites/MainMenu/Tobujam_Main_Menu.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/MainMenu/Tobujam_Main_Menu_robot_only.png" type="Texture" id=5]
 [ext_resource path="res://Fonts/airstrip-four/airstrip_16.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Fonts/airstrip-four/airstrip_22.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Sprites/orbbw_mini.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxLine" id=2]
+thickness = 2
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 np_start_game_button = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameButton")
 np_start_game_skip_button = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameSkipTutoButton")
 np_player_selector_1 = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1")
 np_player_selector_2 = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2")
+np_ui_audio_master = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MasterVolume/MasterHSlider")
+np_ui_audio_music = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MusicVolume/MusicHSlider")
+np_ui_audio_soundfx = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/SoundFxVolume/SoundFxHSlider")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-margin_left = 878.0
-margin_right = 1410.0
-margin_bottom = 407.0
+margin_left = 880.0
+margin_right = 1420.0
+margin_bottom = 435.0
 custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-margin_right = 532.0
-margin_bottom = 421.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 536.0
+margin_bottom = 431.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -42,39 +70,45 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 522.0
-margin_bottom = 411.0
+margin_bottom = 417.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer"]
-margin_right = 512.0
-margin_bottom = 401.0
+margin_left = 40.0
+margin_top = 25.0
+margin_right = 472.0
+margin_bottom = 382.0
+custom_constants/separation = 8
 
 [node name="PlayerSelector" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_right = 512.0
-margin_bottom = 303.0
+margin_right = 432.0
+margin_bottom = 245.0
 
 [node name="PlayerSelector1" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector" instance=ExtResource( 2 )]
-margin_right = 254.0
-margin_bottom = 303.0
+margin_bottom = 245.0
 listening = true
 player_id = 1
 
 [node name="PlayerSelector2" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector" instance=ExtResource( 2 )]
-margin_left = 258.0
-margin_right = 512.0
-margin_bottom = 303.0
+margin_left = 218.0
+margin_right = 432.0
+margin_bottom = 245.0
 player_id = 2
 
-[node name="MasterVolume" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_left = 56.0
-margin_top = 307.0
-margin_right = 456.0
-margin_bottom = 326.0
+[node name="Volumes" type="VBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 253.0
+margin_right = 432.0
+margin_bottom = 318.0
+
+[node name="MasterVolume" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes"]
+margin_left = 16.0
+margin_right = 416.0
+margin_bottom = 19.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MasterVolume"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MasterVolume"]
 margin_right = 150.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 150, 0 )
@@ -82,21 +116,26 @@ custom_fonts/font = ExtResource( 6 )
 text = "Master Volume"
 align = 1
 
-[node name="MasterHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MasterVolume"]
+[node name="MasterHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MasterVolume"]
 margin_left = 154.0
 margin_right = 400.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 8 )
+custom_styles/slider = SubResource( 2 )
+custom_styles/grabber_area_highlight = SubResource( 3 )
+custom_styles/grabber_area = SubResource( 4 )
 
-[node name="VolumeMusic" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_left = 56.0
-margin_top = 330.0
-margin_right = 456.0
-margin_bottom = 349.0
+[node name="MusicVolume" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes"]
+margin_left = 16.0
+margin_top = 23.0
+margin_right = 416.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/VolumeMusic"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MusicVolume"]
 margin_right = 150.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 150, 0 )
@@ -104,21 +143,28 @@ custom_fonts/font = ExtResource( 6 )
 text = "Music Volume"
 align = 1
 
-[node name="MusicHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/VolumeMusic"]
+[node name="MusicHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MusicVolume"]
 margin_left = 154.0
 margin_right = 400.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 8 )
+custom_styles/slider = SubResource( 2 )
+custom_styles/grabber_area_highlight = SubResource( 3 )
+custom_styles/grabber_area = SubResource( 4 )
+min_value = -5.0
+max_value = 5.0
 
-[node name="SoundFxMusic" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_left = 56.0
-margin_top = 353.0
-margin_right = 456.0
-margin_bottom = 372.0
+[node name="SoundFxVolume" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes"]
+margin_left = 16.0
+margin_top = 46.0
+margin_right = 416.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/SoundFxMusic"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/SoundFxVolume"]
 margin_right = 150.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 150, 0 )
@@ -126,38 +172,47 @@ custom_fonts/font = ExtResource( 6 )
 text = "SFX Volume"
 align = 1
 
-[node name="SoundFxHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/SoundFxMusic"]
+[node name="SoundFxHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/SoundFxVolume"]
 margin_left = 154.0
 margin_right = 400.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+custom_icons/grabber_highlight = ExtResource( 8 )
+custom_icons/grabber = ExtResource( 8 )
+custom_styles/slider = SubResource( 2 )
+custom_styles/grabber_area_highlight = SubResource( 3 )
+custom_styles/grabber_area = SubResource( 4 )
 
 [node name="StartButtons" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
-margin_top = 376.0
-margin_right = 512.0
-margin_bottom = 401.0
+margin_top = 326.0
+margin_right = 432.0
+margin_bottom = 357.0
 
 [node name="NewGameSkipTutoButton" type="Button" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons"]
-margin_right = 254.0
-margin_bottom = 25.0
+margin_right = 214.0
+margin_bottom = 31.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 disabled = true
-text = "start game (skip tutorial)"
+text = "skip tutorial"
 
 [node name="NewGameButton" type="Button" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons"]
-margin_left = 258.0
-margin_right = 512.0
-margin_bottom = 25.0
+margin_left = 218.0
+margin_right = 432.0
+margin_bottom = 31.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 disabled = true
 text = "start game"
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchor_top = 1.0
@@ -173,5 +228,8 @@ scroll_active = false
 
 [connection signal="joined" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1" to="." method="_on_PlayerSelector1_joined"]
 [connection signal="joined" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2" to="." method="_on_PlayerSelector2_joined"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MasterVolume/MasterHSlider" to="." method="_on_MasterHSlider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/MusicVolume/MusicHSlider" to="." method="_on_MusicHSlider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/Volumes/SoundFxVolume/SoundFxHSlider" to="." method="_on_SoundFxHSlider_value_changed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameSkipTutoButton" to="." method="_on_NewGameSkipTutoButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameButton" to="." method="_on_NewGameButton_pressed"]
