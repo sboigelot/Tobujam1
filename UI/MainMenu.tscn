@@ -1,66 +1,163 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://UI/PlayerSelector.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Fonts/airstrip-four/airstrip_28.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Sprites/MainMenu/Tobujam_Main_Menu.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/MainMenu/Tobujam_Main_Menu_robot_only.png" type="Texture" id=5]
+[ext_resource path="res://Fonts/airstrip-four/airstrip_16.tres" type="DynamicFont" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
-np_start_game_button = NodePath("CenterContainer/VBoxContainer/NewGameButton")
-np_start_game_skip_button = NodePath("CenterContainer/VBoxContainer/NewGameSkipTutoButton")
-np_player_selector_1 = NodePath("CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1")
-np_player_selector_2 = NodePath("CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2")
+np_start_game_button = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameButton")
+np_start_game_skip_button = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameSkipTutoButton")
+np_player_selector_1 = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1")
+np_player_selector_2 = NodePath("PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-margin_left = 923.0
-margin_top = 64.0
-margin_right = 1366.0
-margin_bottom = 310.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 878.0
+margin_right = 1410.0
+margin_bottom = 407.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_right = 532.0
+margin_bottom = 421.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 522.0
+margin_bottom = 411.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 437.0
-margin_bottom = 241.0
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer"]
+margin_right = 512.0
+margin_bottom = 401.0
 
-[node name="PlayerSelector" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_right = 432.0
-margin_bottom = 152.0
+[node name="PlayerSelector" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 303.0
 
-[node name="PlayerSelector1" parent="CenterContainer/VBoxContainer/PlayerSelector" instance=ExtResource( 2 )]
+[node name="PlayerSelector1" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector" instance=ExtResource( 2 )]
+margin_right = 254.0
+margin_bottom = 303.0
 listening = true
 player_id = 1
 
-[node name="PlayerSelector2" parent="CenterContainer/VBoxContainer/PlayerSelector" instance=ExtResource( 2 )]
-margin_left = 218.0
-margin_right = 432.0
+[node name="PlayerSelector2" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector" instance=ExtResource( 2 )]
+margin_left = 258.0
+margin_right = 512.0
+margin_bottom = 303.0
 player_id = 2
 
-[node name="NewGameButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 156.0
-margin_right = 432.0
-margin_bottom = 194.0
-custom_fonts/font = ExtResource( 3 )
-disabled = true
-text = "start game (with tutorial)"
+[node name="MasterVolume" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_left = 56.0
+margin_top = 307.0
+margin_right = 456.0
+margin_bottom = 326.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
 
-[node name="NewGameSkipTutoButton" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 198.0
-margin_right = 432.0
-margin_bottom = 236.0
-custom_fonts/font = ExtResource( 3 )
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MasterVolume"]
+margin_right = 150.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = ExtResource( 6 )
+text = "Master Volume"
+align = 1
+
+[node name="MasterHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MasterVolume"]
+margin_left = 154.0
+margin_right = 400.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+
+[node name="VolumeMusic" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_left = 56.0
+margin_top = 330.0
+margin_right = 456.0
+margin_bottom = 349.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/VolumeMusic"]
+margin_right = 150.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = ExtResource( 6 )
+text = "Music Volume"
+align = 1
+
+[node name="MusicHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/VolumeMusic"]
+margin_left = 154.0
+margin_right = 400.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+
+[node name="SoundFxMusic" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_left = 56.0
+margin_top = 353.0
+margin_right = 456.0
+margin_bottom = 372.0
+rect_min_size = Vector2( 400, 0 )
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/SoundFxMusic"]
+margin_right = 150.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = ExtResource( 6 )
+text = "SFX Volume"
+align = 1
+
+[node name="SoundFxHSlider" type="HSlider" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/SoundFxMusic"]
+margin_left = 154.0
+margin_right = 400.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+
+[node name="StartButtons" type="HBoxContainer" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+margin_top = 376.0
+margin_right = 512.0
+margin_bottom = 401.0
+
+[node name="NewGameSkipTutoButton" type="Button" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons"]
+margin_right = 254.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
 disabled = true
 text = "start game (skip tutorial)"
+
+[node name="NewGameButton" type="Button" parent="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons"]
+margin_left = 258.0
+margin_right = 512.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 6 )
+disabled = true
+text = "start game"
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 anchor_top = 1.0
@@ -74,7 +171,7 @@ text = "Music: anchorlight	2dArt: Bu	SplashScreen: StudioAlfaZeta	Code: Togis"
 fit_content_height = true
 scroll_active = false
 
-[connection signal="joined" from="CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1" to="." method="_on_PlayerSelector1_joined"]
-[connection signal="joined" from="CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2" to="." method="_on_PlayerSelector2_joined"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/NewGameButton" to="." method="_on_NewGameButton_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/NewGameSkipTutoButton" to="." method="_on_NewGameSkipTutoButton_pressed"]
+[connection signal="joined" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector1" to="." method="_on_PlayerSelector1_joined"]
+[connection signal="joined" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/PlayerSelector/PlayerSelector2" to="." method="_on_PlayerSelector2_joined"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameSkipTutoButton" to="." method="_on_NewGameSkipTutoButton_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/CenterContainer/VBoxContainer/StartButtons/NewGameButton" to="." method="_on_NewGameButton_pressed"]
