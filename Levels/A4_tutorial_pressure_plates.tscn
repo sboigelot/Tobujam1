@@ -59,6 +59,7 @@ press_modulate = Color( 1, 0, 0, 1 )
 [node name="PressurePlate2" parent="Triggers" instance=ExtResource( 8 )]
 position = Vector2( 802, 691 )
 trigger_group = "wall_outside"
+one_time_activation = true
 press_modulate = Color( 0.0313726, 0, 1, 1 )
 
 [node name="TimerTrigger" parent="Triggers" instance=ExtResource( 11 )]

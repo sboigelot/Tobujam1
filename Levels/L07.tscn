@@ -186,6 +186,26 @@ trigger_group = "hearths"
 position = Vector2( 538, 292 )
 trigger_group = "hearths"
 
+[node name="ArrowTrap12" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 551, 884 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 5, 0 )
+
+[node name="ArrowTrap13" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 537, 209 )
+trigger_group = "arrow2"
+shot_direction = Vector2( 5, 0 )
+
+[node name="ArrowTrap14" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 1380, 884 )
+trigger_group = "arrow2"
+shot_direction = Vector2( -5, 0 )
+
+[node name="ArrowTrap15" parent="Mechanisms/Group2" instance=ExtResource( 6 )]
+position = Vector2( 1392, 207 )
+trigger_group = "arrow2"
+shot_direction = Vector2( -5, 0 )
+
 [node name="Group4" type="Node2D" parent="Mechanisms"]
 
 [node name="PopupHeartPickup" parent="Mechanisms/Group4" instance=ExtResource( 7 )]
