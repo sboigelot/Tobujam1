@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/BaseLevelEnvironment.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Actors/Mobs/MobEye.tscn" type="PackedScene" id=9]
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=10]
 [ext_resource path="res://LevelComponents/Mechanisms/PopupHeartPickup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWallPost.tscn" type="PackedScene" id=12]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -55,13 +56,13 @@ deactivate_trigger_group = "wall2"
 press_modulate = Color( 0.439216, 0.776471, 1, 1 )
 
 [node name="PressurePlate2" parent="Triggers" instance=ExtResource( 10 )]
-position = Vector2( 1300, 762 )
+position = Vector2( 1163, 760 )
 trigger_group = "wall1"
 deactivate_trigger_group = "wall3"
 press_modulate = Color( 0.439216, 0.776471, 1, 1 )
 
 [node name="PressurePlate3" parent="Triggers" instance=ExtResource( 10 )]
-position = Vector2( 1317, 375 )
+position = Vector2( 1482, 325 )
 trigger_group = "wall4"
 deactivate_trigger_group = "wall1"
 press_modulate = Color( 0.439216, 0.776471, 1, 1 )
@@ -84,32 +85,78 @@ press_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 950, 56 )
 trigger_group = "door"
 
+[node name="Post" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 1184, 130 )
+trigger_group = "wall4"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
+[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 8 )]
+modulate = Color( 0.439216, 0.776471, 1, 0.588235 )
+position = Vector2( 1184, 323 )
+scale = Vector2( 1, 0.5 )
+trigger_group = "wall4"
+stay_open_on_deresolve = true
+
+[node name="Post2" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 1183, 542 )
+trigger_group = "none"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
+[node name="Post6" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 1765, 545 )
+trigger_group = "wall1"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
 [node name="PopupWall" parent="Mechanisms" instance=ExtResource( 8 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
-position = Vector2( 1283, 514 )
-scale = Vector2( 5, 0.15 )
+modulate = Color( 0.439216, 0.776471, 1, 0.588235 )
+position = Vector2( 1466, 538 )
+rotation = 1.5708
+scale = Vector2( 1, 0.75 )
 trigger_group = "wall1"
 stay_open_on_deresolve = true
 
+[node name="Post5" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 136, 544 )
+trigger_group = "wall2"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
 [node name="PopupWall2" parent="Mechanisms" instance=ExtResource( 8 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
-position = Vector2( 639, 514 )
-scale = Vector2( 5, 0.15 )
+modulate = Color( 0.439216, 0.776471, 1, 0.588235 )
+position = Vector2( 560, 540 )
+rotation = 1.5708
+scale = Vector2( 1, 1.1 )
 trigger_group = "wall2"
 stay_open_on_deresolve = true
 
+[node name="Post3" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 994, 546 )
+trigger_group = "none"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
 [node name="PopupWall3" parent="Mechanisms" instance=ExtResource( 8 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
-position = Vector2( 987, 725 )
-scale = Vector2( 0.15, 2 )
+modulate = Color( 0.439216, 0.776471, 1, 0.588235 )
+position = Vector2( 995, 751 )
+scale = Vector2( 1, 0.5 )
 trigger_group = "wall3"
 stay_open_on_deresolve = true
 
-[node name="PopupWall4" parent="Mechanisms" instance=ExtResource( 8 )]
-modulate = Color( 0.439216, 0.776471, 1, 1 )
-position = Vector2( 1104, 365 )
-scale = Vector2( 0.15, 2 )
-trigger_group = "wall4"
+[node name="Post4" parent="Mechanisms" instance=ExtResource( 12 )]
+position = Vector2( 995, 947 )
+trigger_group = "wall3"
+stay_open_on_deresolve = true
+highligth_modulate = Color( 0.439216, 0.776471, 1, 1 )
+
+[node name="PopupWall5" parent="Mechanisms" instance=ExtResource( 8 )]
+modulate = Color( 0.439216, 0.776471, 1, 0.588235 )
+position = Vector2( 1085, 539 )
+rotation = 1.5708
+scale = Vector2( 1, 0.2 )
+trigger_group = "none"
 stay_open_on_deresolve = true
 
 [node name="PopupHeartPickup" parent="Mechanisms" instance=ExtResource( 11 )]

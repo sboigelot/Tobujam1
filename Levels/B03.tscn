@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Levels/BaseLevelEnvironment.tscn" type="PackedScene" id=2]
@@ -7,17 +7,11 @@
 [ext_resource path="res://LevelComponents/Triggers/PressurePlate.tscn" type="PackedScene" id=5]
 [ext_resource path="res://LevelComponents/Mechanisms/PopupWall.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Pickups/MaxHeartPickup.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Sprites/square.png" type="Texture" id=8]
 [ext_resource path="res://Pickups/MaxStaminaPickup.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Pickups/SpeedBoostPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://LevelComponents/Triggers/TimerTrigger.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Pickups/HeartPickup.tscn" type="PackedScene" id=12]
-
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 10, 120 )
-
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 10, 250 )
+[ext_resource path="res://LevelComponents/Mechanisms/PopupWallPost.tscn" type="PackedScene" id=13]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -100,143 +94,135 @@ one_time_activation = true
 position = Vector2( 950, 56 )
 trigger_group = "door"
 
+[node name="BLPost2" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 662, 475 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 1, 1, 1 )
+
+[node name="BRPost4" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 862, 475 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 1, 1, 1 )
+
+[node name="BRPost5" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 1062, 475 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 1, 1, 1 )
+
+[node name="BRPost6" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 1262, 475 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 1, 1, 1 )
+
+[node name="BRPost7" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 135, 474 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 1, 1, 1 )
+
+[node name="BRPost8" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 1768, 480 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 1, 1, 1 )
+
 [node name="Box1" type="Node2D" parent="Mechanisms"]
 position = Vector2( 17, -4 )
 
-[node name="Wall6" type="StaticBody2D" parent="Mechanisms/Box1"]
-position = Vector2( 648, 477 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Box1/Wall6"]
-position = Vector2( 0, 120 )
-scale = Vector2( 0.3, 4 )
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Box1/Wall6"]
-position = Vector2( 0, 114 )
-shape = SubResource( 6 )
-
-[node name="Wall7" type="StaticBody2D" parent="Mechanisms/Box1"]
-position = Vector2( 845, 477 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Box1/Wall7"]
-position = Vector2( 0, 120 )
-scale = Vector2( 0.3, 4 )
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Box1/Wall7"]
-position = Vector2( 0, 114 )
-shape = SubResource( 6 )
-
 [node name="ExitPopupWall" parent="Mechanisms/Box1" instance=ExtResource( 6 )]
 position = Vector2( 745, 478 )
-scale = Vector2( 1, 0.1 )
+rotation = 1.5708
+scale = Vector2( 1, 0.22 )
 trigger_group = "out1"
+
+[node name="LeftWall" parent="Mechanisms/Box1" instance=ExtResource( 6 )]
+position = Vector2( 646, 599 )
+scale = Vector2( 1, 0.3 )
+trigger_group = "none"
 
 [node name="EntrancePopupWall" parent="Mechanisms/Box1" instance=ExtResource( 6 )]
 modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 746, 716 )
-scale = Vector2( 1, 0.1 )
+rotation = 1.5708
+scale = Vector2( 1, 0.22 )
 trigger_group = "in1"
 
 [node name="Box2" type="Node2D" parent="Mechanisms"]
 position = Vector2( 217, -4 )
 
-[node name="Wall6" type="StaticBody2D" parent="Mechanisms/Box2"]
-position = Vector2( 648, 477 )
+[node name="LeftWall" parent="Mechanisms/Box2" instance=ExtResource( 6 )]
+position = Vector2( 646, 599 )
+scale = Vector2( 1, 0.3 )
+trigger_group = "none"
 
-[node name="Sprite" type="Sprite" parent="Mechanisms/Box2/Wall6"]
-position = Vector2( 0, 120 )
-scale = Vector2( 0.3, 4 )
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Box2/Wall6"]
-position = Vector2( 0, 114 )
-shape = SubResource( 6 )
-
-[node name="Wall7" type="StaticBody2D" parent="Mechanisms/Box2"]
-position = Vector2( 845, 477 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Box2/Wall7"]
-position = Vector2( 0, 120 )
-scale = Vector2( 0.3, 4 )
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Box2/Wall7"]
-position = Vector2( 0, 114 )
-shape = SubResource( 6 )
+[node name="RightWall" parent="Mechanisms/Box2" instance=ExtResource( 6 )]
+position = Vector2( 845, 598 )
+scale = Vector2( 1, 0.3 )
+trigger_group = "none"
 
 [node name="ExitPopupWall" parent="Mechanisms/Box2" instance=ExtResource( 6 )]
 position = Vector2( 745, 478 )
-scale = Vector2( 1, 0.1 )
+rotation = 1.5708
+scale = Vector2( 1, 0.22 )
 trigger_group = "out2"
 
 [node name="EntrancePopupWall" parent="Mechanisms/Box2" instance=ExtResource( 6 )]
 modulate = Color( 0, 1, 0, 1 )
 position = Vector2( 746, 716 )
-scale = Vector2( 1, 0.1 )
+rotation = 1.5708
+scale = Vector2( 1, 0.22 )
 trigger_group = "in2"
 
 [node name="Box3" type="Node2D" parent="Mechanisms"]
 position = Vector2( 417, -4 )
 
-[node name="Wall6" type="StaticBody2D" parent="Mechanisms/Box3"]
-position = Vector2( 648, 477 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Box3/Wall6"]
-position = Vector2( 0, 120 )
-scale = Vector2( 0.3, 4 )
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Box3/Wall6"]
-position = Vector2( 0, 114 )
-shape = SubResource( 6 )
-
-[node name="Wall7" type="StaticBody2D" parent="Mechanisms/Box3"]
-position = Vector2( 845, 477 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Box3/Wall7"]
-position = Vector2( 0, 120 )
-scale = Vector2( 0.3, 4 )
-texture = ExtResource( 8 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Box3/Wall7"]
-position = Vector2( 0, 114 )
-shape = SubResource( 6 )
-
 [node name="ExitPopupWall" parent="Mechanisms/Box3" instance=ExtResource( 6 )]
 position = Vector2( 745, 478 )
-scale = Vector2( 1, 0.1 )
+rotation = 1.5708
+scale = Vector2( 1, 0.22 )
 trigger_group = "out3"
 
 [node name="EntrancePopupWall" parent="Mechanisms/Box3" instance=ExtResource( 6 )]
 modulate = Color( 0, 0, 1, 1 )
 position = Vector2( 746, 716 )
-scale = Vector2( 1, 0.1 )
+rotation = 1.5708
+scale = Vector2( 1, 0.22 )
 trigger_group = "in3"
 
-[node name="Wall6" type="StaticBody2D" parent="Mechanisms"]
-modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
-position = Vector2( 1512, 617 )
+[node name="RightWall" parent="Mechanisms/Box3" instance=ExtResource( 6 )]
+position = Vector2( 845, 598 )
+scale = Vector2( 1, 0.3 )
+trigger_group = "none"
+
+[node name="BLPost" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 662, 717 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 1, 0, 0, 1 )
+
+[node name="BRPost" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 862, 717 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 0, 1, 0, 1 )
+
+[node name="BRPost2" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 1062, 717 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 0, 1, 0, 1 )
+
+[node name="BRPost3" parent="Mechanisms" instance=ExtResource( 13 )]
+position = Vector2( 1262, 717 )
+trigger_group = "wall_inside"
+highligth_modulate = Color( 0, 0, 1, 1 )
+
+[node name="SideWall" parent="Mechanisms" instance=ExtResource( 6 )]
+position = Vector2( 395, 470 )
 rotation = 1.5708
+scale = Vector2( 1, 0.7 )
+trigger_group = "none"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Wall6"]
-shape = SubResource( 7 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Wall6"]
-scale = Vector2( 0.3, 7.5 )
-texture = ExtResource( 8 )
-
-[node name="Wall7" type="StaticBody2D" parent="Mechanisms"]
-modulate = Color( 0.756863, 0.0313726, 0.0313726, 1 )
-position = Vector2( 421, 607 )
+[node name="SideWall2" parent="Mechanisms" instance=ExtResource( 6 )]
+position = Vector2( 1523, 476 )
 rotation = 1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mechanisms/Wall7"]
-shape = SubResource( 7 )
-
-[node name="Sprite" type="Sprite" parent="Mechanisms/Wall7"]
-scale = Vector2( 0.3, 7.5 )
-texture = ExtResource( 8 )
+scale = Vector2( 1, 0.65 )
+trigger_group = "none"
 
 [node name="Pickups" type="Node2D" parent="."]
 

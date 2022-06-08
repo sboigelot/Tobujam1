@@ -69,7 +69,7 @@ np_door = NodePath("Mechanisms/Door")
 np_player_spawnpoint_1 = NodePath("PlayerSpawnPoint1")
 np_player_spawnpoint_2 = NodePath("PlayerSpawnPoint2")
 np_hud = NodePath("HUD")
-next_level = "res://Levels/L06.tscn"
+next_level = "res://Levels/B02.tscn"
 trigger_all_mob_dead = "door"
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
