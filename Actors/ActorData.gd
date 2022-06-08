@@ -30,4 +30,6 @@ export var suffer_knockback_on_hammer_attacks: bool = false
 
 export var upgraded_weapon: bool
 
+export var take_damage_sfx_name: String = "hit"
+
 var input_prefix = "none"

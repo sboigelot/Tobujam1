@@ -2,11 +2,23 @@ extends Node
 
 var last_screenshot_os_path = ""
 
+var photo_shoot: bool = false
+var photo_shoot_delay: float = 5
+
 func _ready():
 	var dir = Directory.new()
 	if not dir.dir_exists("user://Screenshots"):
 		dir.make_dir("user://Screenshots")
+	
+	if photo_shoot:
+		do_photo_shoot()
 
+func do_photo_shoot():
+	var i = 0
+	while true:
+		yield(get_tree().create_timer(photo_shoot_delay), "timeout")
+		take_screenshot("user://Screenshots")
+		
 func _input(event):
 	if event.is_action_pressed("screenshot"):
 		take_screenshot("user://Screenshots")

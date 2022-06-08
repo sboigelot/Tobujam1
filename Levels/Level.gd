@@ -179,8 +179,10 @@ func spawn_player(player_data)->Player:
 	var player = Game.player_scene.instance()
 	player.global_position = spawn_point.global_position
 	player.data = player_data
+	player.data.stamina = player.data.max_stamina
 	player.data.can_move = true
 	player.data.invincible = false
+	player.data.take_damage_sfx_name = "oof"
 	
 	hud.setup_player(player, players.size())
 	add_child(player)

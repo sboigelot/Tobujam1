@@ -224,8 +224,8 @@ anchor_bottom = 1.0
 margin_top = -33.0
 custom_fonts/normal_font = ExtResource( 3 )
 bbcode_enabled = true
-bbcode_text = "[center]Music: [color=aqua]anchorlight[/color]	Game art: [color=aqua]Bu[/color]	Cover art: [color=aqua]StudioAlfaZeta[/color]	Code: [color=aqua]Togis[/color]	SFX: [color=aqua]freesounds.org[/color][/center]"
-text = "Music: anchorlight	Game art: Bu	Cover art: StudioAlfaZeta	Code: Togis	SFX: freesounds.org"
+bbcode_text = "[center]Music: [color=aqua]anchorlight[/color]	Game art: [color=aqua]Bu[/color]	Cover art: [color=aqua]StudioAlfaZeta[/color]	Code: [color=aqua]Togis[/color]	SFX: [color=aqua]freesound.org[/color][/center]"
+text = "Music: anchorlight	Game art: Bu	Cover art: StudioAlfaZeta	Code: Togis	SFX: freesound.org"
 fit_content_height = true
 scroll_active = false
 
